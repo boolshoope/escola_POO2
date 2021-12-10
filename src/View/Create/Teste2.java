@@ -5,6 +5,7 @@
  */
 package View.Create;
 
+import java.awt.Font;
 import javax.swing.*;
 
 /**
@@ -20,6 +21,7 @@ public class Teste2 extends JComponent {
     JTextField txtComentario;
     JTable tabAluno;
     JButton btnAdd = new JButton("Adicionar");
+    private Font f1 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
 
     public Teste2() {
         panTeste = new JPanel();
@@ -37,27 +39,27 @@ public class Teste2 extends JComponent {
                 case 0:
                     lblDadosTeste[i] = new JLabel("Disciplina");
                     cboDisc = new JComboBox();
-                    AddPanDadosTeste(lblDadosTeste[i], cboDisc, i);
+                    AddPanDadosTeste(lblDadosTeste[i], cboDisc, i, 200);
                     break;
                 case 1:
                     lblDadosTeste[i] = new JLabel("Tipo");
                     txtTipo = new JTextField();
-                    AddPanDadosTeste(lblDadosTeste[i], txtTipo, i);
+                    AddPanDadosTeste(lblDadosTeste[i], txtTipo, i, 150);
                     break;
                 case 2:
                     lblDadosTeste[i] = new JLabel("Peso");
                     txtPeso = new JTextField(10);
-                    AddPanDadosTeste(lblDadosTeste[i], txtPeso, i);
+                    AddPanDadosTeste(lblDadosTeste[i], txtPeso, i, 150);
                     break;
                 case 3:
                     lblDadosTeste[i] = new JLabel("Data Realizacao");
                     txtData = new JTextField();
-                    AddPanDadosTeste(lblDadosTeste[i], txtData, i);
+                    AddPanDadosTeste(lblDadosTeste[i], txtData, i, 200);
                     break;
                 case 4:
                     lblDadosTeste[i] = new JLabel("Ano Academico");
                     cboAno = new JComboBox();
-                    AddPanDadosTeste(lblDadosTeste[i], cboAno, i);
+                    AddPanDadosTeste(lblDadosTeste[i], cboAno, i, 200);
                     break;
             }
         }
@@ -67,17 +69,17 @@ public class Teste2 extends JComponent {
                 case 0:
                     lblDadosNotas[i] = new JLabel("Nome do Aluno");
                     txtNomeAluno = new JTextField();
-                    AddPanDadosNotas(lblDadosNotas[i], txtNomeAluno, i);
+                    AddPanDadosNotas(lblDadosNotas[i], txtNomeAluno, i, 400);
                     break;
                 case 1:
                     lblDadosNotas[i] = new JLabel("Nota");
                     txtNota = new JTextField();
-                    AddPanDadosNotas(lblDadosNotas[i], txtNota, i);
+                    AddPanDadosNotas(lblDadosNotas[i], txtNota, i, 150);
                     break;
                 case 2:
                     lblDadosNotas[i] = new JLabel("Comentario");
                     txtComentario = new JTextField();
-                    AddPanDadosNotas(lblDadosNotas[i], txtComentario, i);
+                    AddPanDadosNotas(lblDadosNotas[i], txtComentario, i, 350);
                     btnAdd.setBounds(950, 53 + i * 54, 100, 30);
                     add(btnAdd);
                     break;
@@ -90,6 +92,7 @@ public class Teste2 extends JComponent {
                     String[] columnNames = {"Name", "Nota", "Comentario"};
                     
                     tabAluno = new JTable(data, columnNames);
+                    tabAluno.setFont(f1);
 
                     JScrollPane sp = new JScrollPane(tabAluno);
                     sp.setBounds(465, 56 + i * 54, 602, 350);
@@ -110,27 +113,33 @@ public class Teste2 extends JComponent {
         show();
     }
 
-    private void AddPanDadosTeste(JLabel lbl, JTextField txt, int i) {
-        lbl.setBounds(30, 40 + i * 53, 150, 17);
-        txt.setBounds(30, 56 + i * 54, 218, 27);
+    private void AddPanDadosTeste(JLabel lbl, JTextField txt, int i, int column) {
+        lbl.setBounds(30, 40 + i * 56, 150, 17);
+        txt.setBounds(30, 56 + i * 57, column, 27);
 
         add(lbl);
         add(txt);
+        lbl.setFont(f1);
+        txt.setFont(f1);
     }
 
-    private void AddPanDadosTeste(JLabel lbl, JComboBox txt, int i) {
-        lbl.setBounds(30, 40 + i * 53, 150, 17);
-        txt.setBounds(30, 56 + i * 54, 218, 27);
+    private void AddPanDadosTeste(JLabel lbl, JComboBox txt, int i, int column) {
+        lbl.setBounds(30, 40 + i * 56, 150, 17);
+        txt.setBounds(30, 56 + i * 57, column, 27);
 
         add(lbl);
         add(txt);
+        lbl.setFont(f1);
+        txt.setFont(f1);
     }
 
-    private void AddPanDadosNotas(JLabel lbl, JTextField txt, int i) {
-        lbl.setBounds(465, 40 + i * 53, 150, 17);
-        txt.setBounds(465, 56 + i * 54, 218, 27);
+    private void AddPanDadosNotas(JLabel lbl, JTextField txt, int i, int column) {
+        lbl.setBounds(465, 40 + i * 56, 150, 17);
+        txt.setBounds(465, 56 + i * 57, column, 27);
 
         add(lbl);
         add(txt);
+        lbl.setFont(f1);
+        txt.setFont(f1);
     }
 }
