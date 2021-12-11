@@ -1,4 +1,4 @@
-package View;
+package View.Create;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +46,6 @@ public class Matricula extends JFrame implements ActionListener {
         setBounds(200,200,1100,620);
         setLocationRelativeTo(null);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         Container cont = getContentPane();
         cont.setLayout(null);
@@ -54,58 +53,29 @@ public class Matricula extends JFrame implements ActionListener {
         masterPanel = new JPanel();
         headerPanel = new JPanel();
         leftPanel = new JPanel();
-        leftButton = new JButton[4];
-        
-        // header label 1
-        img = new JLabel("");
-        
-        // header label 2
-        headerLabel = new JLabel("MATRICULAR ALUNO", JLabel.CENTER);
-        headerLabel.setFont(f1);
-        headerLabel.setForeground(Color.white);
-        
-        // header label 3
-        usr = new JLabel("USERNAME", JLabel.RIGHT);
-        usr.setFont(f1);
-        usr.setForeground(Color.white);
-        usr.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+        leftButton = new JButton[3];
         
         // painel principal
         masterPanel.setBackground(Color.white);
         masterPanel.setBounds(0, 0, getWidth(), getHeight());
         masterPanel.setBorder(null);
-        masterPanel.setLayout(null);
-        
-        // header panel
-        headerPanel.setBackground(new Color(62, 62, 62));
-        headerPanel.setBounds(0, 0, getWidth(), 50);
-        headerPanel.setBorder(null);
-        headerPanel.setLayout(new GridLayout(1,3));
-        
-        // painel esquerdo
-        leftPanel.setBackground(new Color(148, 148, 148));
-        leftPanel.setBounds(0, 50, 200, 534);
-        leftPanel.setBorder(null);
-        leftPanel.setLayout(null);
+        masterPanel.setLayout(new BorderLayout());
         
         
         // painel esquerdo componentes
         btPanel = new JPanel();
-        BoxLayout btLayout = new BoxLayout(btPanel,BoxLayout.Y_AXIS);
+        //BoxLayout btLayout = new BoxLayout(btPanel,BoxLayout.Y_AXIS);
         btPanel.setBackground(null);
-        btPanel.setLayout(btLayout);
-        btPanel.setBounds(0, 150, 200, 200);
+        btPanel.setLayout(new GridLayout(1,leftButton.length));
+        //btPanel.setBounds(0, 150, 200, 200);
         
         
         leftButton[0] = new JButton("MATRICULAR");
         leftButton[1] = new JButton("RENOVAR");
         leftButton[2] = new JButton("EDITAR ALUNO");
-        leftButton[3] = new JButton("VOLTAR");
        
-        
         for(int i=0; i<leftButton.length; i++)
-              leftButton[i].addActionListener(this);
-        
+            leftButton[i].addActionListener(this);
         
         for(int i=0; i<leftButton.length; i++)
             btProperties(leftButton[i]);
@@ -114,27 +84,16 @@ public class Matricula extends JFrame implements ActionListener {
         for(int i=0; i<leftButton.length; i++)
             btPanel.add(leftButton[i]);
         
-        // add componentes ao left panel
-        leftPanel.add(btPanel);
-        
         // righ panel
         rightPanel = new JPanel();
         rightPanel.setBackground(Color.white);
         rightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         rightPanel.setLayout(null);
-        rightPanel.setBounds(200, 50, getWidth()-200, 534);
         
         matricularPage();
         
-        // add componentes ao header panel
-        headerPanel.add(img);
-        headerPanel.add(headerLabel);
-        headerPanel.add(usr);
-        
-        // add componentes ao painel principal
-        masterPanel.add(headerPanel);
-        masterPanel.add(leftPanel);
-        masterPanel.add(rightPanel);
+        masterPanel.add(BorderLayout.NORTH, btPanel);
+        masterPanel.add(BorderLayout.CENTER, rightPanel);
         
         cont.add(masterPanel);
         setVisible(true);
@@ -145,12 +104,10 @@ public class Matricula extends JFrame implements ActionListener {
         rightPanel.revalidate();
         rightPanel.repaint();
         
-        headerLabel.setText("RENOVAR MATRICULA");
-        
         searchPanel = new JPanel();
         BoxLayout searchBox = new BoxLayout(searchPanel, BoxLayout.X_AXIS);
         searchPanel.setLayout(searchBox);
-        searchPanel.setBounds(328, 245, 243, 43);
+        searchPanel.setBounds(428, 245, 243, 43);
         searchPanel.setBackground(Color.white);
         searchPanel.setBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 
                                 1, true));
@@ -171,7 +128,7 @@ public class Matricula extends JFrame implements ActionListener {
         renovarSearch.setBackground(new Color(62, 62, 62));
         renovarSearch.setFocusable(false);
         renovarSearch.addActionListener(this);
-        renovarSearch.setIcon(new ImageIcon(path + "iconsSearch.png"));
+        renovarSearch.setIcon(new ImageIcon(path+"iconsSearch.png"));
         
         // add search ao painel
         searchPanel.add(search);
@@ -185,12 +142,10 @@ public class Matricula extends JFrame implements ActionListener {
         rightPanel.revalidate();
         rightPanel.repaint();
         
-        headerLabel.setText("EDITAR DADOS");
-        
         searchPanel = new JPanel();
         BoxLayout searchBox = new BoxLayout(searchPanel, BoxLayout.X_AXIS);
         searchPanel.setLayout(searchBox);
-        searchPanel.setBounds(328, 245, 243, 43);
+        searchPanel.setBounds(428, 245, 243, 43);
         searchPanel.setBackground(Color.white);
         searchPanel.setBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 
                                 1, true));
@@ -211,7 +166,7 @@ public class Matricula extends JFrame implements ActionListener {
         btSearch.setBackground(new Color(62, 62, 62));
         btSearch.setFocusable(false);
         btSearch.addActionListener(this);
-        btSearch.setIcon(new ImageIcon(path + "iconsSearch.png"));
+        btSearch.setIcon(new ImageIcon(path+"iconsSearch.png"));
         
         // add search ao painel
         searchPanel.add(search);
@@ -235,7 +190,7 @@ public class Matricula extends JFrame implements ActionListener {
                         TitledBorder.TOP,
                         br,
                         new Color(62, 62, 62)));
-        alDataPanel.setBounds(225, 10, 450,510);
+        alDataPanel.setBounds(325, 10, 450,510);
         alDataPanel.setLayout(null);
         
         inner =  new JPanel();
@@ -353,7 +308,7 @@ public class Matricula extends JFrame implements ActionListener {
         
         update = new JButton("ACTUALIZAR");
         btProperties(update);
-        update.setBounds(685, 467, 200, 43);
+        update.setBounds(785, 467, 200, 43);
         
         rightPanel.add(alDataPanel);
         rightPanel.add(update);
@@ -363,8 +318,6 @@ public class Matricula extends JFrame implements ActionListener {
         rightPanel.removeAll();
         rightPanel.revalidate();
         rightPanel.repaint();
-        
-        headerLabel.setText("MATRICULAR ALUNO");
         
         addAluno();
         
@@ -378,7 +331,7 @@ public class Matricula extends JFrame implements ActionListener {
                         TitledBorder.TOP,
                         br,
                         new Color(62, 62, 62)));
-        encDataPanel.setBounds(470, 10, 420,450);
+        encDataPanel.setBounds(570, 10, 420,450);
         encDataPanel.setLayout(null);
         
         inner1 =  new JPanel();
@@ -430,7 +383,7 @@ public class Matricula extends JFrame implements ActionListener {
         
         matricular = new JButton("MATRICULAR");
         btProperties(matricular);
-        matricular.setBounds(375, 473, 150, 43);
+        matricular.setBounds(475, 473, 150, 43);
         
         rightPanel.add(alDataPanel);
         rightPanel.add(matricular);
@@ -448,7 +401,7 @@ public class Matricula extends JFrame implements ActionListener {
                         TitledBorder.TOP,
                         br,
                         new Color(62, 62, 62)));
-        alDataPanel.setBounds(10, 10, 450,450);
+        alDataPanel.setBounds(110, 10, 450,450);
         alDataPanel.setLayout(null);
         
         inner =  new JPanel();
@@ -688,9 +641,6 @@ public class Matricula extends JFrame implements ActionListener {
         
         if(e.getSource() == leftButton[2])
             editAlunoPageHome();
-        
-        /*if(e.getSource() == leftButton[3])
-        */    
         
         if(e.getSource() == btSearch)
             editAlunoPage();

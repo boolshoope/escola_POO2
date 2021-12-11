@@ -5,6 +5,9 @@
  */
 package View;
 
+import View.Create.Encarregado;
+import View.Create.Matricula;
+//import View.Create
 import View.Create.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -180,6 +183,9 @@ public class MainMenu extends JFrame implements ActionListener {
         
         if(e.getSource() == lstButtons[2]) {
             new Matricula();
+        }
+        if (e.getSource() == lstButtons[4]) {
+            showForm(new Encarregado());
         }
     }
 }
