@@ -83,11 +83,11 @@ public class Classe {
     
     public void botoes(){
         
-        JButton editarButton = new JButton("Editar dados");
-        editarButton.setBounds(480, 200, 150, 20);
+        JButton editarButton = new JButton("Editar Classe");
+        editarButton.setBounds(480, 200, 150, 35);
         editarButton.setFocusable(false);
-        JButton adicionarButton = new JButton("Adicionar");
-        adicionarButton.setBounds(480, 250, 150, 20);
+        JButton adicionarButton = new JButton("Adicionar Classe");
+        adicionarButton.setBounds(480, 250, 150, 35);
         adicionarButton.setFocusable(false);
         
         ctDisc.add(editarButton);
