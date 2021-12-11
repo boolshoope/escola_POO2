@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public class Disciplina {
     
-    JFrame janela_Disc = new JFrame("Disciplina");//HHHHHHHHHHHHHHHHHHHH
+    JFrame janela_Disc = new JFrame("Disciplina");
     Container ctDisc = janela_Disc.getContentPane();
     
     
