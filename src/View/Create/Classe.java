@@ -14,7 +14,7 @@ import java.awt.*;
  */
 public class Classe {
     
-    JFrame janela_Disc = new JFrame("Classe");
+    JFrame janela_Disc = new JFrame("Classe");// criacao da classe
     Container ctDisc = janela_Disc.getContentPane();
     
     
