@@ -42,7 +42,7 @@ public class Disciplina {
         JSeparator separador = new JSeparator();
         separador.setBounds(0,60,1000,10);
         
-        JLabel title = new JLabel("DADOS DAS DISCIPLINAS");
+        JLabel title = new JLabel("DADOS DA DISCIPLINA");
         title.setBounds(30,-10,300,100);
         title.setFont(new Font("Tahoma", Font.BOLD,20));
         
