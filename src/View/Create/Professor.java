@@ -8,11 +8,12 @@ package View.Create;
 import javax.swing.*;
 import java.awt.*;
 
+
 /**
  *
  * @author Gabriel
  */
-public class Professor {
+public class Professor extends JFrame{
     
     JFrame janela_Prof = new JFrame("Professor");
     JPanel pnLabel = new JPanel();
@@ -107,7 +108,7 @@ public class Professor {
         telefone2Text.setBounds(400, 400, 300, 20);
         JTextField grauText = new JTextField(25);
         grauText.setBounds(400, 450, 300, 20);
-
+        
         
         ct.add(idText);
         ct.add(nomeText);
@@ -117,18 +118,19 @@ public class Professor {
         ct.add(telefone1Text);
         ct.add(telefone2Text);
         ct.add(grauText);
-
+        
         
         
     }
     
     public void botoes(){
         
-        JButton editarButton = new JButton("Editar dados");
-        editarButton.setBounds(480, 500, 150, 20);
+     
+        JButton editarButton = new JButton("Editar Professor");
+        editarButton.setBounds(480, 500, 150, 35);
         editarButton.setFocusable(false);
-        JButton adicionarButton = new JButton("Adicionar");
-        adicionarButton.setBounds(480, 550, 150, 20);
+        JButton adicionarButton = new JButton("Adicionar Professor");
+        adicionarButton.setBounds(480, 550, 180, 35);
         adicionarButton.setFocusable(false);
         
         ct.add(editarButton);
