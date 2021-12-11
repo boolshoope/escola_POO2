@@ -130,7 +130,7 @@ public class Professor extends JFrame{
         editarButton.setBounds(480, 500, 150, 35);
         editarButton.setFocusable(false);
         JButton adicionarButton = new JButton("Adicionar Professor");
-        adicionarButton.setBounds(480, 550, 180, 35);
+        adicionarButton.setBounds(480, 550, 150, 35);
         adicionarButton.setFocusable(false);
         
         ct.add(editarButton);
