@@ -182,7 +182,7 @@ public class MainMenu extends JFrame implements ActionListener {
         }
         
         if(e.getSource() == lstButtons[2]) {
-            new Matricula();
+            showForm(new Matricula());
         }
         
         

@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-public class Matricula extends JFrame implements ActionListener {
+public class Matricula extends JComponent implements ActionListener {
     private JPanel masterPanel;
     private JPanel headerPanel;
     private JPanel leftPanel;
@@ -42,13 +42,13 @@ public class Matricula extends JFrame implements ActionListener {
     private String path = System.getProperty("user.dir") + "/src/View/img/";;
     
     public Matricula() {
-        super("Matricula do Aluno");
-        setBounds(200,200,1100,620);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        //super("Matricula do Aluno");
+        //setBounds(200,200,1100,620);
+        //setLocationRelativeTo(null);
+        //setResizable(false);
         
-        Container cont = getContentPane();
-        cont.setLayout(null);
+        //Container cont = getContentPane();
+        //cont.setLayout(null);
         
         masterPanel = new JPanel();
         headerPanel = new JPanel();
@@ -95,8 +95,13 @@ public class Matricula extends JFrame implements ActionListener {
         masterPanel.add(BorderLayout.NORTH, btPanel);
         masterPanel.add(BorderLayout.CENTER, rightPanel);
         
-        cont.add(masterPanel);
-        setVisible(true);
+        //cont.add(masterPanel);
+        //setVisible(true);
+        
+        setSize(1100, 620);
+        setLayout(new BorderLayout());
+        add(masterPanel);
+        show();
     }
     
     private void renovarPageHome() {
