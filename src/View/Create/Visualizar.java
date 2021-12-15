@@ -21,8 +21,8 @@ import javax.swing.table.DefaultTableModel;
 public class Visualizar extends JFrame {
 
     public Visualizar() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
-        setBounds(350, 100, 750, 470);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                
+        //INICIALIZACOES
         JPanel painel_dados = new JPanel();
         JPanel painel_visualizar = new JPanel();
         JPanel painel_campo = new JPanel();
@@ -40,11 +40,13 @@ public class Visualizar extends JFrame {
         JButton enc = new JButton("Encarregados");
         JButton turma = new JButton("Turma");
         JButton prof = new JButton("Professores");
+        //CONFIGUNRANDO FUNDOS
         painel_dados.setBackground(Color.gray);
         painel_visualizar.setBackground(Color.gray);
         painel_butoes.setBackground(Color.gray);
         painel_campo.setBackground(Color.gray);
         painel_tabelas.setBackground(Color.gray);
+        //CONFIGURANDO DIMINSOES
         painel_campo.setBounds(15, 30, 290, 100);
         painel_visualizar.setBounds(0, 0, 430, 445);
         painel_dados.setBounds(430, 0, 312, 445);
@@ -53,8 +55,10 @@ public class Visualizar extends JFrame {
         enc.setBounds(20, 15, 250, 40);
         prof.setBounds(20, 65, 250, 40);
         turma.setBounds(20, 115, 250, 40);
+        setBounds(350, 100, 750, 470);        
         painel_dados.setLayout(null);
         painel_butoes.setLayout(null);
+        //CONFIGURANDO BORDAS
         painel_dados.setBorder(BorderFactory.createTitledBorder("Insercao de Dados"));
         painel_visualizar.setBorder(BorderFactory.createTitledBorder("Visualizacao"));
         painel_butoes.setBorder(BorderFactory.createTitledBorder("listar"));
@@ -62,6 +66,7 @@ public class Visualizar extends JFrame {
         painel_tabelas.setBorder(BorderFactory.createTitledBorder(""));
         tabela.setPreferredScrollableViewportSize(new Dimension(400, 395));
         tabela.setFillsViewportHeight(true);
+        //ADICOES
         painel_tabelas.add(new JScrollPane(tabela));
         painel_butoes.add(enc);
         painel_butoes.add(prof);
