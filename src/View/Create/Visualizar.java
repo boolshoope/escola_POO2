@@ -83,12 +83,12 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
         painel_visualizar.setBackground(Color.white);
         painel_butoes.setBackground(Color.white);
         painel_campo.setBackground(Color.white);
-        enc.setBackground(new Color(62, 62, 62));
-        turma.setBackground(new Color(62, 62, 62));
-        prof.setBackground(new Color(62, 62, 62));
-        enc.setForeground(Color.WHITE);
-        prof.setForeground(Color.WHITE);
-        turma.setForeground(Color.WHITE);
+        enc.setBackground(Color.white);
+        turma.setBackground(Color.white);
+        prof.setBackground(Color.white);
+        enc.setForeground(Color.black);
+        prof.setForeground(Color.black);
+        turma.setForeground(Color.BLACK);
         //CONFIGURANDO DIMINSOES
         painel_tabelas.setBounds(10, 15, 410, 425);         
         painel_campo.setBounds(15, 30, 290, 100);
@@ -129,6 +129,11 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
         t1.addMouseListener(this);
         t2.addMouseListener(this);
         enc.addActionListener(this);
+        enc.addMouseListener(this);
+        prof.addActionListener(this);
+        prof.addMouseListener(this);
+        turma.addActionListener(this);
+        turma.addMouseListener(this);
         //
         setResizable(false);
         setLayout(null);
@@ -185,10 +190,23 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
                 limpa(t2);
             }
         }
+        if(e.getSource()==enc){
+            enc.setBackground(new Color(62,62,62));
+            enc.setForeground(Color.white);
+        }
+         if(e.getSource()==prof){
+            prof.setBackground(new Color(62,62,62));
+            prof.setForeground(Color.white);
+        }
+          if(e.getSource()==turma){
+            turma.setBackground(new Color(62,62,62));
+            turma.setForeground(Color.white);
+        }
     }
 
+
     @Override
-    public void mouseExited(MouseEvent me) {
+   public void mouseExited(MouseEvent me) {
         if (me.getSource() == t1) {
             if (t1.getText().equals("")) {
                 preenche(t1, "NOME");
@@ -197,6 +215,18 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
             if (t2.getText().equals("")) {
                 preenche(t2, "NUMERO");
             }
+        }
+        if(me.getSource()==enc){
+            enc.setBackground(Color.white);
+            enc.setForeground(Color.black);
+        }
+        if(me.getSource()==prof){
+            prof.setBackground(Color.white);
+            prof.setForeground(Color.black);
+        }
+        if(me.getSource()==turma){
+            turma.setBackground(Color.white);
+            turma.setForeground(Color.black);
         }
     }
 
