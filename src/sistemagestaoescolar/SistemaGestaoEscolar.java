@@ -6,7 +6,6 @@
 package sistemagestaoescolar;
 
 import View.Create.Teste;
-import View.Create.Visualizar;
 import View.MainMenu;
 /**
  *
@@ -19,9 +18,8 @@ public class SistemaGestaoEscolar {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //MainMenu m = new MainMenu();        
+        MainMenu m = new MainMenu();        
         //Teste t = new Teste();      
-        new Visualizar();
     }
 
 }
