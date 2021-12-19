@@ -24,15 +24,14 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 public class Visualizar extends JFrame implements ActionListener, MouseListener {
-
-   JTextField t1, t2;
+ JTextField t1, t2;
     JButton enc, prof, turma;
-    JPanel painel_dados, painel_visualizar, painel_campo, painel_butoes, painel_tabelas;
+    JPanel painel_dados, painel_visualizar, painel_campo, painel_butoes, painel_tabEnc, painel_tabProf, painel_tabT;
     JTable tabelaEnc, tabelaProf, tabelaT;
     Font br;
     JScrollPane spEnc, spProf, spT;
             
-    public Visualizar(){
+    public Visualizar() {
    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //TabelaS
@@ -61,7 +60,9 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
         spEnc = new JScrollPane(tabelaEnc);               
         spProf = new JScrollPane(tabelaProf);       
         spT = new JScrollPane(tabelaT);               
-        painel_tabelas = new JPanel();
+        painel_tabEnc = new JPanel();
+        painel_tabProf = new JPanel();
+        painel_tabT = new JPanel();        
         painel_dados = new JPanel();
         painel_visualizar = new JPanel();
         painel_campo = new JPanel();
@@ -78,7 +79,9 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
         t1.setText("NOME");
         t2.setText("NUMERO");
         //CONFIGUNRANDO FUNDOS
-        painel_tabelas.setBackground(Color.WHITE);
+        painel_tabEnc.setBackground(Color.WHITE);
+        painel_tabProf.setBackground(Color.WHITE);
+        painel_tabT.setBackground(Color.WHITE);        
         painel_dados.setBackground(Color.white);
         painel_visualizar.setBackground(Color.white);
         painel_butoes.setBackground(Color.white);
@@ -90,7 +93,9 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
         prof.setForeground(Color.black);
         turma.setForeground(Color.BLACK);
         //CONFIGURANDO DIMINSOES
-        painel_tabelas.setBounds(10, 15, 410, 425);         
+        painel_tabEnc.setBounds(10, 15, 410, 425);         
+        painel_tabProf.setBounds(10, 15, 410, 425);         
+        painel_tabT.setBounds(10, 15, 410, 425);                 
         painel_campo.setBounds(15, 30, 290, 100);
         painel_visualizar.setBounds(0, 0, 430, 445);
         painel_dados.setBounds(430, 0, 312, 445);
@@ -110,7 +115,9 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
         painel_visualizar.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true), "Visualizacao", TitledBorder.LEFT, TitledBorder.TOP, br, new Color(62, 62, 62)));
         painel_butoes.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true), "listar", TitledBorder.LEFT, TitledBorder.TOP, br, new Color(62, 62, 62)));
         painel_campo.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true), "", TitledBorder.LEFT, TitledBorder.TOP, br, new Color(62, 62, 62)));
-        painel_tabelas.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true), "", TitledBorder.LEFT, TitledBorder.TOP, br, new Color(62, 62, 62)));
+        painel_tabEnc.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true), "", TitledBorder.LEFT, TitledBorder.TOP, br, new Color(62, 62, 62)));
+        painel_tabProf.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true), "", TitledBorder.LEFT, TitledBorder.TOP, br, new Color(62, 62, 62)));
+        painel_tabT.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true), "", TitledBorder.LEFT, TitledBorder.TOP, br, new Color(62, 62, 62)));        
         //ADICOES
         painel_butoes.add(enc);
         painel_butoes.add(prof);
@@ -119,10 +126,15 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
         painel_campo.add(t2);
         painel_dados.add(painel_butoes);
         painel_dados.add(painel_campo);
-        painel_tabelas.add(spProf);
-        painel_tabelas.add(spT);
-        painel_tabelas.add(spEnc);
-        painel_visualizar.add(painel_tabelas);
+        painel_tabProf.add(spProf);
+        painel_tabT.add(spT);
+        painel_tabEnc.add(spEnc);
+        painel_tabEnc.setVisible(false);
+        painel_tabProf.setVisible(false);
+        painel_tabT.setVisible(false);        
+        painel_visualizar.add(painel_tabEnc);
+        painel_visualizar.add(painel_tabT);
+        painel_visualizar.add(painel_tabProf);
         add(painel_dados);
         add(painel_visualizar);
         //Eventos
@@ -134,6 +146,7 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
         prof.addMouseListener(this);
         turma.addActionListener(this);
         turma.addMouseListener(this);
+        
         //
         setResizable(false);
         setLayout(null);
@@ -151,23 +164,27 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == enc) {
-            spEnc.setVisible(true);
-            spProf.setVisible(false);
+        if (ae.getSource() == enc) {           
+            painel_tabEnc.setVisible(true);
+            painel_tabProf.setVisible(false);
+            painel_tabT.setVisible(false);
         }
         if(ae.getSource()==prof){
-            spProf.setVisible(true);
-            spEnc.setVisible(false);
+            painel_tabEnc.setVisible(false);
+            painel_tabProf.setVisible(true);
+            painel_tabT.setVisible(false);
+        }
+        if(ae.getSource()==turma){
+            painel_tabEnc.setVisible(false);
+            painel_tabProf.setVisible(false);
+            painel_tabT.setVisible(true);
+        
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == t1) {
-            t1.setText("");
-        }
     }
-
     @Override
     public void mousePressed(MouseEvent me) {
 
@@ -175,7 +192,6 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
 
     @Override
     public void mouseReleased(MouseEvent me) {
-        t1.setText("");
     }
 
     @Override
@@ -204,9 +220,8 @@ public class Visualizar extends JFrame implements ActionListener, MouseListener 
         }
     }
 
-
     @Override
-   public void mouseExited(MouseEvent me) {
+    public void mouseExited(MouseEvent me) {
         if (me.getSource() == t1) {
             if (t1.getText().equals("")) {
                 preenche(t1, "NOME");
