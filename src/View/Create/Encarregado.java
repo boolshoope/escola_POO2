@@ -80,8 +80,8 @@ public class Encarregado extends JComponent implements ActionListener {
     }
     public void visual(){
         Object pessoa[][] = {{"Alone","Basilio","Masculino","123123414B","Solteiro","23423354","45645456"},
-        {"Alone","Basilio","Masculino","123123414B","Solteiro","23423354","45645456"},
-        {"Alone","Basilio","Masculino","123123414B","Solteiro","23423354","45645456"},};
+        {"Victor","Matusse","Masculino","123123414B","Solteiro","23423354","45645456"},
+        {"Isac","Laercio","Masculino","123123414B","Solteiro","23423354","45645456"},};
         
         tabDados = new JTable(pessoa,texto);
         tabDados.setPreferredScrollableViewportSize(new Dimension (600,200));

@@ -177,7 +177,7 @@ public class MainMenu extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == lstButtons[0]) {
+        if (e.getSource() == lstButtons[1]) {
             showForm(new Teste2());
         }
         
@@ -202,5 +202,9 @@ public class MainMenu extends JFrame implements ActionListener {
         if(e.getSource()== lstButtons[6]) {
             new Disciplina();
         }
+        
+        /*if (e.getSource() == lstButtons[7]) {
+            showForm(new Turma());
+        }*/
     }
 }
