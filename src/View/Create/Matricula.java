@@ -26,6 +26,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
     private JTextField inputs[];
     private JPanel alDataPanel, inner, inputsPanel[], genderPanel, opPanel;
     private JComboBox estCivil;
+    private JComboBox classe;
     
     private JPanel encDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
     private JLabel sexo1;
@@ -204,7 +205,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         inner =  new JPanel();
         inner.setBackground(Color.white);
         inner.setOpaque(false);
-        inner.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        inner.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
         inner.setBounds(0, 0, 450, 510);
         BoxLayout alBox = new BoxLayout(inner,BoxLayout.Y_AXIS);
         inner.setLayout(alBox);
@@ -217,8 +218,9 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
             inputsPanel[i] = new JPanel();
             inputsPanel[i].setBackground(Color.white);
             inputsPanel[i].setPreferredSize(new Dimension(205, 43));
-            inputsPanel[i].setMaximumSize(new Dimension(205, 43));
+            inputsPanel[i].setMaximumSize(new Dimension(450, 43));
             inputsPanel[i].setBorder(BorderFactory.createLineBorder(new Color(148, 148, 148), 1, true));
+            inputsPanel[i].setLayout(new GridLayout(1,1));
         }
         
         for(int i=0; i<inputs.length; i++)
@@ -242,7 +244,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         
         genderPanel = new JPanel();
         genderPanel.setPreferredSize(new Dimension(205, 43));
-        genderPanel.setMaximumSize(new Dimension(205, 43));
+        genderPanel.setMaximumSize(new Dimension(450, 43));
         genderPanel.setOpaque(false);
         genderPanel.setLayout(new GridLayout(2,1));
         
@@ -292,7 +294,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         estCivil.setFont(s);
         estCivil.setBackground(Color.white);
         estCivil.setPreferredSize(new Dimension(205, 43));
-        estCivil.setMaximumSize(new Dimension(205, 43));
+        estCivil.setMaximumSize(new Dimension(450, 43));
         estCivil.setFocusable(false);
         
         for(int i=0; i<inputs.length; i++)
@@ -350,8 +352,8 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         inner1 =  new JPanel();
         inner1.setBackground(Color.white);
         inner1.setOpaque(false);
-        inner1.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
-        inner1.setBounds(0, 0, 450, 400);
+        inner1.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
+        inner1.setBounds(0, 0, 420, 140);
         BoxLayout encBox = new BoxLayout(inner1,BoxLayout.Y_AXIS);
         inner1.setLayout(encBox);
         
@@ -364,8 +366,9 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
             inputsPanel1[i] = new JPanel();
             inputsPanel1[i].setBackground(Color.white);
             inputsPanel1[i].setPreferredSize(new Dimension(205, 43));
-            inputsPanel1[i].setMaximumSize(new Dimension(205, 43));
+            inputsPanel1[i].setMaximumSize(new Dimension(450, 43));
             inputsPanel1[i].setBorder(BorderFactory.createLineBorder(new Color(148, 148, 148), 1, true));
+            inputsPanel1[i].setLayout(new GridLayout(1,1));
         }
         
         for(int i=0; i<inputs1.length; i++)
@@ -383,7 +386,10 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         addEncarregado = new JButton("Novo Encarregado");
         addEncarregado.addActionListener(this);
         btProperties(addEncarregado);
-        addEncarregado.setBounds(123, 403, 205, 40);
+        addEncarregado.setBounds(10, 140, 400, 43);
+        //addEncarregado.setPreferredSize(new Dimension(205,43));
+        //addEncarregado.setMaximumSize(new Dimension(420,43));
+        //addEncarregado.set
         
         for(int i=0; i<inputs1.length; i++)
             inputsPanel1[i].add(inputs1[i]);
@@ -395,8 +401,9 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
             inner1.add(Box.createRigidArea(new Dimension(0,5)));
         }
         
-        encDataPanel.add(addEncarregado);
+        //inner1.add(addEncarregado);
         encDataPanel.add(inner1);
+        encDataPanel.add(addEncarregado);
         
         matricular = new JButton("MATRICULAR");
         btProperties(matricular);
@@ -424,7 +431,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         inner =  new JPanel();
         inner.setBackground(Color.white);
         inner.setOpaque(false);
-        inner.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        inner.setBorder(BorderFactory.createEmptyBorder(13, 10, 10, 10));
         inner.setBounds(0, 0, 450, 450);
         BoxLayout alBox = new BoxLayout(inner,BoxLayout.Y_AXIS);
         inner.setLayout(alBox);
@@ -437,8 +444,9 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
             inputsPanel[i] = new JPanel();
             inputsPanel[i].setBackground(Color.white);
             inputsPanel[i].setPreferredSize(new Dimension(205, 43));
-            inputsPanel[i].setMaximumSize(new Dimension(205, 43));
+            inputsPanel[i].setMaximumSize(new Dimension(450, 43));
             inputsPanel[i].setBorder(BorderFactory.createLineBorder(new Color(148, 148, 148), 1, true));
+            inputsPanel[i].setLayout(new GridLayout(1,1));
         }
         
         for(int i=0; i<inputs.length; i++)
@@ -460,7 +468,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         
         genderPanel = new JPanel();
         genderPanel.setPreferredSize(new Dimension(205, 43));
-        genderPanel.setMaximumSize(new Dimension(205, 43));
+        genderPanel.setMaximumSize(new Dimension(450, 43));
         genderPanel.setOpaque(false);
         genderPanel.setLayout(new GridLayout(2,1));
         
@@ -511,13 +519,19 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         estCivil.setFont(s);
         estCivil.setBackground(Color.white);
         estCivil.setPreferredSize(new Dimension(205, 43));
-        estCivil.setMaximumSize(new Dimension(205, 43));
+        estCivil.setMaximumSize(new Dimension(450, 43));
         estCivil.setFocusable(false);
+        
+        classe = new JComboBox();
+        classe.setBackground(Color.white);
+        classe.setPreferredSize(new Dimension(205, 43));
+        classe.setMaximumSize(new Dimension(450, 43));
+        classe.setFocusable(false);
         
         for(int i=0; i<inputs.length; i++)
             inputsPanel[i].add(inputs[i]);
         
-        inner.add(Box.createRigidArea(new Dimension(0,15)));
+        //inner.add(Box.createRigidArea(new Dimension(0,5)));
         
         for(int i=0; i<2; i++){
             inner.add(inputsPanel[i]);
@@ -538,6 +552,8 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
             inner.add(Box.createRigidArea(new Dimension(0,5)));
         }
         
+        inner.add(classe);
+        
         alDataPanel.add(inner);
     }
     
@@ -550,12 +566,15 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         inputsPanel1 = new JPanel[7];
         st2 = false;
         
+        inner1.setBounds(0, 0, 420, 402);
+        
         for(int i=0; i<inputsPanel1.length; i++) {
             inputsPanel1[i] = new JPanel();
             inputsPanel1[i].setBackground(Color.white);
             inputsPanel1[i].setPreferredSize(new Dimension(205, 43));
-            inputsPanel1[i].setMaximumSize(new Dimension(205, 43));
+            inputsPanel1[i].setMaximumSize(new Dimension(450, 43));
             inputsPanel1[i].setBorder(BorderFactory.createLineBorder(new Color(148, 148, 148), 1, true));
+            inputsPanel1[i].setLayout(new GridLayout(1,1));
         }
 
         for(int i=0; i<inputs1.length; i++)
@@ -577,7 +596,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
 
         genderPanel1 = new JPanel();
         genderPanel1.setPreferredSize(new Dimension(205, 43));
-        genderPanel1.setMaximumSize(new Dimension(205, 43));
+        genderPanel1.setMaximumSize(new Dimension(450, 43));
         genderPanel1.setOpaque(false);
         genderPanel1.setLayout(new GridLayout(2,1));
 
@@ -628,7 +647,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         estCivil1.setFont(s);
         estCivil1.setBackground(Color.white);
         estCivil1.setPreferredSize(new Dimension(205, 43));
-        estCivil1.setMaximumSize(new Dimension(205, 43));
+        estCivil1.setMaximumSize(new Dimension(450, 43));
         estCivil1.setFocusable(false);
 
         for(int i=0; i<inputs1.length; i++)
@@ -655,6 +674,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
             inner1.add(Box.createRigidArea(new Dimension(0,5)));
         }
 
+        addEncarregado.setBounds(10, 402, 400, 43);
         addEncarregado.setText("Voltar");
     }
     
@@ -680,15 +700,18 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
                     inner1.revalidate();
                     inner1.repaint();
                     
-                    inputs1 =  new JTextField[2];
-                    inputsPanel1 = new JPanel[2];
-
+                    inner1.setBounds(0, 0, 420, 140);
+                    
+                    inputs1 =  new JTextField[7];
+                    inputsPanel1 = new JPanel[7];                   
+                    
                     for(int i=0; i<inputsPanel1.length; i++) {
                         inputsPanel1[i] = new JPanel();
                         inputsPanel1[i].setBackground(Color.white);
                         inputsPanel1[i].setPreferredSize(new Dimension(205, 43));
-                        inputsPanel1[i].setMaximumSize(new Dimension(205, 43));
+                        inputsPanel1[i].setMaximumSize(new Dimension(450, 43));
                         inputsPanel1[i].setBorder(BorderFactory.createLineBorder(new Color(148, 148, 148), 1, true));
+                        inputsPanel1[i].setLayout(new GridLayout(1,1));
                     }
 
                     for(int i=0; i<inputs1.length; i++)
@@ -697,12 +720,15 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
                     for(int i=0; i<inputs1.length; i++)
                         tfProperties(inputs1[i]);
 
+                    for(int i=0; i<inputs1.length; i++)
+                        inputs1[i].addMouseListener(this);
+                    
                     inputs1[0].setText("ID");
                     inputs1[1].setText("Grau de Parentesco");
                     
                     for(int i=0; i<inputs1.length; i++)
                         inputsPanel1[i].add(inputs1[i]);
-
+                    
                     inner1.add(Box.createRigidArea(new Dimension(0,15)));
 
                     for(int i=0; i<2; i++){
@@ -710,6 +736,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
                         inner1.add(Box.createRigidArea(new Dimension(0,5)));
                     }
                     
+                    addEncarregado.setBounds(10, 140, 400, 43);
                     addEncarregado.setText("Novo Encarregado");
                 }
             }
