@@ -79,7 +79,7 @@ public class Encarregado extends JComponent implements ActionListener {
         show();
     }
     public void visual(){
-        Object pessoa[][] = {{"Alone","Basilio","Masculino","123123414B","Solteiro","23423354","45645456"},
+        Object pessoa[][] = {{"Alonee","Basilio","Masculino","123123414B","Solteiro","23423354","45645456"},
         {"Victor","Matusse","Masculino","123123414B","Solteiro","23423354","45645456"},
         {"Isac","Laercio","Masculino","123123414B","Solteiro","23423354","45645456"},};
         
