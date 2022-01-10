@@ -6,7 +6,7 @@
 package Model.ValueObject;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
