@@ -9,6 +9,7 @@ import View.Create.Encarregado;
 import View.Create.Matricula;
 //import View.Create
 import View.Create.*;
+import View.Visualizar.ViewDisciplina;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -135,7 +136,7 @@ public class MainMenu extends JFrame implements ActionListener {
         add(main);
         setSize(1366, 760);
         show();
-        
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
@@ -178,7 +179,7 @@ public class MainMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == lstButtons[1]) {
-            showForm(new Teste2());
+            showForm(new Teste());
         }
         
         if(e.getSource() == lstButtons[2]) {
@@ -200,7 +201,7 @@ public class MainMenu extends JFrame implements ActionListener {
         }
         
         if(e.getSource()== lstButtons[6]) {
-            new Disciplina();
+            showForm(new ViewDisciplina());
         }
         
         /*if (e.getSource() == lstButtons[7]) {

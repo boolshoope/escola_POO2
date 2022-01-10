@@ -5,158 +5,142 @@
  */
 package View.Create;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 /**
  *
  * @author isacl
  */
-public class Teste extends JFrame {
+public class Teste extends JComponent {
 
-    JPanel panTeste, panNotas, pan;
-    JPanel[] panDadosTeste = new JPanel[5], panDadosNotas = new JPanel[3];
-    JLabel[] lblDadosTeste = new JLabel[5], lblDadosNotas = new JLabel[3];
-    JTextField txtTipo, txtPeso, txtNota, txtNomeAluno;
-    JTextField txtComentario;
+    JPanel panTeste, panNotas;
+    JLabel[] lblDadosTeste = new JLabel[5], lblDadosNotas = new JLabel[4];
     JComboBox cboDisc, cboAno;
+    JTextField txtTipo, txtPeso, txtNota, txtNomeAluno, txtData;
+    JTextField txtComentario;
     JTable tabAluno;
-    String[] columnNames = {"Name", "Nota", "Comentario"};
+    JButton btnAdd = new JButton("Adicionar");
+    private Font f1 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
 
     public Teste() {
-        //panel
         panTeste = new JPanel();
         panTeste.setLayout(new BoxLayout(panTeste, BoxLayout.Y_AXIS));
         panTeste.setBorder(BorderFactory.createTitledBorder("Dados do Teste"));
+        panTeste.setBounds(14, 15, 421, 569);
+
         panNotas = new JPanel();
         panNotas.setLayout(new BoxLayout(panNotas, BoxLayout.Y_AXIS));
         panNotas.setBorder(BorderFactory.createTitledBorder("Notas"));
+        panNotas.setBounds(448, 15, 638, 569);
 
-        pan = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        for (int i = 0; i < panDadosTeste.length; i++) {
+        for (int i = 0; i < lblDadosTeste.length; i++) {
             switch (i) {
                 case 0:
-                    panDadosTeste[i] = new JPanel();
                     lblDadosTeste[i] = new JLabel("Disciplina");
                     cboDisc = new JComboBox();
-                    AddPanDadosTeste(panDadosTeste[i], lblDadosTeste[i], cboDisc);
+                    AddPanDadosTeste(lblDadosTeste[i], cboDisc, i, 200);
                     break;
                 case 1:
-                    panDadosTeste[i] = new JPanel();
                     lblDadosTeste[i] = new JLabel("Tipo");
-                    txtTipo = new JTextField(40);
-                    AddPanDadosTeste(panDadosTeste[i], lblDadosTeste[i], txtTipo);
+                    txtTipo = new JTextField();
+                    AddPanDadosTeste(lblDadosTeste[i], txtTipo, i, 150);
                     break;
                 case 2:
-                    panDadosTeste[i] = new JPanel();
                     lblDadosTeste[i] = new JLabel("Peso");
                     txtPeso = new JTextField(10);
-                    pan.add(txtPeso);
-
-                    panDadosTeste[i].setLayout(new BoxLayout(panDadosTeste[i], BoxLayout.Y_AXIS));
-                    panDadosTeste[i].setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-                    lblDadosTeste[i].setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-                    //txt.setColumns(20);
-
-                    panDadosTeste[i].add(lblDadosTeste[i]);
-                    panDadosTeste[i].add(pan);
-
-                    //AddPanDadosTeste(panDadosTeste[i], lblDadosTeste[i], txtPeso);
+                    AddPanDadosTeste(lblDadosTeste[i], txtPeso, i, 150);
                     break;
                 case 3:
-                    panDadosTeste[i] = new JPanel();
                     lblDadosTeste[i] = new JLabel("Data Realizacao");
-                    txtPeso = new JTextField();
-                    AddPanDadosTeste(panDadosTeste[i], lblDadosTeste[i], txtPeso);
+                    txtData = new JTextField();
+                    AddPanDadosTeste(lblDadosTeste[i], txtData, i, 200);
                     break;
                 case 4:
-                    panDadosTeste[i] = new JPanel();
                     lblDadosTeste[i] = new JLabel("Ano Academico");
                     cboAno = new JComboBox();
-                    AddPanDadosTeste(panDadosTeste[i], lblDadosTeste[i], cboAno);
+                    AddPanDadosTeste(lblDadosTeste[i], cboAno, i, 200);
                     break;
             }
         }
 
-        for (int i = 0; i < panDadosNotas.length; i++) {
+        for (int i = 0; i < lblDadosNotas.length; i++) {
             switch (i) {
                 case 0:
-                    panDadosNotas[i] = new JPanel();
                     lblDadosNotas[i] = new JLabel("Nome do Aluno");
                     txtNomeAluno = new JTextField();
-                    AddPanDadosTeste(panDadosNotas[i], lblDadosNotas[i], txtNomeAluno);
+                    AddPanDadosNotas(lblDadosNotas[i], txtNomeAluno, i, 400);
                     break;
                 case 1:
-                    panDadosNotas[i] = new JPanel();
                     lblDadosNotas[i] = new JLabel("Nota");
-                    txtNota = new JTextField(10);
-                    AddPanDadosTeste(panDadosNotas[i], lblDadosNotas[i], txtNota);
+                    txtNota = new JTextField();
+                    AddPanDadosNotas(lblDadosNotas[i], txtNota, i, 150);
                     break;
                 case 2:
-                    panDadosNotas[i] = new JPanel();
                     lblDadosNotas[i] = new JLabel("Comentario");
                     txtComentario = new JTextField();
-                    AddPanDadosTeste(panDadosNotas[i], lblDadosNotas[i], txtComentario);
+                    AddPanDadosNotas(lblDadosNotas[i], txtComentario, i, 350);
+                    btnAdd.setBounds(950, 53 + i * 54, 100, 30);
+                    add(btnAdd);
+                    break;
+                case 3:
+                    lblDadosNotas[i] = new JLabel("Lista de Alunos");
+                    String[][] data = {
+                        {"Kundan Kumar Jha", "4031", "CSE"},
+                        {"Anand Jha", "6014", "IT"}
+                    };
+                    String[] columnNames = {"Name", "Nota", "Comentario"};
+                    
+                    tabAluno = new JTable(data, columnNames);
+                    tabAluno.setFont(f1);
+
+                    JScrollPane sp = new JScrollPane(tabAluno);
+                    sp.setBounds(465, 56 + i * 54, 602, 350);
+                    add(sp);
                     break;
             }
         }
 
-        //table
-        String[][] data = {
-            {"Kundan Kumar Jha", "4031", "CSE"},
-            {"Anand Jha", "6014", "IT"}
-        };
-
+        /*
         tabAluno = new JTable(data, columnNames);
         JScrollPane sp = new JScrollPane(tabAluno);
-        sp.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-
-        //add elements to panel
-        for (int i = 0; i < panDadosTeste.length; i++) {
-            panTeste.add(panDadosTeste[i]);
-        }
-
-        for (int i = 0; i < panDadosNotas.length; i++) {
-            panNotas.add(panDadosNotas[i]);
-        }
-
-        panNotas.add(sp);
-
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+         */
+        //panTeste.add(btn);
+        setSize(1100, 600);
         add(panTeste);
         add(panNotas);
-        setSize(800, 800);
+
         show();
-
-        /*
-        int size = panNotas.getSize().height - panTeste.getSize().height;
-        panDadosTeste[panDadosTeste.length - 1].setBorder(BorderFactory.createEmptyBorder(0, 20, size, 0));
-        System.out.println(panTeste.getSize().toString());
-         */
     }
 
-    private void AddPanDadosTeste(JPanel pan, JLabel lbl, JTextField txt) {
-        pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
-        pan.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-        lbl.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        //txt.setColumns(20);
+    private void AddPanDadosTeste(JLabel lbl, JTextField txt, int i, int column) {
+        lbl.setBounds(30, 40 + i * 56, 150, 17);
+        txt.setBounds(30, 56 + i * 57, column, 27);
 
-        pan.add(lbl);
-        pan.add(txt);
+        add(lbl);
+        add(txt);
+        lbl.setFont(f1);
+        txt.setFont(f1);
     }
 
-    private void AddPanDadosTeste(JPanel pan, JLabel lbl, JComboBox cbo) {
-        pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
-        pan.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-        lbl.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        pan.add(lbl);
-        pan.add(cbo);
+    private void AddPanDadosTeste(JLabel lbl, JComboBox txt, int i, int column) {
+        lbl.setBounds(30, 40 + i * 56, 150, 17);
+        txt.setBounds(30, 56 + i * 57, column, 27);
+
+        add(lbl);
+        add(txt);
+        lbl.setFont(f1);
+        txt.setFont(f1);
     }
 
+    private void AddPanDadosNotas(JLabel lbl, JTextField txt, int i, int column) {
+        lbl.setBounds(465, 40 + i * 56, 150, 17);
+        txt.setBounds(465, 56 + i * 57, column, 27);
+
+        add(lbl);
+        add(txt);
+        lbl.setFont(f1);
+        txt.setFont(f1);
+    }
 }

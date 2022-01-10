@@ -8,13 +8,13 @@ import java.awt.*;
  *
  * @author Gabriel
  */
-public class Disciplina {
+public class AddDisciplina {
     
     JFrame janela_Disc = new JFrame("Disciplina");
     Container ctDisc = janela_Disc.getContentPane();
     
     
-    public Disciplina(){
+    public AddDisciplina(){
         
         
         janela_Disc.setSize(1000, 650);
