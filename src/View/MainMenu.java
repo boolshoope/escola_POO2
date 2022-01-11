@@ -28,7 +28,8 @@ public class MainMenu extends JFrame implements ActionListener {
     
     
     
-    JPanel panWButtons, panNButtons, main;
+    JPanel panWButtons, panNButtons;
+    public static JPanel main;
     JButton[] lstButtons = new JButton[9];
     JLabel lblWLine, lblLogo, lblNSistGestEsc, lblUsername;
     
@@ -112,7 +113,7 @@ public class MainMenu extends JFrame implements ActionListener {
                     SetWButtons(lstButtons[i], "Add File_32px");
                     break;
                 case 8:
-                    lstButtons[i] = new JButton("Ano Academico");
+                    lstButtons[i] = new JButton("Mais");
                     SetWButtons(lstButtons[i], "Add File_32px");
                     break;
             }
@@ -182,7 +183,7 @@ public class MainMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == lstButtons[1]) {
-            //showForm(new Teste());
+            showForm(new AddTeste());
         }
         
         if(e.getSource() == lstButtons[2]) {
@@ -207,8 +208,12 @@ public class MainMenu extends JFrame implements ActionListener {
             showForm(new ViewDisciplina());
         }
         
-        /*if (e.getSource() == lstButtons[7]) {
-            showForm(new Turma());
-        }*/
+        if (e.getSource() == lstButtons[7]) {
+            showForm(new AddTurma());
+        }
+        
+        if (e.getSource() == lstButtons[8]) {
+            showForm(new SubMenu());
+        }
     }
 }
