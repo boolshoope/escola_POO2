@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import View.MainMenu;
 
 
-public class Encarregado extends JComponent implements ActionListener {
+public class AddEncarregado extends JComponent implements ActionListener {
     
     private JLabel labDados[] = new JLabel[7];
     private JTextField txtInPuts[] = new JTextField[7],txtPesquisa;
@@ -27,7 +27,7 @@ public class Encarregado extends JComponent implements ActionListener {
     int i;
     boolean val=false;
     
-    public Encarregado(){
+    public AddEncarregado(){
         setSize(1000,600);
         
         setLayout(new BorderLayout());
@@ -91,8 +91,9 @@ public class Encarregado extends JComponent implements ActionListener {
         paneVisual.add(BorderLayout.CENTER,sp);
     }
     
+    
     public static void main(String[] args) {
-        Encarregado j = new Encarregado();
+        AddEncarregado j = new AddEncarregado();
         if(j.val){
             Add a =new Add();
         }

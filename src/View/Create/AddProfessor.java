@@ -13,13 +13,13 @@ import java.awt.*;
  *
  * @author Gabriel
  */
-public class Professor extends JFrame{
+public class AddProfessor extends JFrame{
     
     JFrame janela_Prof = new JFrame("Professor");
     JPanel pnLabel = new JPanel();
     Container ct = janela_Prof.getContentPane();
     
-    public Professor() {
+    public AddProfessor() {
         
         janela_Prof.setSize(1000, 650);
         janela_Prof.setLocationRelativeTo(null);

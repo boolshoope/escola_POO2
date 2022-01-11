@@ -5,7 +5,7 @@
  */
 package sistemagestaoescolar;
 
-import View.Create.Teste;
+import View.Create.AddTeste;
 import View.MainMenu;
 import View.Visualizar.ViewDisciplina;
 

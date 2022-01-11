@@ -13,7 +13,7 @@ import javax.swing.*;
  *
  * @author isacl
  */
-public class Teste extends JComponent {
+public class AddTeste extends JComponent {
 
     JPanel panTeste, panNotas;
     JLabel[] lblDadosTeste = new JLabel[5], lblDadosNotas = new JLabel[4];
@@ -24,7 +24,7 @@ public class Teste extends JComponent {
     JButton btnAdd = new JButton("Adicionar");
     private Font f1 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
 
-    public Teste() {
+    public AddTeste() {
         panTeste = new JPanel();
         panTeste.setLayout(new BoxLayout(panTeste, BoxLayout.Y_AXIS));
         panTeste.setBorder(BorderFactory.createTitledBorder("Dados do Teste"));

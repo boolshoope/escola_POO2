@@ -12,13 +12,13 @@ import java.awt.*;
  *
  * @author Gabriel
  */
-public class Classe {
+public class AddClasse {
     
     JFrame janela_Disc = new JFrame("Classe");// criacao de JFrame classe
     Container ctDisc = janela_Disc.getContentPane();
     
     
-    public Classe(){
+    public AddClasse(){
         
         
         janela_Disc.setSize(1000, 650);

@@ -11,9 +11,9 @@ import javax.swing.*;
  *
  * @author Basilio
  */
-public class Turma extends JComponent {
+public class AddTurma extends JComponent {
     
-    public Turma(){
+    public AddTurma(){
         setSize(1000,600);
         setLayout(new BorderLayout());
         

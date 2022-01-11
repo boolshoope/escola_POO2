@@ -9,6 +9,6 @@ package View.Create;
  *
  * @author isacl
  */
-public class Aluno {
+public class AddAluno {
     
 }

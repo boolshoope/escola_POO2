@@ -5,9 +5,9 @@
 */
 package View;
 
-import View.Create.Encarregado;
-import View.Create.Matricula;
-//import View.Create
+import Model.ValueObject.*;
+import View.Create.AddEncarregado;
+import View.Create.AddMatricula;
 import View.Create.*;
 import View.Visualizar.ViewDisciplina;
 import java.awt.*;
@@ -18,12 +18,15 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.util.List;
 
 /**
  *
  * @author isacl
  */
 public class MainMenu extends JFrame implements ActionListener {
+    
+    
     
     JPanel panWButtons, panNButtons, main;
     JButton[] lstButtons = new JButton[9];
@@ -179,25 +182,25 @@ public class MainMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == lstButtons[1]) {
-            showForm(new Teste());
+            //showForm(new Teste());
         }
         
         if(e.getSource() == lstButtons[2]) {
-            showForm(new Matricula());
+            showForm(new AddMatricula());
         }
         
         
         if(e.getSource() == lstButtons[3]){
-            new Professor();
+            //new Professor();
             
         }
         
         if (e.getSource() == lstButtons[4]) {
-            showForm(new Encarregado());
+            showForm(new AddEncarregado());
         }
         
         if(e.getSource()== lstButtons[5]) {
-            new Classe();
+            //new Classe();
         }
         
         if(e.getSource()== lstButtons[6]) {

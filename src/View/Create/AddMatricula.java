@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-public class Matricula extends JComponent implements ActionListener, MouseListener {
+public class AddMatricula extends JComponent implements ActionListener, MouseListener {
     private JPanel masterPanel;
     private JPanel headerPanel;
     private JPanel leftPanel;
@@ -45,7 +45,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
     private boolean st = false;
     private boolean st2 = false;
     
-    public Matricula() {
+    public AddMatricula() {
         //super("Matricula do Aluno");
         //setBounds(200,200,1100,620);
         //setLocationRelativeTo(null);
