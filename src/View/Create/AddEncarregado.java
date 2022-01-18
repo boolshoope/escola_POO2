@@ -115,7 +115,7 @@ class Add extends JComponent {
     private JLabel labDados[] = new JLabel[7];
     private String texto[] = {"Primeiro nome","Apelido","Sexo","Numero de BI","Estado Civil","Telefone 1","Telefone 2"};
     private JPanel paneMenu,paneDados,paneVisual,panePrincipal,paneButton;
-    private JTextField txtInPuts[] = new JTextField[7],txtPesquisa;
+    private JTextField txtInPuts[] = new JTextField[7];
     private JButton buton[] = new JButton[2];
     
     int i;
@@ -135,7 +135,6 @@ class Add extends JComponent {
         paneDados.setBorder(BorderFactory.createTitledBorder("Dados Pessoais"));
         
         for(i = 0;i< txtInPuts.length;i++){
-            
             labDados[i] = new JLabel(texto[i]);
             txtInPuts[i] = new JTextField(10);
             paneDados.add(labDados[i]);
