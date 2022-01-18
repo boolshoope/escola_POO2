@@ -27,7 +27,7 @@ import javax.swing.*;
  */
 public class SubMenu extends JComponent implements ActionListener {
 
-    JButton[] btn = new JButton[5];
+    JButton[] btn = new JButton[6];
     JPanel pan;
 
     public SubMenu() {
@@ -37,6 +37,7 @@ public class SubMenu extends JComponent implements ActionListener {
         btn[2] = new JButton("disc");
         btn[3] = new JButton("classe");
         btn[4] = new JButton("encarregado");
+        btn[5] = new JButton("professor");
 
         pan = new JPanel(new GridLayout(2, 3, 50, 50));
         pan.setBorder(BorderFactory.createEmptyBorder(150, 20, 20, 20));
@@ -60,6 +61,10 @@ public class SubMenu extends JComponent implements ActionListener {
                     break;
                 case 4:
                     DefinirBackImagem(btn[4], "btnEncEd");
+                    break;
+                case 5:
+                    //DefinirBackImagem(btn[5], "btnProf");
+                    DefinirBackImagem(btn[5], "btnEncEd");
                     break;
             }
             pan.add(btn[i]);
@@ -100,6 +105,8 @@ public class SubMenu extends JComponent implements ActionListener {
         } else if (e.getSource() == btn[3]) {
             showForm(new ViewClasse());
         } else if (e.getSource() == btn[4]) {
+
+        } else if (e.getSource() == btn[5]) {
 
         }
     }
