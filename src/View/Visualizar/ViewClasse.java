@@ -5,8 +5,7 @@
  */
 package View.Visualizar;
 
-import Controller.DisciplinaController;
-import View.Create.AddDisciplina;
+import Controller.ClasseController;
 import View.MainMenu;
 import View.SubMenu;
 import java.awt.BorderLayout;
@@ -28,20 +27,20 @@ import javax.swing.table.TableColumnModel;
  *
  * @author isacl
  */
-public class ViewDisciplina extends JComponent implements ActionListener {
+public class ViewClasse extends JComponent implements ActionListener {
 
     JPanel panMenu, panList, panMain;
     JLabel lblDisc, lblIdProd, lblOp, l = new JLabel("");
     JTextField txtNome;
     JButton btnAdd, btnUpd, btnDel, btnSearch, btnVoltar;
-    JTable tabAluno;
+    JTable tab;
     int ilblY = 90;
-    DisciplinaController disc;
+    ClasseController classe;
 
     private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 15);
     private Font f2 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
 
-    public ViewDisciplina() {
+    public ViewClasse() {
         panMain = new JPanel();
         panMain.setBackground(Color.white);
         panMain.setBounds(0, 0, 1800, 1000);
@@ -64,11 +63,11 @@ public class ViewDisciplina extends JComponent implements ActionListener {
         panList.setBackground(Color.white);
         panList.setForeground(Color.black);
 
-        lblDisc = new JLabel("Disciplina");
+        lblDisc = new JLabel("Classe");
         lblDisc.setBounds(500, 20, 200, 30);
         lblDisc.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
 
-        lblIdProd = new JLabel("Nome da Disciplina");
+        lblIdProd = new JLabel("Nome da Classe");
         lblIdProd.setBounds(30, ilblY, 200, 20);
         lblIdProd.setFont(f1);
         add(lblIdProd);
@@ -91,21 +90,21 @@ public class ViewDisciplina extends JComponent implements ActionListener {
         btnVoltar.addActionListener(this);
         add(btnVoltar);
 
-        btnAdd = new JButton("Adicionar Disciplina");
+        btnAdd = new JButton("Adicionar Classe");
         btnAdd.setBounds(50, ilblY + 114, 260, 40);
         btnAdd.setFont(f1);
         btnAdd.addActionListener(this);
         setButtonColors(btnAdd);
         add(btnAdd);
 
-        btnUpd = new JButton("Actualizar Disciplina");
+        btnUpd = new JButton("Actualizar Classe");
         btnUpd.setBounds(50, ilblY + 165, 260, 40);
         btnUpd.setFont(f1);
         btnUpd.addActionListener(this);
         setButtonColors(btnUpd);
         add(btnUpd);
 
-        btnDel = new JButton("Remover Disciplina");
+        btnDel = new JButton("Remover Classe");
         btnDel.setBounds(50, ilblY + 216, 260, 40);
         btnDel.setFont(f1);
         btnDel.addActionListener(this);
@@ -120,15 +119,15 @@ public class ViewDisciplina extends JComponent implements ActionListener {
         add(btnSearch);
 
         //tabela
-        disc = new DisciplinaController();
-        tabAluno = new JTable(disc.listItems());
-        tabAluno.setFont(f2);
-        tabAluno.setRowHeight(22);
-        TableColumnModel columnModel = tabAluno.getColumnModel();
+        classe = new ClasseController();
+        tab = new JTable(classe.listItems());
+        tab.setFont(f2);
+        tab.setRowHeight(22);
+        TableColumnModel columnModel = tab.getColumnModel();
         columnModel.getColumn(0).setMaxWidth(50);
-        tabAluno.setColumnModel(columnModel);
+        tab.setColumnModel(columnModel);
 
-        JScrollPane sp = new JScrollPane(tabAluno);
+        JScrollPane sp = new JScrollPane(tab);
         sp.setBounds(380, 90, 725, 480);
         add(sp);
 
@@ -190,12 +189,12 @@ public class ViewDisciplina extends JComponent implements ActionListener {
     }
 
     public void btnDel_Click() {
-        int getSelectedRow = tabAluno.getSelectedRow();
+        int getSelectedRow = tab.getSelectedRow();
         //Check if their is a row selected
         if (getSelectedRow != -1) {
             int reply = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o registo?", "Confirmacao.", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                disc.deleteItem(getSelectedRow);
+                classe.deleteItem(getSelectedRow);
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
             }
         } else {
@@ -204,9 +203,9 @@ public class ViewDisciplina extends JComponent implements ActionListener {
     }
 
     public void btnSearch_Click() {
-        int aux = disc.searchItem(txtNome.getText());
+        int aux = classe.searchItem(txtNome.getText());
         if (aux != -1) {
-            tabAluno.setRowSelectionInterval(aux, aux);
+            tab.setRowSelectionInterval(aux, aux);
             JOptionPane.showMessageDialog(null, "Registo Encontrado.");
         } else {
             JOptionPane.showMessageDialog(null, "Registo Nao Encontrado.");
@@ -214,10 +213,10 @@ public class ViewDisciplina extends JComponent implements ActionListener {
     }
 
     public void btnUpd_Click() {
-        int getSelectedRow = tabAluno.getSelectedRow();
+        int getSelectedRow = tab.getSelectedRow();
         int id;
         if (getSelectedRow != -1) {
-            id = disc.getIdSelectedItem(getSelectedRow);
+            id = classe.getIdSelectedItem(getSelectedRow);
             //Chamar a classe update com o parametro
 
         } else {

@@ -92,13 +92,13 @@ public class SubMenu extends JComponent implements ActionListener {
         btn[4] = new JButton("encarregado");
          */
         if (e.getSource() == btn[0]) {
-
+            showForm(new ViewTurma());
         } else if (e.getSource() == btn[1]) {
-
+            showForm(new ViewAnoAc());
         } else if (e.getSource() == btn[2]) {
             showForm(new ViewDisciplina());
         } else if (e.getSource() == btn[3]) {
-
+            showForm(new ViewClasse());
         } else if (e.getSource() == btn[4]) {
 
         }
