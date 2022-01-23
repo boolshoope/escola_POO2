@@ -1,13 +1,24 @@
-package View.Create;
+/*
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
+package View.Visualizar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.border.Border;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.border.TitledBorder;
 
-public class AddMatricula extends JComponent implements ActionListener, MouseListener {
-    
+
+/**
+ *
+ * @author Gabriel
+ */
+public class ViewProfessor extends JComponent implements ActionListener, MouseListener{
     
     private JPanel masterPanel;
     private JPanel headerPanel;
@@ -24,17 +35,17 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
     private ButtonGroup genderGroup;
     private JLabel sexo;
     private JRadioButton male, female;
-    private JButton matricular;
+    private JButton registrar;
     private JTextField inputs[];
     private JPanel alDataPanel, inner, inputsPanel[], genderPanel, opPanel;
     private JComboBox estCivil;
     private JComboBox classe;
     
-    private JPanel encDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
+    private JPanel profDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
     private JLabel sexo1;
     private JRadioButton male1, female1;
     private ButtonGroup genderGroup1;
-    private JButton addEncarregado;
+    private JButton addProfessor;
     private JTextField inputs1[];
     private JComboBox estCivil1;
     
@@ -47,7 +58,7 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
     private boolean st = false;
     private boolean st2 = false;
     
-    public AddMatricula() {
+    public ViewProfessor() {
         //super("Matricula do Aluno");
         //setBounds(200,200,1100,620);
         //setLocationRelativeTo(null);
@@ -78,8 +89,8 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         
         leftButton[0] = new JButton("MATRICULAR");
         leftButton[1] = new JButton("RENOVAR");
-        leftButton[2] = new JButton("EDITAR ALUNO");
-       
+        leftButton[2] = new JButton("EDITAR PROFESSOR");
+        
         for(int i=0; i<leftButton.length; i++)
             leftButton[i].addActionListener(this);
         
@@ -120,10 +131,10 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         searchPanel.setLayout(searchBox);
         searchPanel.setBounds(428, 245, 243, 43);
         searchPanel.setBackground(Color.white);
-        searchPanel.setBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 
-                                1, true));
+        searchPanel.setBorder(BorderFactory.createLineBorder(new Color(62, 62, 62),
+                1, true));
         
-        search = new JTextField("pesquisar");
+        search = new JTextField("Pesquisar");
         search.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
         Font f3 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
         search.setFont(f3);
@@ -148,7 +159,7 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         rightPanel.add(searchPanel);
     }
     
-    private void editAlunoPageHome() {
+    private void editProfessorPageHome() {
         rightPanel.removeAll();
         rightPanel.revalidate();
         rightPanel.repaint();
@@ -158,10 +169,10 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         searchPanel.setLayout(searchBox);
         searchPanel.setBounds(428, 245, 243, 43);
         searchPanel.setBackground(Color.white);
-        searchPanel.setBorder(BorderFactory.createLineBorder(new Color(62, 62, 62), 
-                                1, true));
+        searchPanel.setBorder(BorderFactory.createLineBorder(new Color(62, 62, 62),
+                1, true));
         
-        search = new JTextField("pesquisar");
+        search = new JTextField("Pesquisar");
         search.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
         Font f3 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
         search.setFont(f3);
@@ -186,7 +197,7 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         rightPanel.add(searchPanel);
     }
     
-    private void editAlunoPage() {
+    private void editProfessorPage() {
         rightPanel.removeAll();
         rightPanel.revalidate();
         rightPanel.repaint();
@@ -195,12 +206,12 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         alDataPanel = new JPanel();
         alDataPanel.setBackground(Color.white);
         alDataPanel.setBorder(BorderFactory.createTitledBorder(
-                        BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
-                        "Dados do Aluno", 
-                        TitledBorder.LEFT,
-                        TitledBorder.TOP,
-                        br,
-                        new Color(62, 62, 62)));
+                BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
+                "Dados do Professor",
+                TitledBorder.LEFT,
+                TitledBorder.TOP,
+                br,
+                new Color(62, 62, 62)));
         alDataPanel.setBounds(325, 10, 450,510);
         alDataPanel.setLayout(null);
         
@@ -336,20 +347,20 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         rightPanel.revalidate();
         rightPanel.repaint();
         
-        addAluno();
+        addProfessor();
         
         Font br = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
-        encDataPanel = new JPanel();
-        encDataPanel.setBackground(Color.white);
-        encDataPanel.setBorder(BorderFactory.createTitledBorder(
-                        BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
-                        "Dados do Encarregado", 
-                        TitledBorder.LEFT,
-                        TitledBorder.TOP,
-                        br,
-                        new Color(62, 62, 62)));
-        encDataPanel.setBounds(570, 10, 420,450);
-        encDataPanel.setLayout(null);
+        profDataPanel = new JPanel();
+        profDataPanel.setBackground(Color.white);
+        profDataPanel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
+                "Dados da Disciplina/Professor",
+                TitledBorder.LEFT,
+                TitledBorder.TOP,
+                br,
+                new Color(62, 62, 62)));
+        profDataPanel.setBounds(570, 10, 420,450);
+        profDataPanel.setLayout(null);
         
         inner1 =  new JPanel();
         inner1.setBackground(Color.white);
@@ -383,12 +394,12 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
             inputs1[i].addMouseListener(this);
         
         inputs1[0].setText("ID");
-        inputs1[1].setText("Grau de Parentesco");
+        inputs1[1].setText("Disciplina");
         
-        addEncarregado = new JButton("Novo Encarregado");
-        addEncarregado.addActionListener(this);
-        btProperties(addEncarregado);
-        addEncarregado.setBounds(10, 140, 400, 43);
+        addProfessor = new JButton("Novo Professor");
+        addProfessor.addActionListener(this);
+        btProperties(addProfessor);
+        addProfessor.setBounds(10, 140, 400, 43);
         //addEncarregado.setPreferredSize(new Dimension(205,43));
         //addEncarregado.setMaximumSize(new Dimension(420,43));
         //addEncarregado.set
@@ -404,29 +415,29 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         }
         
         //inner1.add(addEncarregado);
-        encDataPanel.add(inner1);
-        encDataPanel.add(addEncarregado);
+        profDataPanel.add(inner1);
+        profDataPanel.add(addProfessor);
         
-        matricular = new JButton("MATRICULAR");
-        btProperties(matricular);
-        matricular.setBounds(475, 473, 150, 43);
+        registrar = new JButton("REGISTRAR");
+        btProperties(registrar);
+        registrar.setBounds(475, 473, 150, 43);
         
         rightPanel.add(alDataPanel);
-        rightPanel.add(matricular);
-        rightPanel.add(encDataPanel);
+        rightPanel.add(registrar);
+        rightPanel.add(profDataPanel);
     }
     
-    private void addAluno() {
+    private void addProfessor() {
         Font br = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
         alDataPanel = new JPanel();
         alDataPanel.setBackground(Color.white);
         alDataPanel.setBorder(BorderFactory.createTitledBorder(
-                        BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
-                        "Dados do Aluno", 
-                        TitledBorder.LEFT,
-                        TitledBorder.TOP,
-                        br,
-                        new Color(62, 62, 62)));
+                BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
+                "Dados do Professor",
+                TitledBorder.LEFT,
+                TitledBorder.TOP,
+                br,
+                new Color(62, 62, 62)));
         alDataPanel.setBounds(110, 10, 450,450);
         alDataPanel.setLayout(null);
         
@@ -563,7 +574,7 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         inner1.removeAll();
         inner1.revalidate();
         inner1.repaint();
-
+        
         inputs1 =  new JTextField[7];
         inputsPanel1 = new JPanel[7];
         st2 = false;
@@ -578,16 +589,16 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
             inputsPanel1[i].setBorder(BorderFactory.createLineBorder(new Color(148, 148, 148), 1, true));
             inputsPanel1[i].setLayout(new GridLayout(1,1));
         }
-
+        
         for(int i=0; i<inputs1.length; i++)
             inputs1[i] = new JTextField();
-
+        
         for(int i=0; i<inputs1.length; i++)
             tfProperties(inputs1[i]);
         
         for(int i=0; i<inputs1.length; i++)
             inputs1[i].addMouseListener(this);
-
+        
         inputs1[0].setText("ID");
         inputs1[1].setText("Grau de Parentesco");
         inputs1[2].setText("Nome");
@@ -595,20 +606,20 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         inputs1[4].setText("BI");
         inputs1[5].setText("Telefone 1");
         inputs1[6].setText("Telefone 2");
-
+        
         genderPanel1 = new JPanel();
         genderPanel1.setPreferredSize(new Dimension(205, 43));
         genderPanel1.setMaximumSize(new Dimension(450, 43));
         genderPanel1.setOpaque(false);
         genderPanel1.setLayout(new GridLayout(2,1));
-
+        
         Font s = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
-
+        
         sexo1 = new JLabel("Sexo:", JLabel.LEFT);
         sexo1.setFont(s);
         sexo1.setForeground(new Color(62, 62, 62));
         sexo1.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
+        
         opPanel1 = new JPanel();
         opPanel1.setPreferredSize(new Dimension(205, 43));
         opPanel1.setMaximumSize(new Dimension(205, 43));
@@ -616,30 +627,30 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         opPanel1.setOpaque(false);
         BoxLayout opBox = new BoxLayout(opPanel1, BoxLayout.X_AXIS);
         opPanel1.setLayout(opBox);
-
-
+        
+        
         male1 = new JRadioButton("Masculino");
         male1.setFont(s);
         male1.setForeground(new Color(62, 62, 62));
         male1.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         male1.setOpaque(false);
-
+        
         female1 = new JRadioButton("Femenino");
         female1.setFont(s);
         female1.setForeground(new Color(62, 62, 62));
         female1.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         female1.setOpaque(false);
-
+        
         genderGroup1 = new ButtonGroup();
         genderGroup1.add(male);
         genderGroup1.add(female);
-
+        
         opPanel1.add(male1);
         opPanel1.add(female1);
-
+        
         genderPanel1.add(sexo1);
         genderPanel1.add(opPanel1);
-
+        
         estCivil1 = new JComboBox();
         estCivil1.addItem("Estado Civil");
         estCivil1.addItem("Solteiro");
@@ -651,33 +662,33 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         estCivil1.setPreferredSize(new Dimension(205, 43));
         estCivil1.setMaximumSize(new Dimension(450, 43));
         estCivil1.setFocusable(false);
-
+        
         for(int i=0; i<inputs1.length; i++)
             inputsPanel1[i].add(inputs1[i]);
-
+        
         inner1.add(Box.createRigidArea(new Dimension(0,15)));
-
+        
         for(int i=1; i<4; i++){
             inner1.add(inputsPanel1[i]);
             inner1.add(Box.createRigidArea(new Dimension(0,5)));
         }
-
+        
         inner1.add(genderPanel1);
         inner1.add(Box.createRigidArea(new Dimension(0,5)));
-
+        
         inner1.add(inputsPanel1[4]);
         inner1.add(Box.createRigidArea(new Dimension(0,5)));
-
+        
         inner1.add(estCivil1);
         inner1.add(Box.createRigidArea(new Dimension(0,5)));
-
+        
         for(int i=5; i<inputsPanel1.length; i++){
             inner1.add(inputsPanel1[i]);
             inner1.add(Box.createRigidArea(new Dimension(0,5)));
         }
-
-        addEncarregado.setBounds(10, 402, 400, 43);
-        addEncarregado.setText("Voltar");
+        
+        addProfessor.setBounds(10, 402, 400, 43);
+        addProfessor.setText("Voltar");
     }
     
     public void actionPerformed(ActionEvent e) {
@@ -688,16 +699,16 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
             renovarPageHome();
         
         if(e.getSource() == leftButton[2])
-            editAlunoPageHome();
+            editProfessorPageHome();
         
         if(e.getSource() == btSearch)
-            editAlunoPage();
+            editProfessorPage();
         
-        if(e.getSource() == addEncarregado) {
-            if(addEncarregado.getText().equalsIgnoreCase("Novo Encarregado")) {
+        if(e.getSource() == addProfessor) {
+            if(addProfessor.getText().equalsIgnoreCase("Novo Encarregado")) {
                 addEnc();
             }else{
-                if(addEncarregado.getText().equalsIgnoreCase("Voltar")) {
+                if(addProfessor.getText().equalsIgnoreCase("Voltar")) {
                     inner1.removeAll();
                     inner1.revalidate();
                     inner1.repaint();
@@ -705,7 +716,7 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
                     inner1.setBounds(0, 0, 420, 140);
                     
                     inputs1 =  new JTextField[7];
-                    inputsPanel1 = new JPanel[7];                   
+                    inputsPanel1 = new JPanel[7];
                     
                     for(int i=0; i<inputsPanel1.length; i++) {
                         inputsPanel1[i] = new JPanel();
@@ -715,13 +726,13 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
                         inputsPanel1[i].setBorder(BorderFactory.createLineBorder(new Color(148, 148, 148), 1, true));
                         inputsPanel1[i].setLayout(new GridLayout(1,1));
                     }
-
+                    
                     for(int i=0; i<inputs1.length; i++)
                         inputs1[i] = new JTextField();
-
+                    
                     for(int i=0; i<inputs1.length; i++)
                         tfProperties(inputs1[i]);
-
+                    
                     for(int i=0; i<inputs1.length; i++)
                         inputs1[i].addMouseListener(this);
                     
@@ -732,14 +743,14 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
                         inputsPanel1[i].add(inputs1[i]);
                     
                     inner1.add(Box.createRigidArea(new Dimension(0,15)));
-
+                    
                     for(int i=0; i<2; i++){
                         inner1.add(inputsPanel1[i]);
                         inner1.add(Box.createRigidArea(new Dimension(0,5)));
                     }
                     
-                    addEncarregado.setBounds(10, 140, 400, 43);
-                    addEncarregado.setText("Novo Encarregado");
+                    addProfessor.setBounds(10, 140, 400, 43);
+                    addProfessor.setText("Novo Encarregado");
                 }
             }
         }
@@ -969,4 +980,5 @@ public class AddMatricula extends JComponent implements ActionListener, MouseLis
         button.setBackground(new Color(62, 62, 62));
         button.setFocusable(false);
     }
+    
 }
