@@ -6,13 +6,21 @@
 package View.Visualizar;
 
 import View.Create.*;
+import View.MainMenu;
+import View.SubMenu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
+
+
 
 /**
  *
@@ -35,17 +43,16 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
     private ButtonGroup genderGroup;
     
     
-    private JButton registrar;
     private JTextField inputs[];
     private JPanel alDataPanel, inner, inputsPanel[], genderPanel, opPanel;
     
     
     
-    private JPanel profDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
+    private JPanel classDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
     private JLabel sexo1;
     private JRadioButton male1, female1;
     private ButtonGroup genderGroup1;
-    private JButton addProfessor;
+    private JButton addClasse, btnVoltar;
     private JTextField inputs1[];
     
     private JButton renovarSearch;
@@ -61,7 +68,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         masterPanel = new JPanel();
         headerPanel = new JPanel();
         leftPanel = new JPanel();
-        northButton = new JButton[3];
+
         
         // painel principal
         masterPanel.setBackground(Color.white);
@@ -74,10 +81,16 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         btPanel = new JPanel();
         //BoxLayout btLayout = new BoxLayout(btPanel,BoxLayout.Y_AXIS);
         btPanel.setBackground(null);
-        btPanel.setLayout(new GridLayout(1,northButton.length));
         //btPanel.setBounds(0, 150, 200, 200);
         
      
+        btnVoltar = new JButton("");
+        btnVoltar.setBounds(1060, 12, 45, 45);
+        DefinirBackImagem();
+        btnVoltar.setBackground(Color.white);
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.addActionListener(this);
+        add(btnVoltar);
 
         // righ panel
         rightPanel = new JPanel();
@@ -106,17 +119,17 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         
 
         Font br = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
-        profDataPanel = new JPanel();
-        profDataPanel.setBackground(Color.white);
-        profDataPanel.setBorder(BorderFactory.createTitledBorder(
+        classDataPanel = new JPanel();
+        classDataPanel.setBackground(Color.white);
+        classDataPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
                 "Dados da Classe",
                 TitledBorder.LEFT,
                 TitledBorder.TOP,
                 br,
                 new Color(62, 62, 62)));
-        profDataPanel.setBounds(370, 10, 420,450);
-        profDataPanel.setLayout(null);
+        classDataPanel.setBounds(370, 90, 420,450);
+        classDataPanel.setLayout(null);
         
         inner1 =  new JPanel();
         inner1.setBackground(Color.white);
@@ -127,8 +140,8 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         inner1.setLayout(encBox);
         
         
-        inputs1 =  new JTextField[7];
-        inputsPanel1 = new JPanel[7];
+        inputs1 =  new JTextField[2];
+        inputsPanel1 = new JPanel[2];
         st2 = true;
         
         for(int i=0; i<inputsPanel1.length; i++) {
@@ -150,12 +163,12 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
             inputs1[i].addMouseListener(this);
         
         inputs1[0].setText("ID");
-        inputs1[1].setText("Classe");
+        inputs1[1].setText("Nome");
         
-        addProfessor = new JButton("Novo Classe");
-        addProfessor.addActionListener(this);
-        btProperties(addProfessor);
-        addProfessor.setBounds(10, 140, 400, 43);
+        addClasse = new JButton("Nova Classe");
+        addClasse.addActionListener(this);
+        btProperties(addClasse);
+        addClasse.setBounds(10, 140, 400, 43);
         //addEncarregado.setPreferredSize(new Dimension(205,43));
         //addEncarregado.setMaximumSize(new Dimension(420,43));
         //addEncarregado.set
@@ -171,20 +184,30 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         }
         
         //inner1.add(addEncarregado);
-        profDataPanel.add(inner1);
-        profDataPanel.add(addProfessor);
+        classDataPanel.add(inner1);
+        classDataPanel.add(addClasse);
         
-        registrar = new JButton("REGISTRAR");
-        btProperties(registrar);
-        registrar.setBounds(475, 473, 150, 43);
 
-        rightPanel.add(registrar);
-        rightPanel.add(profDataPanel);
+        rightPanel.add(classDataPanel);
     }
     
+    
+     private void DefinirBackImagem() {
+        BufferedImage imgb = null;
+        try {
+            imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
+        } catch (IOException e) {
+        }
+        Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        btnVoltar.setIcon(new ImageIcon(dimg));
+    }
+     
+     
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        if (e.getSource() == btnVoltar) {
+            showForm(new SubMenu());
+        }
     }
     
     @Override
@@ -204,17 +227,53 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
     
     @Override
     public void mouseEntered(MouseEvent e) {
+         if(e.getSource() == inputs1[0]) {
+            if(inputs1[0].getText().equals("ID") || inputs1[0].getText().equals(""))
+                inputs1[0].setText("ID");
+        }
         
+        if(e.getSource() == inputs1[1]) {
+            if(inputs1[1].getText().equals("Nome") || inputs1[1].getText().equals(""))
+                inputs1[1].setText("Nome");
+        }
     }
     
     @Override
     public void mouseExited(MouseEvent e) {
+        if(e.getSource() == inputs1[0]) {
+            if(inputs1[0].getText().equals("ID"))
+                tfChanges(inputs1[0]);
+        }
         
+        if(e.getSource() == inputs1[1]) {
+            if(inputs1[1].getText().equals("Nome"))
+                tfChanges(inputs1[1]);
+        }
+        
+        
+        // -----------------------------------------------------------------------
+        
+        if(e.getSource() == inputs1[0]) {
+            if(inputs1[0].getText().equals("ID") && st == false)
+                tfChanges(inputs1[0]);
+            if(inputs1[0].getText().equals("ID") && st == true)
+                tfChanges(inputs1[0]);
+        }
+        
+        if(e.getSource() == inputs1[1]) {
+            if(inputs1[1].getText().equals("Nome") && st == false)
+                tfChanges(inputs1[1]);
+            if(inputs1[1].getText().equals("Nome") && st == true)
+                tfChanges(inputs1[1]);
+        }
     }
     
     
         private void tfChanges(JTextField tfd) {
-        tfd.setText("");
+           
+                tfd.setText("");
+            
+        
     }
     
     private void tfProperties(JTextField tf) {
@@ -240,6 +299,17 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         button.setForeground(Color.white);
         button.setBackground(new Color(62, 62, 62));
         button.setFocusable(false);
+    }
+
+    private void showForm(Component com) {
+        BorderLayout layout = (BorderLayout) MainMenu.main.getLayout();
+        if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+            MainMenu.main.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+        }
+
+        MainMenu.main.add(com, BorderLayout.CENTER);
+        MainMenu.main.repaint();
+        MainMenu.main.revalidate();
     }
     
     
