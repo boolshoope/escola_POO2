@@ -210,7 +210,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
-            showForm(new SubMenu());
+            showForm(new ViewClasse());
         }
     }
     
@@ -232,6 +232,19 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
     @Override
     public void mouseEntered(MouseEvent e) {
          if(e.getSource() == inputs1[0]) {
+            if(inputs1[0].getText().equals("ID"))
+                inputs1[0].setText("");
+        }
+        
+        if(e.getSource() == inputs1[1]) {
+            if(inputs1[1].getText().equals("Nome"))
+                inputs1[1].setText("");
+        }
+    }
+    
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if(e.getSource() == inputs1[0]) {
             if(inputs1[0].getText().equals("ID") || inputs1[0].getText().equals(""))
                 inputs1[0].setText("ID");
         }
@@ -240,36 +253,10 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
             if(inputs1[1].getText().equals("Nome") || inputs1[1].getText().equals(""))
                 inputs1[1].setText("Nome");
         }
-    }
-    
-    @Override
-    public void mouseExited(MouseEvent e) {
-        if(e.getSource() == inputs1[0]) {
-            if(inputs1[0].getText().equals("ID"))
-                tfChanges(inputs1[0]);
-        }
-        
-        if(e.getSource() == inputs1[1]) {
-            if(inputs1[1].getText().equals("Nome"))
-                tfChanges(inputs1[1]);
-        }
         
         
         // -----------------------------------------------------------------------
-        
-        if(e.getSource() == inputs1[0]) {
-            if(inputs1[0].getText().equals("ID") && st == false)
-                tfChanges(inputs1[0]);
-            if(inputs1[0].getText().equals("ID") && st == true)
-                tfChanges(inputs1[0]);
-        }
-        
-        if(e.getSource() == inputs1[1]) {
-            if(inputs1[1].getText().equals("Nome") && st == false)
-                tfChanges(inputs1[1]);
-            if(inputs1[1].getText().equals("Nome") && st == true)
-                tfChanges(inputs1[1]);
-        }
+
     }
     
     

@@ -5,12 +5,18 @@
 */
 package View.Visualizar;
 
+import View.MainMenu;
+import View.SubMenu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
 
 
@@ -49,7 +55,7 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
     private JTextField inputs1[];
     private JComboBox estCivil1;
     
-    private JButton renovarSearch;
+    private JButton renovarSearch , btnVoltar;;
     
     private JButton update;
     
@@ -78,6 +84,13 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         masterPanel.setBorder(null);
         masterPanel.setLayout(new BorderLayout());
         
+        btnVoltar = new JButton("");
+        btnVoltar.setBounds(1060, 65, 45, 45);
+        DefinirBackImagem();
+        btnVoltar.setBackground(Color.white);
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.addActionListener(this);
+        add(btnVoltar);
         
         // painel esquerdo componentes
         btPanel = new JPanel();
@@ -119,6 +132,16 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         setLayout(new BorderLayout());
         add(masterPanel);
         show();
+    }
+    
+    private void DefinirBackImagem() {
+        BufferedImage imgb = null;
+        try {
+            imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
+        } catch (IOException e) {
+        }
+        Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        btnVoltar.setIcon(new ImageIcon(dimg));
     }
     
     private void renovarPageHome() {
@@ -700,6 +723,8 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         if(e.getSource() == btSearch)
             editProfessorPage();
         
+         if(e.getSource() == btnVoltar)
+            showForm(new SubMenu());
       
         
     }
@@ -927,6 +952,17 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         button.setForeground(Color.white);
         button.setBackground(new Color(62, 62, 62));
         button.setFocusable(false);
+    }
+    
+        private void showForm(Component com) {
+        BorderLayout layout = (BorderLayout) MainMenu.main.getLayout();
+        if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+            MainMenu.main.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+        }
+
+        MainMenu.main.add(com, BorderLayout.CENTER);
+        MainMenu.main.repaint();
+        MainMenu.main.revalidate();
     }
     
 }

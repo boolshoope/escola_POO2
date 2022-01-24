@@ -156,7 +156,7 @@ public class ViewDisciplina extends JComponent implements ActionListener {
             btnSearch_Click();
         }
         if (e.getSource() == btnAdd) {
-            //showForm(new AddDisciplina());
+            showForm(new AddDisciplina());
         }
         if (e.getSource() == btnUpd) {
             btnUpd_Click();
