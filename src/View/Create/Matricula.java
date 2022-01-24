@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import org.jdatepicker.DateModel;
+import org.jdatepicker.JDatePanel;
+import org.jdatepicker.UtilDateModel;
+import org.jdatepicker.JDatePicker;
 
 public class Matricula extends JComponent implements ActionListener, MouseListener {
     private JPanel masterPanel;
@@ -44,6 +48,10 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
     
     private boolean st = false;
     private boolean st2 = false;
+    
+    UtilDateModel model;
+    JDatePanel datePanel;
+    JDatePicker datePicker;
     
     public Matricula() {
         //super("Matricula do Aluno");
@@ -210,7 +218,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         BoxLayout alBox = new BoxLayout(inner,BoxLayout.Y_AXIS);
         inner.setLayout(alBox);
         
-        inputs =  new JTextField[8];
+        inputs =  new JTextField[7];
         inputsPanel = new JPanel[8];
         st = false;
         
@@ -237,10 +245,17 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         inputs[1].setText("Nome");
         inputs[2].setText("Apelido");
         inputs[3].setText("BI");
-        inputs[4].setText("Data de Nascimento");
-        inputs[5].setText("Telefone 1");
-        inputs[6].setText("Telefone 2");
-        inputs[7].setText("Nome do Encarregado");
+        inputs[4].setText("Telefone 1");
+        inputs[5].setText("Telefone 2");
+        inputs[6].setText("Nome do Encarregado");
+        
+        model = new UtilDateModel();
+        datePanel = new JDatePanel(model);
+        datePicker = new JDatePicker(model);
+        datePicker.setPreferredSize(new Dimension(205,43));
+        datePicker.setMaximumSize(new Dimension(450,43));
+        datePicker.setBackground(Color.white);
+        datePicker.setOpaque(false);
         
         genderPanel = new JPanel();
         genderPanel.setPreferredSize(new Dimension(205, 43));
@@ -297,8 +312,13 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         estCivil.setMaximumSize(new Dimension(450, 43));
         estCivil.setFocusable(false);
         
-        for(int i=0; i<inputs.length; i++)
+        for(int i=0; i<4; i++)
             inputsPanel[i].add(inputs[i]);
+        
+        inputsPanel[4].add(datePicker);
+        
+        for(int i=4; i<inputs.length; i++)
+            inputsPanel[i+1].add(inputs[i]);
         
         for(int i=0; i<3; i++){
             inner.add(inputsPanel[i]);
@@ -436,7 +456,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         BoxLayout alBox = new BoxLayout(inner,BoxLayout.Y_AXIS);
         inner.setLayout(alBox);
         
-        inputs =  new JTextField[8];
+        inputs =  new JTextField[7];
         inputsPanel = new JPanel[8];
         st = true;
         
@@ -462,9 +482,17 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         inputs[0].setText("Nome");
         inputs[1].setText("Apelido");
         inputs[2].setText("BI");
-        inputs[3].setText("Data de Nascimento");
-        inputs[4].setText("Telefone 1");
-        inputs[5].setText("Telefone 2");
+        inputs[3].setText("Telefone 1");
+        inputs[4].setText("Telefone 2");
+        
+        model = new UtilDateModel();
+        datePanel = new JDatePanel(model);
+        datePicker = new JDatePicker(model);
+        datePicker.setPreferredSize(new Dimension(205,43));
+        datePicker.setMaximumSize(new Dimension(450,43));
+        datePicker.setBackground(Color.white);
+        datePicker.setOpaque(false);
+        
         
         genderPanel = new JPanel();
         genderPanel.setPreferredSize(new Dimension(205, 43));
@@ -523,14 +551,20 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         estCivil.setFocusable(false);
         
         classe = new JComboBox();
+        classe.addItem("classe");
+        classe.setFont(s);
         classe.setBackground(Color.white);
         classe.setPreferredSize(new Dimension(205, 43));
         classe.setMaximumSize(new Dimension(450, 43));
         classe.setFocusable(false);
         
-        for(int i=0; i<inputs.length; i++)
+        for(int i=0; i<3; i++)
             inputsPanel[i].add(inputs[i]);
         
+        inputsPanel[3].add(datePicker);
+        
+        for(int i=3; i<inputs.length; i++)
+            inputsPanel[i+1].add(inputs[i]);
         //inner.add(Box.createRigidArea(new Dimension(0,5)));
         
         for(int i=0; i<2; i++){
@@ -818,32 +852,25 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         if(e.getSource() == inputs[3]) {
             if(inputs[3].getText().equals("BI") && st == false)
                 tfChanges(inputs[3]);
-            if(inputs[3].getText().equals("Data de Nascimento") && st == true)
+            if(inputs[3].getText().equals("Telefone 1") && st == true)
                 tfChanges(inputs[3]);
         }
         
         if(e.getSource() == inputs[4]) {
-            if(inputs[4].getText().equals("Data de Nascimento") && st == false)
+            if(inputs[4].getText().equals("Telefone 1") && st == false)
                 tfChanges(inputs[4]);
-            if(inputs[4].getText().equals("Telefone 1") && st == true)
+            if(inputs[4].getText().equals("Telefone 2") && st == true)
                 tfChanges(inputs[4]);
         }
         
         if(e.getSource() == inputs[5]) {
-            if(inputs[5].getText().equals("Telefone 1") && st == false)
-                tfChanges(inputs[5]);
-            if(inputs[5].getText().equals("Telefone 2") && st == true)
+            if(inputs[5].getText().equals("Telefone 2") && st == false)
                 tfChanges(inputs[5]);
         }
         
         if(e.getSource() == inputs[6]) {
-            if(inputs[6].getText().equals("Telefone 2") && st == false)
+            if(inputs[6].getText().equals("Nome do Encarregado") && st == false)
                 tfChanges(inputs[6]);
-        }
-        
-        if(e.getSource() == inputs[7]) {
-            if(inputs[7].getText().equals("Nome do Encarregado") && st == false)
-                tfChanges(inputs[7]);
         }
     }
     
@@ -910,32 +937,25 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         if(e.getSource() == inputs[3]) {
             if(inputs[3].getText().equals("BI") || inputs[3].getText().equals("") && st == false)
                 inputs[3].setText("BI");
-            if(inputs[3].getText().equals("Data de Nascimento") || inputs[3].getText().equals("") && st == true)
-                inputs[3].setText("Data de Nascimento");
+            if(inputs[3].getText().equals("Telefone 1") || inputs[3].getText().equals("") && st == true)
+                inputs[3].setText("Telefone 1");
         }
         
         if(e.getSource() == inputs[4]) {
-            if(inputs[4].getText().equals("Data de Nascimento") || inputs[4].getText().equals("") && st == false)
-                inputs[4].setText("Data de Nascimento");
-            if(inputs[4].getText().equals("Telefone 1") || inputs[4].getText().equals("") && st == true)
+            if(inputs[4].getText().equals("Telefone 1") || inputs[4].getText().equals("") && st == false)
                 inputs[4].setText("Telefone 1");
+            if(inputs[4].getText().equals("Telefone 2") || inputs[4].getText().equals("") && st == true)
+                inputs[4].setText("Telefone 2");
         }
         
         if(e.getSource() == inputs[5]) {
-            if(inputs[5].getText().equals("Telefone 1") || inputs[5].getText().equals("") && st == false)
-                inputs[5].setText("Telefone 1");
-            if(inputs[5].getText().equals("Telefone 2") || inputs[5].getText().equals("") && st == true)
-                inputs[5].setText("Telefone 2");
-        }
-        
-        if(e.getSource() == inputs[6]) {
             if(inputs[6].getText().equals("Telefone 2") || inputs[6].getText().equals("") && st == false)
                 inputs[6].setText("Telefone 2");
         }
         
-        if(e.getSource() == inputs[7]) {
-            if(inputs[7].getText().equals("Nome do Encarregado") || inputs[7].getText().equals("") && st == false)
-                inputs[7].setText("Nome do Encarregado");
+        if(e.getSource() == inputs[6]) {
+            if(inputs[6].getText().equals("Nome do Encarregado") || inputs[6].getText().equals("") && st == false)
+                inputs[6].setText("Nome do Encarregado");
         }
     }
     
