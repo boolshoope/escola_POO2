@@ -162,6 +162,10 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         for(int i=0; i<inputs1.length; i++)
             inputs1[i].addMouseListener(this);
         
+        
+        ViewClasse viewclasse = new ViewClasse();
+        
+        
         inputs1[0].setText("ID");
         inputs1[1].setText("Nome");
         
