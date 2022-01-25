@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package View.Create;
 
 import javax.swing.*;
@@ -8,13 +12,13 @@ import java.awt.*;
  *
  * @author Gabriel
  */
-public class Disciplina {
+public class AddClasse {
     
-    JFrame janela_Disc = new JFrame("Disciplina");
+    JFrame janela_Disc = new JFrame("Classe");// criacao de JFrame classe
     Container ctDisc = janela_Disc.getContentPane();
     
     
-    public Disciplina(){
+    public AddClasse(){
         
         
         janela_Disc.setSize(1000, 650);
@@ -42,11 +46,11 @@ public class Disciplina {
         JSeparator separador = new JSeparator();
         separador.setBounds(0,60,1000,10);
         
-        JLabel title = new JLabel("DADOS DA DISCIPLINA");
+        JLabel title = new JLabel("DADOS DAS CLASSES");
         title.setBounds(30,-10,300,100);
         title.setFont(new Font("Tahoma", Font.BOLD,20));
         
-        JLabel idClasse = new JLabel("ID Disciplina");
+        JLabel idClasse = new JLabel("ID Classe");
         idClasse.setBounds(30, 100, 100, 20);
         JLabel nomeClasse = new JLabel("Nome");
         nomeClasse.setBounds(30, 150, 100, 20);
@@ -66,27 +70,28 @@ public class Disciplina {
     
     public void text(){
         
-        JTextField idDisciplinaText = new JTextField(25);
-        idDisciplinaText.setBounds(400, 100, 300, 20);
+        JTextField idClasseText = new JTextField(25);
+        idClasseText.setBounds(400, 100, 300, 20);
         
-        JTextField nomeDisciplinaText = new JTextField(25);
-        nomeDisciplinaText.setBounds(400, 150, 300, 20);
+        JTextField nomeClasseText = new JTextField(25);
+        nomeClasseText.setBounds(400, 150, 300, 20);
         
-        ctDisc.add(idDisciplinaText);
-        ctDisc.add(nomeDisciplinaText);
+        ctDisc.add(idClasseText);
+        ctDisc.add(nomeClasseText);
         
     }
     
     public void botoes(){
         
-        JButton editarButton = new JButton("Editar Disciplina");
+        JButton editarButton = new JButton("Editar Classe");
         editarButton.setBounds(480, 200, 150, 35);
         editarButton.setFocusable(false);
-        JButton adicionarButton = new JButton("Adicionar Disciplina");
+        JButton adicionarButton = new JButton("Adicionar Classe");
         adicionarButton.setBounds(480, 250, 150, 35);
         adicionarButton.setFocusable(false);
         
         ctDisc.add(editarButton);
         ctDisc.add(adicionarButton);
     }
+    
 }

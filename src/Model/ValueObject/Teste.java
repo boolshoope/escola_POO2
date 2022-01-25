@@ -5,46 +5,32 @@
  */
 package Model.ValueObject;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author isacl
  */
-public class Teste{
+public class Teste {
 
     private int idTeste;
-    private float nota;
     private String tipo;
     private Date dataRealizacao;
     private float peso;
-    private String comentario;
     private int idAnoAcademico;
     private int idDisciplina;
-    private int nrEstudante;
 
-    public Teste(int idTeste, float nota, String tipo, Date dataRealizacao, float peso, String comentario, int idAnoAcademico, int idDisciplina, int nrEstudante) {
+    public Teste(int idTeste, String tipo, Date dataRealizacao, float peso, int idAnoAcademico, int idDisciplina) {
         this.idTeste = idTeste;
-        this.nota = nota;
         this.tipo = tipo;
         this.dataRealizacao = dataRealizacao;
         this.peso = peso;
-        this.comentario = comentario;
         this.idAnoAcademico = idAnoAcademico;
         this.idDisciplina = idDisciplina;
-        this.nrEstudante = nrEstudante;
-    }
-
-    public Teste() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getIdTeste() {
         return idTeste;
-    }
-
-    public float getNota() {
-        return nota;
     }
 
     public String getTipo() {
@@ -59,10 +45,6 @@ public class Teste{
         return peso;
     }
 
-    public String getComentario() {
-        return comentario;
-    }
-
     public int getIdAnoAcademico() {
         return idAnoAcademico;
     }
@@ -71,12 +53,8 @@ public class Teste{
         return idDisciplina;
     }
 
-    public int getNrEstudante() {
-        return nrEstudante;
-    }
-
     public String toString(String est, String disc, String anoAcademico) {
-        String format = "%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s";
-        return String.format(format, idTeste, est, disc, nota, tipo, dataRealizacao, peso, anoAcademico, comentario);
+        String format = "%-20s %-20s %-20s %-20s %-20s %-20s %-20s";
+        return String.format(format, idTeste, est, disc, tipo, dataRealizacao, peso, anoAcademico);
     }
 }

@@ -5,8 +5,11 @@
  */
 package sistemagestaoescolar;
 
-import View.Create.Teste;
+import View.Create.AddTeste;
 import View.MainMenu;
+import View.SubMenu;
+import View.Visualizar.ViewDisciplina;
+
 /**
  *
  * @author isacl
@@ -18,8 +21,8 @@ public class SistemaGestaoEscolar {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        MainMenu m = new MainMenu();        
-        //Teste t = new Teste();      
+        MainMenu m = new MainMenu();
+        //Teste t = new Teste();     
     }
 
 }
