@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.DataAccessObject.BD;
+import Model.DataAccessObject.*;
 import Model.ValueObject.Classe;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -17,10 +17,10 @@ import javax.swing.table.DefaultTableModel;
 public class ClasseController {
     public List<Classe> lstClasse;
     public DefaultTableModel tableModel;
-    private BD bd;
+    private ClasseDAO bd;
 
     public ClasseController() {
-        bd = new BD();
+        bd = new ClasseDAO();
         lstClasse = bd.getClasse();
     }
 

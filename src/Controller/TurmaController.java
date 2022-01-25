@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.DataAccessObject.BD;
+import Model.DataAccessObject.*;
 import Model.ValueObject.Classe;
 import Model.ValueObject.Turma;
 import java.util.List;
@@ -20,12 +20,14 @@ public class TurmaController {
     public List<Turma> lstTurma;
     public List<Classe> lstClasse;
     public DefaultTableModel tableModel;
-    private BD bd;
+    private TurmaDAO bd;
+    private ClasseDAO bd1;
 
     public TurmaController() {
-        bd = new BD();
+        bd = new TurmaDAO();
+        bd1 = new ClasseDAO();
         lstTurma = bd.getTurma();
-        lstClasse = bd.getClasse();
+        lstClasse = bd1.getClasse();
     }
 
     public DefaultTableModel listItems() {
