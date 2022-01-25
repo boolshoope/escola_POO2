@@ -153,7 +153,7 @@ public class ViewAnoAc extends JComponent implements ActionListener{
             btnSearch_Click();
         }
         if (e.getSource() == btnAdd) {
-            //showForm(new AddDisciplina());
+            showForm(new AddAnoAcademico());
         }
         if (e.getSource() == btnUpd) {
             btnUpd_Click();
@@ -215,6 +215,7 @@ public class ViewAnoAc extends JComponent implements ActionListener{
         if (getSelectedRow != -1) {
             id = anoAc.getIdSelectedItem(getSelectedRow);
             //Chamar a classe update com o parametro
+            showForm(new updateAnoAc(id-1));
 
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um item na lista.");

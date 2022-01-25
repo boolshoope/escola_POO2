@@ -6,7 +6,6 @@
 package View.Visualizar;
 
 import Controller.DisciplinaController;
-import View.Create.AddDisciplina;
 import View.MainMenu;
 import View.SubMenu;
 import java.awt.BorderLayout;
@@ -157,7 +156,7 @@ public class ViewDisciplina extends JComponent implements ActionListener {
             btnSearch_Click();
         }
         if (e.getSource() == btnAdd) {
-            //showForm(new AddDisciplina());
+            showForm(new AddDisciplina());
         }
         if (e.getSource() == btnUpd) {
             btnUpd_Click();
@@ -218,6 +217,7 @@ public class ViewDisciplina extends JComponent implements ActionListener {
         int id;
         if (getSelectedRow != -1) {
             id = disc.getIdSelectedItem(getSelectedRow);
+            showForm(new updateDisciplina(id-1));
             //Chamar a classe update com o parametro
 
         } else {

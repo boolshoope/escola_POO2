@@ -5,12 +5,18 @@
 */
 package View.Visualizar;
 
+import View.MainMenu;
+import View.SubMenu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
 
 
@@ -45,11 +51,11 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
     private JLabel sexo1;
     private JRadioButton male1, female1;
     private ButtonGroup genderGroup1;
-    private JButton addProfessor;
+ 
     private JTextField inputs1[];
     private JComboBox estCivil1;
     
-    private JButton renovarSearch;
+    private JButton renovarSearch , btnVoltar;;
     
     private JButton update;
     
@@ -78,6 +84,13 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         masterPanel.setBorder(null);
         masterPanel.setLayout(new BorderLayout());
         
+        btnVoltar = new JButton("");
+        btnVoltar.setBounds(1060, 65, 45, 45);
+        DefinirBackImagem();
+        btnVoltar.setBackground(Color.white);
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.addActionListener(this);
+        add(btnVoltar);
         
         // painel esquerdo componentes
         btPanel = new JPanel();
@@ -87,7 +100,7 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         //btPanel.setBounds(0, 150, 200, 200);
         
         
-        leftButton[0] = new JButton("MATRICULAR");
+        leftButton[0] = new JButton("REGISTRAR");
         leftButton[1] = new JButton("RENOVAR");
         leftButton[2] = new JButton("EDITAR PROFESSOR");
         
@@ -119,6 +132,16 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         setLayout(new BorderLayout());
         add(masterPanel);
         show();
+    }
+    
+    private void DefinirBackImagem() {
+        BufferedImage imgb = null;
+        try {
+            imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
+        } catch (IOException e) {
+        }
+        Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        btnVoltar.setIcon(new ImageIcon(dimg));
     }
     
     private void renovarPageHome() {
@@ -396,10 +419,7 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         inputs1[0].setText("ID");
         inputs1[1].setText("Disciplina");
         
-        addProfessor = new JButton("Novo Professor");
-        addProfessor.addActionListener(this);
-        btProperties(addProfessor);
-        addProfessor.setBounds(10, 140, 400, 43);
+      
         //addEncarregado.setPreferredSize(new Dimension(205,43));
         //addEncarregado.setMaximumSize(new Dimension(420,43));
         //addEncarregado.set
@@ -416,9 +436,9 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         
         //inner1.add(addEncarregado);
         profDataPanel.add(inner1);
-        profDataPanel.add(addProfessor);
+       
         
-        registrar = new JButton("REGISTRAR");
+        registrar = new JButton("Novo Professor");
         btProperties(registrar);
         registrar.setBounds(475, 473, 150, 43);
         
@@ -687,8 +707,7 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
             inner1.add(Box.createRigidArea(new Dimension(0,5)));
         }
         
-        addProfessor.setBounds(10, 402, 400, 43);
-        addProfessor.setText("Voltar");
+        
     }
     
     public void actionPerformed(ActionEvent e) {
@@ -704,56 +723,10 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         if(e.getSource() == btSearch)
             editProfessorPage();
         
-        if(e.getSource() == addProfessor) {
-            if(addProfessor.getText().equalsIgnoreCase("Novo Encarregado")) {
-                addEnc();
-            }else{
-                if(addProfessor.getText().equalsIgnoreCase("Voltar")) {
-                    inner1.removeAll();
-                    inner1.revalidate();
-                    inner1.repaint();
-                    
-                    inner1.setBounds(0, 0, 420, 140);
-                    
-                    inputs1 =  new JTextField[7];
-                    inputsPanel1 = new JPanel[7];
-                    
-                    for(int i=0; i<inputsPanel1.length; i++) {
-                        inputsPanel1[i] = new JPanel();
-                        inputsPanel1[i].setBackground(Color.white);
-                        inputsPanel1[i].setPreferredSize(new Dimension(205, 43));
-                        inputsPanel1[i].setMaximumSize(new Dimension(450, 43));
-                        inputsPanel1[i].setBorder(BorderFactory.createLineBorder(new Color(148, 148, 148), 1, true));
-                        inputsPanel1[i].setLayout(new GridLayout(1,1));
-                    }
-                    
-                    for(int i=0; i<inputs1.length; i++)
-                        inputs1[i] = new JTextField();
-                    
-                    for(int i=0; i<inputs1.length; i++)
-                        tfProperties(inputs1[i]);
-                    
-                    for(int i=0; i<inputs1.length; i++)
-                        inputs1[i].addMouseListener(this);
-                    
-                    inputs1[0].setText("ID");
-                    inputs1[1].setText("Grau de Parentesco");
-                    
-                    for(int i=0; i<inputs1.length; i++)
-                        inputsPanel1[i].add(inputs1[i]);
-                    
-                    inner1.add(Box.createRigidArea(new Dimension(0,15)));
-                    
-                    for(int i=0; i<2; i++){
-                        inner1.add(inputsPanel1[i]);
-                        inner1.add(Box.createRigidArea(new Dimension(0,5)));
-                    }
-                    
-                    addProfessor.setBounds(10, 140, 400, 43);
-                    addProfessor.setText("Novo Encarregado");
-                }
-            }
-        }
+         if(e.getSource() == btnVoltar)
+            showForm(new SubMenu());
+      
+        
     }
     
     public void mouseClicked(MouseEvent e) {
@@ -979,6 +952,17 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         button.setForeground(Color.white);
         button.setBackground(new Color(62, 62, 62));
         button.setFocusable(false);
+    }
+    
+        private void showForm(Component com) {
+        BorderLayout layout = (BorderLayout) MainMenu.main.getLayout();
+        if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+            MainMenu.main.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+        }
+
+        MainMenu.main.add(com, BorderLayout.CENTER);
+        MainMenu.main.repaint();
+        MainMenu.main.revalidate();
     }
     
 }

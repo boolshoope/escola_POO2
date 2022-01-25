@@ -26,7 +26,7 @@ import javax.swing.border.TitledBorder;
  *
  * @author Gabriel
  */
-public class AddClasse extends JComponent implements ActionListener, MouseListener {
+public class AddDisciplina extends JComponent implements ActionListener, MouseListener {
     
     private JPanel masterPanel;
     private JPanel headerPanel;
@@ -62,7 +62,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
     private boolean st = false;
     private boolean st2 = false;
     
-    public AddClasse() {
+    public AddDisciplina() {
         
         
         masterPanel = new JPanel();
@@ -169,7 +169,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         inputs1[0].setText("ID");
         inputs1[1].setText("Nome");
         
-        addClasse = new JButton("Nova Classe");
+        addClasse = new JButton("Nova Disciplina");
         addClasse.addActionListener(this);
         btProperties(addClasse);
         addClasse.setBounds(10, 140, 400, 43);
@@ -210,7 +210,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
-            showForm(new ViewClasse());
+            showForm(new SubMenu());
         }
     }
     
@@ -245,7 +245,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
     @Override
     public void mouseExited(MouseEvent e) {
         if(e.getSource() == inputs1[0]) {
-            if(inputs1[0].getText().equals("ID") || inputs1[0].getText().equals(""))
+            if(inputs1[0].getText().equals("ID") || inputs1[0].getText().equals("") )
                 inputs1[0].setText("ID");
         }
         
@@ -256,6 +256,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         
         
         // -----------------------------------------------------------------------
+        
 
     }
     
