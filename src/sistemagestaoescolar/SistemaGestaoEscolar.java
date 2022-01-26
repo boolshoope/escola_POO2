@@ -6,6 +6,7 @@
 package sistemagestaoescolar;
 
 import View.Create.AddTeste;
+import View.Create.Relatorio;
 import View.MainMenu;
 import View.SubMenu;
 import View.Visualizar.ViewDisciplina;
@@ -22,7 +23,10 @@ public class SistemaGestaoEscolar {
     public static void main(String[] args) {
         // TODO code application logic here
         MainMenu m = new MainMenu();
-        //Teste t = new Teste();     
+        /*
+        Relatorio r = new Relatorio();
+        r.GerarCertificado();
+         */
     }
 
 }

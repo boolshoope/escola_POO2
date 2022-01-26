@@ -250,12 +250,14 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         inputs[6].setText("Nome do Encarregado");
         
         model = new UtilDateModel();
+        /*
         datePanel = new JDatePanel(model);
         datePicker = new JDatePicker(model);
         datePicker.setPreferredSize(new Dimension(205,43));
         datePicker.setMaximumSize(new Dimension(450,43));
         datePicker.setBackground(Color.white);
         datePicker.setOpaque(false);
+        */
         
         genderPanel = new JPanel();
         genderPanel.setPreferredSize(new Dimension(205, 43));
@@ -315,7 +317,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         for(int i=0; i<4; i++)
             inputsPanel[i].add(inputs[i]);
         
-        inputsPanel[4].add(datePicker);
+        //inputsPanel[4].add(datePicker);
         
         for(int i=4; i<inputs.length; i++)
             inputsPanel[i+1].add(inputs[i]);
@@ -486,13 +488,14 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         inputs[4].setText("Telefone 2");
         
         model = new UtilDateModel();
+        /*
         datePanel = new JDatePanel(model);
         datePicker = new JDatePicker(model);
         datePicker.setPreferredSize(new Dimension(205,43));
         datePicker.setMaximumSize(new Dimension(450,43));
         datePicker.setBackground(Color.white);
         datePicker.setOpaque(false);
-        
+        */
         
         genderPanel = new JPanel();
         genderPanel.setPreferredSize(new Dimension(205, 43));
@@ -561,7 +564,7 @@ public class Matricula extends JComponent implements ActionListener, MouseListen
         for(int i=0; i<3; i++)
             inputsPanel[i].add(inputs[i]);
         
-        inputsPanel[3].add(datePicker);
+        //inputsPanel[3].add(datePicker);
         
         for(int i=3; i<inputs.length; i++)
             inputsPanel[i+1].add(inputs[i]);

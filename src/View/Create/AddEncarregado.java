@@ -18,7 +18,7 @@ import javax.swing.border.TitledBorder;
 
 public class AddEncarregado extends JComponent implements ActionListener,MouseListener {
     private JPanel masterPanel, paneAdd;
-    private JPanel inputsPane[] = new JPanel[8];
+    private JPanel inputsPane[] = new JPanel[9];
     private JLabel headerLabel, usr, img;
     private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 20);
     private JButton Button[] = new JButton[3];
@@ -172,6 +172,7 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         
         masterPanel.add(paneAdd);
         add(masterPanel);
+        setSize(1100, 600);
         show();
     }
     
