@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.DataAccessObject.BD;
+import Model.DataAccessObject.*;
 import Model.ValueObject.AnoAcademico;
 import Model.ValueObject.Turma;
 import java.util.List;
@@ -19,10 +19,10 @@ public class AnoAcController {
 
     public List<AnoAcademico> lstAnoAc;
     public DefaultTableModel tableModel;
-    private BD bd;
+    private AnoAcademicoDAO bd;
 
     public AnoAcController() {
-        bd = new BD();
+        bd = new AnoAcademicoDAO();
         lstAnoAc = bd.getAnoAcademico();
     }
 

@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.DataAccessObject.BD;
+import Model.DataAccessObject.*;
 import Model.ValueObject.Disciplina;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -18,10 +18,10 @@ public class DisciplinaController {
 
     public List<Disciplina> lstDisciplina;
     public DefaultTableModel tableModel;
-    private BD bd;
+    private DisciplinaDAO bd;
 
     public DisciplinaController() {
-        bd = new BD();
+        bd = new DisciplinaDAO();
         lstDisciplina = bd.getDisciplina();
     }
 

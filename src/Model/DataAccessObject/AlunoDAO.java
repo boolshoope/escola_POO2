@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model.DataAccessObject;
 
 import Model.ValueObject.*;
@@ -13,15 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-/**
- *
- * @author isacl
- */
-public class BD {
-
+public class AlunoDAO {
     private Connection conexao;
 
-    public BD() {
+    public  AlunoDAO() {
         try {
             conexao = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/escola", "root", "");
@@ -29,16 +19,32 @@ public class BD {
             System.out.println("Erro de conexao: " + ex.getMessage());
         }
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="Selects">
-    
+    public List<Aluno> getAluno() {
+        List<Aluno> lstAl = new ArrayList<>();
+        Aluno al;
+        ResultSet rs;
 
-    
+        try {
+            String query = "select * from aluno";
+            PreparedStatement stmt = conexao.prepareStatement(query);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                al = new Aluno(getPessoa(rs.getInt("idPessoa")), rs.getInt("nrEstudante"),
+                        rs.getDate("dataNascimento"), rs.getInt("idEncarregadoEducacao"));
+                lstAl.add(al);
+            }
 
+            rs.close();
+            stmt.close();
+            return lstAl;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     
-
-    
-
     private Pessoa getPessoa(int id) {
         Pessoa p = null;
         ResultSet rs;
@@ -61,28 +67,5 @@ public class BD {
             throw new RuntimeException(e);
         }
     }
-
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="Inserts">
-    
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Updates">
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Delete">
-    // </editor-fold>
 }

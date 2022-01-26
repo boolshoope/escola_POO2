@@ -156,7 +156,7 @@ public class ViewClasse extends JComponent implements ActionListener {
             btnSearch_Click();
         }
         if (e.getSource() == btnAdd) {
-            //showForm(new AddDisciplina());
+            showForm(new   AddClasse());
         }
         if (e.getSource() == btnUpd) {
             btnUpd_Click();
@@ -195,6 +195,7 @@ public class ViewClasse extends JComponent implements ActionListener {
             int reply = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o registo?", "Confirmacao.", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 classe.deleteItem(getSelectedRow);
+                
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
             }
         } else {
@@ -217,6 +218,9 @@ public class ViewClasse extends JComponent implements ActionListener {
         int id;
         if (getSelectedRow != -1) {
             id = classe.getIdSelectedItem(getSelectedRow);
+            
+            showForm(new updateClasse(id-1));
+           
             //Chamar a classe update com o parametro
 
         } else {
