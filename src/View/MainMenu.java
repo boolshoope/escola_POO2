@@ -10,6 +10,7 @@ import View.Create.AddEncarregado;
 import View.Create.AddMatricula;
 import View.Create.*;
 import View.Visualizar.ViewDisciplina;
+import View.Visualizar.ViewRelatorio;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -124,6 +125,8 @@ public class MainMenu extends JFrame implements ActionListener {
         show();
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        showForm(new ViewRelatorio());
     }
 
     private void SetWButtons(JButton btn, String file) {

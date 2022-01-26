@@ -6,7 +6,6 @@
 package View.Create;
 
 import Controller.*;
-import Model.DataAccessObject.BD;
 import Model.ValueObject.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
