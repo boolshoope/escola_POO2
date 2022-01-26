@@ -1,10 +1,15 @@
-package View.Create;
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package View.Visualizar;
 
 /**
  *
  * @author Basilio
  */
+
 import View.Visualizar.ViewEncarregado;
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +21,10 @@ import java.awt.event.MouseListener;
 import javax.swing.border.TitledBorder;
 
 
-public class AddEncarregado extends JComponent implements ActionListener,MouseListener {
+public class UpdateEncarregado extends JComponent implements ActionListener,MouseListener  {
+       
     private JPanel masterPanel, paneAdd;
-    private JPanel inputsPane[] = new JPanel[8];
+    private JPanel inputsPane[] = new JPanel[9];
     private JLabel headerLabel, usr, img;
     private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 20);
     private JButton Button[] = new JButton[3];
@@ -35,11 +41,7 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
     int i, idEncarregado;
     boolean st = false;
     
-    public AddEncarregado(){
-//        super("Adicionar");
-//        setSize(1020,640);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+    public UpdateEncarregado(){
         masterPanel = new JPanel();
         masterPanel.setBackground(Color.white);
         masterPanel.setLayout(null);
@@ -50,7 +52,7 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         paneAdd.setBackground(Color.white);
         paneAdd.setBorder(BorderFactory.createTitledBorder(
                         BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
-                        "Dados do Encarregado", 
+                        "Actualizar Encarregado", 
                         TitledBorder.LEFT,
                         TitledBorder.TOP,
                         br,
@@ -58,7 +60,6 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         paneAdd.setBounds(110, 10, 450,450);
         paneAdd.setLayout(null);
         
-        txtLab[0] = new JLabel("Encarregado");
         
         for(int i=0; i<inputsPane.length; i++) {
             inputsPane[i] = new JPanel();
@@ -89,12 +90,12 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
             inputs[i].addMouseListener(this);
         }
         
-        inputs[0].setText("Nome");
-        inputs[1].setText("Apelido");
-        inputs[2].setText("Numero de BI");
-        inputs[3].setText("Data de Nascimento");
-        inputs[4].setText("Telefone 1");
-        inputs[5].setText("Telefone 2");
+        inputs[0].setText("Alone");
+        inputs[1].setText("Quintal");
+        inputs[2].setText("1105052643M");
+        inputs[3].setText("16/05/2000");
+        inputs[4].setText("852507986");
+        inputs[5].setText("877085181");
         
         txtLab[0] = new JLabel("ID do Encarregado: \t       "+idEncarregado);
         txtLab[0].setFont(s);
@@ -172,7 +173,9 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         
         masterPanel.add(paneAdd);
         add(masterPanel);
+        
         show();
+        
     }
     
     private void tfProperties(JTextField tf) {
@@ -207,13 +210,13 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
             inputs[0].setText("Nome");
             inputs[1].setText("Apelido");
             inputs[2].setText("Numero de BI");
-            inputs[3].setText("Data de Nascimento (DD/MM/AAAA)");
+            inputs[3].setText("Data de Nascimento");
             inputs[4].setText("Telefone 1");
             inputs[5].setText("Telefone 2");
         }
         
         if(ae.getSource() == Button[2]){
-            JOptionPane.showMessageDialog(null, "Salvou com Sucesso!");
+            JOptionPane.showMessageDialog(null, "Actualizado com Sucesso!");
             showForm(new ViewEncarregado());
         }
     }
@@ -235,7 +238,6 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
 
     @Override
     public void mouseEntered(MouseEvent me) {
-        
         if(me.getSource() == inputs[0]) {
             if(inputs[0].getText().equals("Nome") && st == false)
                 tfChanges(inputs[0]);
@@ -253,12 +255,12 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         if(me.getSource() == inputs[2]) {
             if(inputs[2].getText().equals("Numero de BI") && st == false)
                 tfChanges(inputs[2]);
-            if(inputs[2].getText().equals("Data de Nascimento  (DD/MM/AAAA)") && st == true)
+            if(inputs[2].getText().equals("Data de Nascimento") && st == true)
                 tfChanges(inputs[2]);
         }
         
         if(me.getSource() == inputs[3]) {
-            if(inputs[3].getText().equals("Data de Nascimento  (DD/MM/AAAA)") && st == false)
+            if(inputs[3].getText().equals("Data de Nascimento") && st == false)
                 tfChanges(inputs[3]);
             if(inputs[3].getText().equals("Telefone 1") && st == true)
                 tfChanges(inputs[3]);
@@ -275,7 +277,6 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
             if(inputs[5].getText().equals("Telefone 2") && st == false)
                 tfChanges(inputs[5]);
         }
-        
     }
 
     @Override
@@ -297,12 +298,12 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         if(me.getSource() == inputs[2]) {
             if(inputs[2].getText().equals("BI") || inputs[2].getText().equals("") && st == false)
                 inputs[2].setText("Numero de BI");
-            if(inputs[2].getText().equals("Data de Nascimento (DD/MM/AAAA)") || inputs[2].getText().equals("") && st == true)
+            if(inputs[2].getText().equals("Data de Nascimento") || inputs[2].getText().equals("") && st == true)
                 inputs[2].setText("Data de Nascimento");
         }
         
         if(me.getSource() == inputs[3]) {
-            if(inputs[3].getText().equals("Data de Nascimento (DD/MM/AAAA)") || inputs[3].getText().equals("") && st == false)
+            if(inputs[3].getText().equals("Data de Nascimento") || inputs[3].getText().equals("") && st == false)
                 inputs[3].setText("Data de Nascimento");
             if(inputs[3].getText().equals("Telefone 1") || inputs[3].getText().equals("") && st == true)
                 inputs[3].setText("Telefone 1");
@@ -319,7 +320,6 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
             if(inputs[5].getText().equals("Telefone 2") || inputs[5].getText().equals("") && st == false)
                 inputs[5].setText("Telefone 2");
         }
-        
     }
     
     private void tfChanges(JTextField tfd) {
@@ -336,7 +336,5 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         MainMenu.main.repaint();
         MainMenu.main.revalidate();
     }
-
-    
     
 }

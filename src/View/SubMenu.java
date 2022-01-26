@@ -105,7 +105,7 @@ public class SubMenu extends JComponent implements ActionListener {
         } else if (e.getSource() == btn[3]) {
             showForm(new ViewClasse());
         } else if (e.getSource() == btn[4]) {
-
+            showForm(new ViewEncarregado());
         } else if (e.getSource() == btn[5]) {
             showForm(new ViewProfessor());
         }
