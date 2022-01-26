@@ -72,11 +72,11 @@ public class ViewRelatorio extends JComponent implements ActionListener {
         panList.setBackground(Color.white);
         panList.setForeground(Color.black);
 
-        lblDisc = new JLabel("Ano Academico");
-        lblDisc.setBounds(500, 20, 200, 30);
+        lblDisc = new JLabel("Gerar Certificado");
+        lblDisc.setBounds(450, 20, 300, 30);
         lblDisc.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
 
-        lblIdProd = new JLabel("Ano Academico");
+        lblIdProd = new JLabel("Número de Estudante");
         lblIdProd.setBounds(30, ilblY, 200, 20);
         lblIdProd.setFont(f1);
         add(lblIdProd);
