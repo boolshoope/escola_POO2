@@ -71,7 +71,6 @@ public class AnoAcController {
         AnoAcademico ac = null;
 
         for (int i = 0; i < lstAnoAc.size(); i++) {
-            System.out.println(lstAnoAc.get(i).getAno() + "");
             if (lstAnoAc.get(i).getAno() == nome) {
                 ac = lstAnoAc.get(i);
                 break;
