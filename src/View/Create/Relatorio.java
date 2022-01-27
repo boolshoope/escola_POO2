@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -156,10 +157,11 @@ public class Relatorio {
                 }
             }
         }
+        listItems();
     }
 
     static String[] dadosP = new String[6];
-    static String[][] notas;
+    public String[][] notas;
     static String medGlobal;
 
     public void GerarCertificado() {
@@ -251,6 +253,20 @@ public class Relatorio {
             System.out.println(ex.toString());
         } catch (IOException ex) {
             System.out.println(ex.toString());
+        }
+    }
+
+    public DefaultTableModel tableModel;
+    public void listItems() {
+        String col[] = {"Disciplina", "Media"};
+        tableModel = new DefaultTableModel(col, 0);
+
+        String disc, nota;
+        for (int i = 0; i < notas.length; i++) {
+            disc = notas[i][0];
+            nota = notas[i][1];
+            Object[] data = {disc, nota};
+            tableModel.addRow(data);
         }
     }
 
