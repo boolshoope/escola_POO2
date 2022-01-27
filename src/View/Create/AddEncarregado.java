@@ -17,9 +17,8 @@ import javax.swing.border.TitledBorder;
 
 
 public class AddEncarregado extends JComponent implements ActionListener,MouseListener {
-    private JPanel masterPanel, paneAdd;
-    private JPanel inputsPane[] = new JPanel[8];
-    private JLabel headerLabel, usr, img;
+    private JPanel masterPanel, paneAdd, panMain;
+    private JPanel inputsPane[] = new JPanel[9];
     private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 20);
     private JButton Button[] = new JButton[3];
     private String texto[] = {"Id","Nome","Apelido","Numero de BI","Sexo","Estado Civil","Telefone 1","Telefone 2"};
@@ -32,33 +31,23 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
     private String path = System.getProperty("user.dir") + "/src/View/img/";
     Font br = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
     Font s = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+    private Font f2 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
     int i, idEncarregado;
     boolean st = false;
     
     public AddEncarregado(){
-//        super("Adicionar");
-//        setSize(1020,640);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         masterPanel = new JPanel();
         masterPanel.setBackground(Color.white);
         masterPanel.setLayout(null);
-        masterPanel.setLayout(new BorderLayout());
-        
+        masterPanel.setBounds(0, 0, 1800, 1000);
         
         paneAdd = new JPanel();
-        paneAdd.setBackground(Color.white);
-        paneAdd.setBorder(BorderFactory.createTitledBorder(
-                        BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
-                        "Dados do Encarregado", 
-                        TitledBorder.LEFT,
-                        TitledBorder.TOP,
-                        br,
-                        new Color(62, 62, 62)));
-        paneAdd.setBounds(110, 10, 450,450);
         paneAdd.setLayout(null);
-        
-        txtLab[0] = new JLabel("Encarregado");
+        paneAdd.setBackground(Color.white);
+        TitledBorder tb = BorderFactory.createTitledBorder("Adicionar Encarregado");
+        tb.setTitleFont(f2);
+        paneAdd.setBorder(tb);
+        paneAdd.setBounds(20, 10, 1000,550);
         
         for(int i=0; i<inputsPane.length; i++) {
             inputsPane[i] = new JPanel();
@@ -92,7 +81,7 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         inputs[0].setText("Nome");
         inputs[1].setText("Apelido");
         inputs[2].setText("Numero de BI");
-        inputs[3].setText("Data de Nascimento");
+        inputs[3].setText("Data de Nascimento (DD/MM/AAAA)");
         inputs[4].setText("Telefone 1");
         inputs[5].setText("Telefone 2");
         
@@ -154,16 +143,16 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         inputsPane[1].setBounds(50, 170, 160, 40);
         inputsPane[2].setBounds(50, 240, 360, 40);
         inputsPane[3].setBounds(50, 310, 320, 40);
-        inputsPane[4].setBounds(580, 240, 320, 40);
-        inputsPane[5].setBounds(580, 310,320, 40);
-        inputsPane[6].setBounds(580, 30, 320, 40);
-        inputsPane[7].setBounds(580, 100, 320, 40);
+        inputsPane[4].setBounds(600, 240, 320, 40);
+        inputsPane[5].setBounds(600, 310,320, 40);
+        inputsPane[6].setBounds(600, 30, 320, 40);
+        inputsPane[7].setBounds(600, 100, 320, 40);
         inputsPane[8].setBounds(50, 30, 360, 40);
         
         
-        Button[0].setBounds(50, 500,120, 40);
-        Button[1].setBounds(600, 500,120, 40);
-        Button[2].setBounds(750, 500,120, 40);
+        Button[0].setBounds(70, 500,120, 40);
+        Button[1].setBounds(620, 500,120, 40);
+        Button[2].setBounds(820, 500,120, 40);
         
         txtLab[1].setBounds(50,190,60,40);
         
@@ -171,7 +160,9 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
             masterPanel.add(Button[i]);
         
         masterPanel.add(paneAdd);
+        
         add(masterPanel);
+        setSize(1100, 600);
         show();
     }
     
@@ -246,7 +237,7 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         if(me.getSource() == inputs[1]) {
             if(inputs[1].getText().equals("Apelido") && st == false)
                 tfChanges(inputs[1]);
-            if(inputs[1].getText().equals("Numero de BI") && st == true)
+            if(inputs[1].getText().equals("Numero de BI (DD/MM/AAAA)") && st == true)
                 tfChanges(inputs[1]);
         }
         
@@ -336,6 +327,16 @@ public class AddEncarregado extends JComponent implements ActionListener,MouseLi
         MainMenu.main.repaint();
         MainMenu.main.revalidate();
     }
+    
+//    private void DefinirBackImagem() {
+//        BufferedImage imgb = null;
+//        try {
+//            imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
+//        } catch (IOException e) {
+//        }
+//        Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+//        btnVoltar.setIcon(new ImageIcon(dimg));
+//    }
 
     
     

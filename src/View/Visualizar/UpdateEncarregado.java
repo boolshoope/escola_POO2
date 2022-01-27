@@ -38,27 +38,23 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
     private String path = System.getProperty("user.dir") + "/src/View/img/";
     Font br = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
     Font s = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
-    int i, idEncarregado;
+    private Font f2 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+    int i, idEncarregado = 1;
     boolean st = false;
     
     public UpdateEncarregado(){
         masterPanel = new JPanel();
         masterPanel.setBackground(Color.white);
         masterPanel.setLayout(null);
-        masterPanel.setLayout(new BorderLayout());
-        
+        masterPanel.setBounds(0, 0, 1800, 1000);
         
         paneAdd = new JPanel();
         paneAdd.setBackground(Color.white);
-        paneAdd.setBorder(BorderFactory.createTitledBorder(
-                        BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
-                        "Actualizar Encarregado", 
-                        TitledBorder.LEFT,
-                        TitledBorder.TOP,
-                        br,
-                        new Color(62, 62, 62)));
-        paneAdd.setBounds(110, 10, 450,450);
         paneAdd.setLayout(null);
+        TitledBorder tb = BorderFactory.createTitledBorder("Actualizar Encarregado");
+        tb.setTitleFont(f2);
+        paneAdd.setBorder(tb);
+        paneAdd.setBounds(20, 10, 1000,550);
         
         
         for(int i=0; i<inputsPane.length; i++) {
@@ -155,16 +151,16 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
         inputsPane[1].setBounds(50, 170, 160, 40);
         inputsPane[2].setBounds(50, 240, 360, 40);
         inputsPane[3].setBounds(50, 310, 320, 40);
-        inputsPane[4].setBounds(580, 240, 320, 40);
-        inputsPane[5].setBounds(580, 310,320, 40);
-        inputsPane[6].setBounds(580, 30, 320, 40);
-        inputsPane[7].setBounds(580, 100, 320, 40);
+        inputsPane[4].setBounds(600, 240, 320, 40);
+        inputsPane[5].setBounds(600, 310,320, 40);
+        inputsPane[6].setBounds(600, 30, 320, 40);
+        inputsPane[7].setBounds(600, 100, 320, 40);
         inputsPane[8].setBounds(50, 30, 360, 40);
         
         
-        Button[0].setBounds(50, 500,120, 40);
-        Button[1].setBounds(600, 500,120, 40);
-        Button[2].setBounds(750, 500,120, 40);
+        Button[0].setBounds(70, 500,120, 40);
+        Button[1].setBounds(620, 500,120, 40);
+        Button[2].setBounds(820, 500,120, 40);
         
         txtLab[1].setBounds(50,190,60,40);
         

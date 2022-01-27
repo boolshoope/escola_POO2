@@ -13,6 +13,7 @@ import Controller.ClasseController;
 import View.MainMenu;
 import View.SubMenu;
 import View.Create.AddEncarregado;
+import View.Visualizar.UpdateEncarregado;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,7 +48,7 @@ public class ViewEncarregado extends JComponent implements ActionListener {
 
         panMenu = new JPanel();
         panMenu.setBorder(tb);
-        panMenu.setBounds(15, 63, 330, 523);
+        panMenu.setBounds(15, 63, 320, 523);
         panMenu.setBackground(Color.white);
 
         tb = BorderFactory.createTitledBorder("Lista");
@@ -56,7 +57,7 @@ public class ViewEncarregado extends JComponent implements ActionListener {
         panList = new JPanel();
         panList.setBorder(tb);
 
-        panList.setBounds(359, 62, 700, 524);
+        panList.setBounds(349, 62, 700, 524);
         panList.setBackground(Color.white);
         panList.setForeground(Color.black);
 
@@ -87,45 +88,46 @@ public class ViewEncarregado extends JComponent implements ActionListener {
         btnVoltar.addActionListener(this);
         add(btnVoltar);
 
-        btnAdd = new JButton("Adicionar Encarregado");
-        btnAdd.setBounds(50, ilblY + 114, 260, 40);
+        btnAdd = new JButton("Adicionar");
+        btnAdd.setBounds(50, ilblY + 114, 240, 40);
         btnAdd.setFont(f1);
         btnAdd.addActionListener(this);
         setButtonColors(btnAdd);
         add(btnAdd);
 
-        btnUpd = new JButton("Actualizar Encarregado");
-        btnUpd.setBounds(50, ilblY + 165, 260, 40);
+        btnUpd = new JButton("Actualizar");
+        btnUpd.setBounds(50, ilblY + 165, 240, 40);
         btnUpd.setFont(f1);
         btnUpd.addActionListener(this);
         setButtonColors(btnUpd);
         add(btnUpd);
 
-        btnDel = new JButton("Remover Encarregado");
-        btnDel.setBounds(50, ilblY + 216, 260, 40);
+        btnDel = new JButton("Remover");
+        btnDel.setBounds(50, ilblY + 216, 240, 40);
         btnDel.setFont(f1);
         btnDel.addActionListener(this);
         setButtonColors(btnDel);
         add(btnDel);
 
         btnSearch = new JButton("Procurar");
-        btnSearch.setBounds(220, ilblY + 29, 110, 30);
+        btnSearch.setBounds(220, ilblY + 29, 100, 30);
         btnSearch.setFont(f1);
         btnSearch.addActionListener(this);
         setButtonColors(btnSearch);
         add(btnSearch);
 
         
-        Object obj[][]={{" "," "," "," "," "," "," "," "},};
+        Object obj[][]={{"1","Alone","Quintal","1105052643M","Masculino","Solteiro","852507986","877085181"},};
         tab = new JTable(obj,texto);
         tab.setFont(f2);
-        tab.setRowHeight(22);
+        tab.setRowHeight(15);
         TableColumnModel columnModel = tab.getColumnModel();
         columnModel.getColumn(0).setMaxWidth(50);
+        
         tab.setColumnModel(columnModel);
 
         JScrollPane sp = new JScrollPane(tab);
-        sp.setBounds(380, 90, 640, 480);
+        sp.setBounds(365, 90, 675, 480);
         add(sp);
 
         add(panList);
@@ -156,7 +158,7 @@ public class ViewEncarregado extends JComponent implements ActionListener {
             showForm(new  AddEncarregado());
         }
         if (e.getSource() == btnUpd) {
-            showForm(new  UpdateEncarregado());
+            btnUpd_Click();
         }
         if (e.getSource() == btnDel) {
             btnDel_Click();
@@ -215,7 +217,7 @@ public class ViewEncarregado extends JComponent implements ActionListener {
         int id;
         if (getSelectedRow != -1) {
             //id = classe.getIdSelectedItem(getSelectedRow);
-            
+            showForm(new  UpdateEncarregado());
             //showForm(new updateClasse(id-1));
            
             //Chamar a classe update com o parametro
