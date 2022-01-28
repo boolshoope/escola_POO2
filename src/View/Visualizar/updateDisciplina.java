@@ -223,7 +223,7 @@ public class updateDisciplina extends JComponent implements ActionListener, Mous
             Disciplina disciplina = new Disciplina(Integer.parseInt(inputs1[0].getText()), inputs1[1].getText());
             try {
                 dDAO.atualizarDisciplina(disciplina);
-                JOptionPane.showMessageDialog(null, "Disciplina Atualizada com Sucesso!");
+           
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);

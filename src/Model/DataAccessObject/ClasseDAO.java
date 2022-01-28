@@ -56,7 +56,7 @@ public class ClasseDAO {
             ps.setInt(1, classe.getIdClasse());
             ps.setString(2, classe.getNome());
             ps.execute();
-            JOptionPane.showMessageDialog(null, "Classe Atualizada com Sucesso!");
+            JOptionPane.showMessageDialog(null, "Classe Adicionada com Sucesso!");
             
         }catch(Exception e){
             
@@ -85,10 +85,11 @@ public class ClasseDAO {
         
         try{
             conn = new ConnectionFactory().getConnection();
-            ps = conn.prepareStatement("update classe set nome = ?" + "WHERE idClasse = ?");
+            ps = conn.prepareStatement("update classe set nome = ?" + " WHERE idClasse = ?");
             ps.setString(1, classe.getNome());
             ps.setInt(2, classe.getIdClasse());
             ps.execute();
+            JOptionPane.showMessageDialog(null, "Classe Atualizada com Sucesso!");
             
         }catch(Exception e){
             
@@ -119,6 +120,7 @@ public class ClasseDAO {
             ps = conn.prepareStatement("delete from classe WHERE idClasse = ?");
             ps.setInt(1, classe.getIdClasse());
             ps.execute();
+            JOptionPane.showMessageDialog(null, "Classe removida com Sucesso!");
             
         }catch(Exception e){
             

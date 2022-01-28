@@ -223,7 +223,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
                 Classe classe = new Classe(Integer.parseInt(inputs1[0].getText()), inputs1[1].getText());
                 try {
                     cDAO.adicionaClasse(classe);
-                    JOptionPane.showMessageDialog(null, "Classe Registrada com Sucesso!");
+                    
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);

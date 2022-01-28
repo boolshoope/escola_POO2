@@ -209,13 +209,13 @@ public class ViewAnoAc extends JComponent implements ActionListener{
                     AnoAcademico ac = new AnoAcademico(idAnoAc, ano, trimestre);
                     try {
                         acDAO.deleteAc(ac);
-                        JOptionPane.showMessageDialog(null, "Ano Academico Removido com Sucesso!");
+                        
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                         //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     anoAc.deleteItem(getSelectedRow);
-                    JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
+                    
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Selecione um item na lista.");
