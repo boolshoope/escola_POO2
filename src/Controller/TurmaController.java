@@ -77,4 +77,14 @@ public class TurmaController {
         int id = lstTurma.get(index).getIdClasse();
         return id;
     }
+    
+    public int getMaxSelectedItem(int index) {
+        int max = lstTurma.get(index).getMaxAlunos();
+        return max;
+    }
+    
+    public String getNomeSelectedItem(int index) {
+        String nome = lstTurma.get(index).getNome();
+        return nome;
+    }
 }
