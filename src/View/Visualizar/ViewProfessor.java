@@ -51,7 +51,7 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
     private JComboBox estCivil;
     private JComboBox classe;
     
-    private JPanel profDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
+    private JPanel profDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1, panelDisciplina, panelClasse;
     private JLabel sexo1;
     private JRadioButton male1, female1;
     private ButtonGroup genderGroup1;
@@ -455,9 +455,16 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         }
         classe.setBackground(Color.white);
         classe.setFont(s);
-        classe.setPreferredSize(new Dimension(205, 43));
+        classe.setPreferredSize(new Dimension(430, 43));
         classe.setMaximumSize(new Dimension(450, 43));
         classe.setFocusable(false);
+        
+        panelClasse = new JPanel();
+        panelDisciplina = new JPanel();
+        
+        
+        panelClasse.add(classe);
+        
         
          //===========================
               // Controller Discipina
@@ -473,14 +480,14 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         }
         disciplina.setBackground(Color.white);
         disciplina.setFont(s);
-        disciplina.setPreferredSize(new Dimension(205, 43));
+        disciplina.setPreferredSize(new Dimension(430, 43));
         disciplina.setMaximumSize(new Dimension(450, 43));
         disciplina.setFocusable(false);
         
         //addEncarregado.setPreferredSize(new Dimension(205,43));
         //addEncarregado.setMaximumSize(new Dimension(420,43));
         //addEncarregado.set
-        
+        panelClasse.add(disciplina);
         for(int i=0; i<inputs1.length; i++)
             inputsPanel1[i].add(inputs1[i]);
         
@@ -490,8 +497,10 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
             inner1.add(inputsPanel1[i]);
             inner1.add(Box.createRigidArea(new Dimension(0,5)));
         }
-        inner1.add(classe);
-        inner1.add(disciplina);
+        panelClasse.setBackground(Color.WHITE);
+        panelDisciplina.setBackground(Color.WHITE);
+        inner1.add(panelClasse);
+        inner1.add(panelDisciplina);
         //inner1.add(addEncarregado);
         profDataPanel.add(inner1);
         
