@@ -46,8 +46,6 @@ public class TesteDAO {
     }
 
     public void saveData(Teste t) {
-        //    public Teste(int idTeste, String tipo, Date dataRealizacao, float peso, int idAnoAcademico, int idDisciplina) {
-
         String query = "INSERT INTO teste(idTeste,tipo,dataRealizacao,peso,idAnoAcademico,idDisciplina) VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conexao.prepareStatement(query);

@@ -21,4 +21,6 @@ public class AlunoTesteController {
         bd = new AlunoTesteDAO();
         lstAlunoTeste = bd.getAlunoTeste();
     }
+    
+    //public void inserirDados
 }

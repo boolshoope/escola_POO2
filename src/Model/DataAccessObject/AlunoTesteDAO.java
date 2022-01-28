@@ -41,4 +41,19 @@ public class AlunoTesteDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public void saveData(AlunoTeste at){
+        String query="INSERT INTO alunoTeste(nrEstudante,idTeste,nota,comentario) VALUES(?,?,?,?)";                
+        try {
+            PreparedStatement stmt=conexao.prepareStatement(query);
+            stmt.setInt(1, at.getNrEstudante());
+            stmt.setInt(2, at.getIdTeste());
+            stmt.setFloat(3, at.getNota());                     
+            stmt.setString(3, at.getComentario());                     
+            stmt.executeUpdate();
+            stmt.close();                             
+        } catch (SQLException ex) {
+            System.out.println("Erro de insercao da base de dados:: "+ex.getMessage());
+        }
+    }   
 }

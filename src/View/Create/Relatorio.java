@@ -167,7 +167,7 @@ public class Relatorio {
     static String medGlobal;
 
     public void GerarCertificado() {
-        VisualizarMediasNotaGlobal(100, new AnoAcademico(1, 2020, 1));
+        //VisualizarMediasNotaGlobal(100, new AnoAcademico(1, 2020, 1));
         String path = System.getProperty("user.dir") + "/certif.pdf";
         String IMAGE = System.getProperty("user.dir") + "/src/View/img/certifBg.jpg";
         Document doc = new Document();
