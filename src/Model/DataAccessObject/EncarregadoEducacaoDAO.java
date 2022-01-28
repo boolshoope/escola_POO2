@@ -12,11 +12,10 @@ public class EncarregadoEducacaoDAO {
     private Connection conexao;
 
     public EncarregadoEducacaoDAO() {
-        try {
-            conexao = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/escola", "root", "");
-        } catch (SQLException ex) {
-            System.out.println("Erro de conexao: " + ex.getMessage());
+        try{
+            conexao = BD.getConexao();
+        }catch(SQLException|ClassNotFoundException ex){
+            System.out.println("Erro de conexao: "+ex.getMessage());           
         }
     }
     
@@ -40,6 +39,21 @@ public class EncarregadoEducacaoDAO {
             return lstAl;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    
+    public void inserir1(EncarregadoEducacao e){
+        //Implementar a query
+        String query="INSERT INTO encarregadoeducacao(idPessoa,grauParentesco)"+
+                     "VALUES(?,?)";              
+        try {
+            PreparedStatement stmt=conexao.prepareStatement(query);
+            stmt.setInt(1, e.getIdPessoa());
+            stmt.setString(2, e.getGrauParentesco());                     
+            stmt.executeUpdate();
+            stmt.close();                             
+        } catch (SQLException ex) {
+            System.out.println("Erro de insercao da base de dados:: "+ex.getMessage());
         }
     }
     

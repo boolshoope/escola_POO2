@@ -5,6 +5,8 @@
 */
 package View.Visualizar;
 
+import Model.DataAccessObject.DisciplinaDAO;
+import Model.ValueObject.Disciplina;
 import View.Create.*;
 import View.MainMenu;
 import View.SubMenu;
@@ -17,6 +19,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
 
@@ -52,15 +55,14 @@ public class AddDisciplina extends JComponent implements ActionListener, MouseLi
     private JLabel sexo1;
     private JRadioButton male1, female1;
     private ButtonGroup genderGroup1;
-    private JButton addClasse, btnVoltar;
+    private JButton addDisciplina, btnVoltar;
     private JTextField inputs1[];
     
     private JButton renovarSearch;
     
     private JButton update;
         
-    private boolean st = false;
-    private boolean st2 = false;
+
     
     public AddDisciplina() {
         
@@ -142,8 +144,7 @@ public class AddDisciplina extends JComponent implements ActionListener, MouseLi
         
         inputs1 =  new JTextField[2];
         inputsPanel1 = new JPanel[2];
-        st2 = true;
-        
+       
         for(int i=0; i<inputsPanel1.length; i++) {
             inputsPanel1[i] = new JPanel();
             inputsPanel1[i].setBackground(Color.white);
@@ -169,10 +170,10 @@ public class AddDisciplina extends JComponent implements ActionListener, MouseLi
         inputs1[0].setText("ID");
         inputs1[1].setText("Nome");
         
-        addClasse = new JButton("Nova Disciplina");
-        addClasse.addActionListener(this);
-        btProperties(addClasse);
-        addClasse.setBounds(10, 140, 400, 43);
+        addDisciplina = new JButton("Nova Disciplina");
+        addDisciplina.addActionListener(this);
+        btProperties(addDisciplina);
+        addDisciplina.setBounds(10, 140, 400, 43);
         //addEncarregado.setPreferredSize(new Dimension(205,43));
         //addEncarregado.setMaximumSize(new Dimension(420,43));
         //addEncarregado.set
@@ -189,7 +190,7 @@ public class AddDisciplina extends JComponent implements ActionListener, MouseLi
         
         //inner1.add(addEncarregado);
         classDataPanel.add(inner1);
-        classDataPanel.add(addClasse);
+        classDataPanel.add(addDisciplina);
         
 
         rightPanel.add(classDataPanel);
@@ -210,7 +211,26 @@ public class AddDisciplina extends JComponent implements ActionListener, MouseLi
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
-            showForm(new SubMenu());
+            showForm(new ViewDisciplina());
+        }
+        
+        if (e.getSource() == addDisciplina){
+            DisciplinaDAO dDAO = new DisciplinaDAO();
+            
+            if(inputs1[1].getText().equalsIgnoreCase("Nome") || inputs1[1].getText().equalsIgnoreCase("") ||
+                    inputs1[0].getText().equalsIgnoreCase("ID") || inputs1[0].getText().equalsIgnoreCase("")
+                   ){
+                JOptionPane.showMessageDialog(null, "Verifique se inseriu os dados corretamente!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }else{
+                Disciplina disciplina = new Disciplina(Integer.parseInt(inputs1[0].getText()), inputs1[1].getText());
+                try {
+                    dDAO.adicionaDisciplina(disciplina);
+          
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
     

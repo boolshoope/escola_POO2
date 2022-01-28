@@ -1,23 +1,14 @@
-package View.Create;
+package View.Update;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
-
-/**
- *
- * @author Basilio
- */
-
+import Controller.TurmaController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import View.Create.*;
-import View.Visualizar.ViewTurma;
 import View.MainMenu;
 import View.SubMenu;
+import View.Visualizar.ViewTurma;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -26,8 +17,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
 
-
-public class AddTurma extends JComponent implements ActionListener,MouseListener {
+public class UpdateTurma extends JComponent implements ActionListener,MouseListener{
     private JButton btnVoltar,btnSalve;
     private JPanel inputsPanel1[] = new JPanel[5];
     private JTextField inputs[] =new JTextField[4];
@@ -38,7 +28,7 @@ public class AddTurma extends JComponent implements ActionListener,MouseListener
     int i,confirm;
     boolean st = false;
     
-    public AddTurma(){
+    public UpdateTurma(int id,String nome,int max){
         panePrincipal = new JPanel();
         panePrincipal.setBackground(Color.white);
         panePrincipal.setLayout(null);
@@ -57,7 +47,7 @@ public class AddTurma extends JComponent implements ActionListener,MouseListener
         pane1.setBackground(Color.white);
         pane1.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
-                "Adicionar Turma",
+                "Actualizar Turma",
                 TitledBorder.LEFT,
                 TitledBorder.TOP,
                 br,
@@ -105,12 +95,13 @@ public class AddTurma extends JComponent implements ActionListener,MouseListener
         for(i=0;i<4;i++)
             pane2.add(inputsPanel1[i]);
         
-        inputs[0].setText("ID");
-        inputs[1].setText("Nome");
+        inputs[0].setText(Integer.toString(id));
+        inputs[0].setEnabled(false);
+        inputs[1].setText(nome);
         inputs[2].setText("Classe");
-        inputs[3].setText("Maximo de Alunos");
+        inputs[3].setText(Integer.toString(max));
         
-        btnSalve = new JButton("Nova Turma");
+        btnSalve = new JButton("Actualiza Turma");
         btProperties(btnSalve);
         inputsPanel1[4].add(btnSalve);
         inputsPanel1[4].setBounds(10,400,430,45);
@@ -144,14 +135,8 @@ public class AddTurma extends JComponent implements ActionListener,MouseListener
     @Override
     public void actionPerformed(ActionEvent e) {
         
-         if(e.getSource() == btnVoltar){
-           
-            showForm(new ViewTurma());
-        }
-         
-         
         if(e.getSource() == btnSalve){
-            JOptionPane.showMessageDialog(null, "Salvou com Sucesso!");
+            JOptionPane.showMessageDialog(null, "Actualizou com Sucesso!");
             showForm(new ViewTurma());
         }
 
@@ -184,17 +169,17 @@ public class AddTurma extends JComponent implements ActionListener,MouseListener
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        
+       
     }
 
     @Override
     public void mousePressed(MouseEvent me) {
-     
+        
     }
 
     @Override
     public void mouseReleased(MouseEvent me) {
-        
+       
     }
 
     @Override

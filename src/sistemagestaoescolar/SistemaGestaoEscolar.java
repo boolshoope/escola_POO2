@@ -5,11 +5,14 @@
  */
 package sistemagestaoescolar;
 
+import Model.DataAccessObject.BD;
 import View.Create.AddTeste;
 import View.Create.Relatorio;
 import View.MainMenu;
 import View.SubMenu;
 import View.Visualizar.ViewDisciplina;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *

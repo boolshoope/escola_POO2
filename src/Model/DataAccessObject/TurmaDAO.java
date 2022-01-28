@@ -12,11 +12,10 @@ public class TurmaDAO {
     private Connection conexao;
 
     public TurmaDAO() {
-        try {
-            conexao = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/escola", "root", "");
-        } catch (SQLException ex) {
-            System.out.println("Erro de conexao: " + ex.getMessage());
+        try{
+            conexao = BD.getConexao();
+        }catch(SQLException|ClassNotFoundException ex){
+            System.out.println("Erro de conexao: "+ex.getMessage());           
         }
     }
     
@@ -31,7 +30,8 @@ public class TurmaDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                ac = new Turma(rs.getInt("idTurma"), rs.getString("nome"), rs.getInt("maxAlunos"), rs.getInt("idClasse"));
+                ac = new Turma(rs.getInt("idTurma"), rs.getString("nome"),
+                                rs.getInt("maxAlunos"), rs.getInt("idClasse"));
                 lstAc.add(ac);
             }
 
@@ -40,6 +40,22 @@ public class TurmaDAO {
             return lstAc;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    
+    public void inserir(Turma t){
+        //Implementar a query
+        String query="INSERT INTO turma(nome,maxAlunos,idClasse)"+
+                     "VALUES(?,?,?)";                
+        try {
+            PreparedStatement stmt=conexao.prepareStatement(query);
+            stmt.setString(1, t.getNome());
+            stmt.setInt(2, t.getMaxAlunos());
+            stmt.setInt(3, t.getIdClasse());                     
+            stmt.executeUpdate();
+            stmt.close();                             
+        } catch (SQLException ex) {
+            System.out.println("Erro de insercao da base de dados:: "+ex.getMessage());
         }
     }
 }

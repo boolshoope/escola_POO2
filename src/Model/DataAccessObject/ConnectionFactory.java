@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Model.DataAccessObject;
 
 import Model.ValueObject.*;
@@ -8,40 +13,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class ProfessorDAO {
+/**
+ *
+ * @author isacl
+ */
+public class ConnectionFactory {
+
     private Connection conexao;
 
-    public ProfessorDAO() {
-        try{
-            conexao = BD.getConexao();
-        }catch(SQLException|ClassNotFoundException ex){
-            System.out.println("Erro de conexao: "+ex.getMessage());           
-        }
-    }
-    
-    public List<Professor> getProfessor() {
-        List<Professor> lstAl = new ArrayList<>();
-        Professor al;
-        ResultSet rs;
-
+    public Connection getConnection() {
         try {
-            String query = "select * from professor";
-            PreparedStatement stmt = conexao.prepareStatement(query);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                al = new Professor(getPessoa(rs.getInt("idPessoa")), rs.getString("grauAcademico"));
-                lstAl.add(al);
-            }
-
-            rs.close();
-            stmt.close();
-            return lstAl;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            conexao = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/escola", "root", "");
+            
+            
+        } catch (SQLException ex) {
+            System.out.println("Erro de conexao: " + ex.getMessage());
         }
+        return conexao;
     }
+
+    // <editor-fold defaultstate="collapsed" desc="Selects">
     
+
+    
+
+    
+
+    
+
     private Pessoa getPessoa(int id) {
         Pessoa p = null;
         ResultSet rs;
@@ -64,4 +64,28 @@ public class ProfessorDAO {
             throw new RuntimeException(e);
         }
     }
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Inserts">
+    
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Updates">
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Delete">
+    // </editor-fold>
 }

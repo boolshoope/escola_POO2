@@ -12,11 +12,10 @@ public class MatriculaDAO {
     private Connection conexao;
 
     public MatriculaDAO() {
-        try {
-            conexao = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/escola", "root", "");
-        } catch (SQLException ex) {
-            System.out.println("Erro de conexao: " + ex.getMessage());
+        try{
+            conexao = BD.getConexao();
+        }catch(SQLException|ClassNotFoundException ex){
+            System.out.println("Erro de conexao: "+ex.getMessage());           
         }
     }
     
@@ -31,7 +30,9 @@ public class MatriculaDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                ac = new Matricula(rs.getInt("nrEstudante"), rs.getInt("idTurma"), rs.getInt("idAnoAcademico"));
+                ac = new Matricula(rs.getInt("nrEstudante"), 
+                                   rs.getInt("idTurma"), 
+                                   rs.getInt("idAnoAcademico"));
                 lstAc.add(ac);
             }
 
@@ -40,6 +41,22 @@ public class MatriculaDAO {
             return lstAc;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    
+    public void inserir(Matricula m){
+        //Implementar a query
+        String query="INSERT INTO matricula(nrEstudante,idTurma,idAnoAcademico)"+
+                      "VALUES(?,?,?)";                
+        try {
+            PreparedStatement stmt=conexao.prepareStatement(query);
+            stmt.setInt(1, m.getNrEstudante());
+            stmt.setInt(2, m.getIdTurma());
+            stmt.setInt(3, m.getIdAnoAcademico());                     
+            stmt.executeUpdate();
+            stmt.close();                             
+        } catch (SQLException ex) {
+            System.out.println("Erro de insercao da base de dados:: "+ex.getMessage());
         }
     }
 }

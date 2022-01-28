@@ -5,9 +5,11 @@
  */
 package View;
 
+import Controller.MatriculaController;
 import Model.ValueObject.*;
 import View.Create.AddEncarregado;
 import View.Create.AddMatricula;
+import View.Create.Matricula;
 import View.Create.*;
 import View.Visualizar.ViewDisciplina;
 import View.Visualizar.ViewRelatorio;
@@ -29,7 +31,7 @@ public class MainMenu extends JFrame implements ActionListener {
 
     JPanel panWButtons, panNButtons;
     public static JPanel main;
-    JButton[] lstButtons = new JButton[5];
+    public static JButton[] lstButtons = new JButton[5];
     JLabel lblWLine, lblLogo, lblNSistGestEsc, lblUsername;
 
     int wSize = 220;
@@ -103,6 +105,8 @@ public class MainMenu extends JFrame implements ActionListener {
             lstButtons[i].addActionListener(this);
         }
 
+        lstButtons[2].addActionListener(new MatriculaController());
+        
         for (int i = 0; i < lstButtons.length; i++) {
             panWButtons.add(lstButtons[i]);
         }

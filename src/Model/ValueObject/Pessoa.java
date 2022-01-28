@@ -51,6 +51,15 @@ public class Pessoa {
         this.tel1 = ob.tel1;
         this.tel2 = ob.tel2;
     }
+    
+    public Pessoa getPessoa() {
+        Pessoa p = new Pessoa(this.idPessoa,this.pNome,
+                              this.apelido,this.sexo,
+                              this.nrBI, this.estadoCivil,
+                              this.tel1, this.tel2);
+        
+        return p;
+    }
 
     public int getIdPessoa() {
         return idPessoa;

@@ -5,7 +5,10 @@
  */
 package View.Visualizar;
 
+import View.Update.updateDisciplina;
 import Controller.DisciplinaController;
+import Model.DataAccessObject.DisciplinaDAO;
+import Model.ValueObject.Disciplina;
 import View.MainMenu;
 import View.SubMenu;
 import java.awt.BorderLayout;
@@ -18,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -33,7 +37,7 @@ public class ViewDisciplina extends JComponent implements ActionListener {
     JLabel lblDisc, lblIdProd, lblOp, l = new JLabel("");
     JTextField txtNome;
     JButton btnAdd, btnUpd, btnDel, btnSearch, btnVoltar;
-    JTable tabAluno;
+    JTable tabDisciplina;
     int ilblY = 90;
     DisciplinaController disc;
 
@@ -120,14 +124,14 @@ public class ViewDisciplina extends JComponent implements ActionListener {
 
         //tabela
         disc = new DisciplinaController();
-        tabAluno = new JTable(disc.listItems());
-        tabAluno.setFont(f2);
-        tabAluno.setRowHeight(22);
-        TableColumnModel columnModel = tabAluno.getColumnModel();
+        tabDisciplina = new JTable(disc.listItems());
+        tabDisciplina.setFont(f2);
+        tabDisciplina.setRowHeight(22);
+        TableColumnModel columnModel = tabDisciplina.getColumnModel();
         columnModel.getColumn(0).setMaxWidth(50);
-        tabAluno.setColumnModel(columnModel);
+        tabDisciplina.setColumnModel(columnModel);
 
-        JScrollPane sp = new JScrollPane(tabAluno);
+        JScrollPane sp = new JScrollPane(tabDisciplina);
         sp.setBounds(380, 90, 725, 480);
         add(sp);
 
@@ -189,13 +193,31 @@ public class ViewDisciplina extends JComponent implements ActionListener {
     }
 
     public void btnDel_Click() {
-        int getSelectedRow = tabAluno.getSelectedRow();
+        int getSelectedRow = tabDisciplina.getSelectedRow();
+       
         //Check if their is a row selected
+
+        int idClasse = disc.lstDisciplina.get(getSelectedRow).getIdDisciplina();
+        String nome = disc.lstDisciplina.get(getSelectedRow).getNome();
+        
         if (getSelectedRow != -1) {
-            int reply = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o registo?", "Confirmacao.", JOptionPane.YES_NO_OPTION);
+            int reply = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o registo?", "Confirmacao.",
+                    JOptionPane.YES_NO_OPTION);
+            
+            
+            
             if (reply == JOptionPane.YES_OPTION) {
                 disc.deleteItem(getSelectedRow);
-                JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
+                DisciplinaDAO dDAO = new DisciplinaDAO();
+                Disciplina disciplina = new Disciplina(idClasse, nome);
+                try {
+                    dDAO.deleteDisciplina(disciplina);
+                    
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um item na lista.");
@@ -205,7 +227,7 @@ public class ViewDisciplina extends JComponent implements ActionListener {
     public void btnSearch_Click() {
         int aux = disc.searchItem(txtNome.getText());
         if (aux != -1) {
-            tabAluno.setRowSelectionInterval(aux, aux);
+            tabDisciplina.setRowSelectionInterval(aux, aux);
             JOptionPane.showMessageDialog(null, "Registo Encontrado.");
         } else {
             JOptionPane.showMessageDialog(null, "Registo Nao Encontrado.");
@@ -213,7 +235,7 @@ public class ViewDisciplina extends JComponent implements ActionListener {
     }
 
     public void btnUpd_Click() {
-        int getSelectedRow = tabAluno.getSelectedRow();
+        int getSelectedRow = tabDisciplina.getSelectedRow();
         int id;
         if (getSelectedRow != -1) {
             id = disc.getIdSelectedItem(getSelectedRow);
