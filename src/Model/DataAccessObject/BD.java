@@ -24,8 +24,8 @@ public class BD {
     public BD() {
         this.host="localhost";//ou 127.0.0.1 
         this.bd="escola";
-        this.password="";
-        this.user="root";
+        this.password="projecto";
+        this.user="POO2";
         this.porta="3306";
     }
     
