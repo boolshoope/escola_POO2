@@ -10,9 +10,11 @@ import Model.ValueObject.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -24,6 +26,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -156,18 +159,22 @@ public class Relatorio {
                 }
             }
         }
+        listItems();
     }
 
     static String[] dadosP = new String[6];
-    static String[][] notas;
+    public String[][] notas;
     static String medGlobal;
 
     public void GerarCertificado() {
-        VisualizarMediasNotaGlobal(101, new AnoAcademico(1, 2020, 1));
+        VisualizarMediasNotaGlobal(100, new AnoAcademico(1, 2020, 1));
         String path = System.getProperty("user.dir") + "/certif.pdf";
+        String IMAGE = System.getProperty("user.dir") + "/src/View/img/certifBg.jpg";
         Document doc = new Document();
+
         try {
-            PdfWriter.getInstance(doc, new FileOutputStream(path));
+            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(path));
+            //PdfWriter.getInstance(doc, new FileOutputStream(path));
             doc.open();
 
             Font fontH1 = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
@@ -175,7 +182,7 @@ public class Relatorio {
             Font fontH3 = new Font(Font.FontFamily.HELVETICA, 13, Font.NORMAL);
             Font fontB = new Font(Font.FontFamily.HELVETICA, 13, Font.BOLD);
 
-            Paragraph p = new Paragraph(new Phrase("UNIVERSIDADE EDUARDO MONDLANE\nEscola Completa da Feng\n\n", fontH2));
+            Paragraph p = new Paragraph(new Phrase("\n\nUNIVERSIDADE EDUARDO MONDLANE\nEscola Completa da Feng\n\n", fontH2));
             p.setAlignment(1);
             doc.add(p);
             p = new Paragraph(new Phrase("CERTIFICADO\n\n", fontH1));
@@ -244,6 +251,12 @@ public class Relatorio {
             p.setIndentationRight(25);
             doc.add(p);
 
+            PdfContentByte canvas = writer.getDirectContentUnder();
+            Image image = Image.getInstance(IMAGE);
+            image.scaleAbsolute(595, 842);
+            image.setAbsolutePosition(0, 0);
+            canvas.addImage(image);
+
             doc.close();
             Desktop.getDesktop().open(new File(path));
 
@@ -251,6 +264,21 @@ public class Relatorio {
             System.out.println(ex.toString());
         } catch (IOException ex) {
             System.out.println(ex.toString());
+        }
+    }
+
+    public DefaultTableModel tableModel;
+
+    public void listItems() {
+        String col[] = {"Disciplina", "Media"};
+        tableModel = new DefaultTableModel(col, 0);
+
+        String disc, nota;
+        for (int i = 0; i < notas.length; i++) {
+            disc = notas[i][0];
+            nota = notas[i][1];
+            Object[] data = {disc, nota};
+            tableModel.addRow(data);
         }
     }
 

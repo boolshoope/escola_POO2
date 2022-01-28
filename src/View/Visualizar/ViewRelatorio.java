@@ -5,7 +5,10 @@
  */
 package View.Visualizar;
 
+import Controller.AlunoController;
 import Controller.AnoAcController;
+import Model.ValueObject.AnoAcademico;
+import View.Create.Relatorio;
 import View.MainMenu;
 import View.SubMenu;
 import java.awt.BorderLayout;
@@ -15,13 +18,17 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,12 +46,16 @@ import javax.swing.table.TableColumnModel;
 public class ViewRelatorio extends JComponent implements ActionListener {
 
     JPanel panMenu, panList, panMain;
-    JLabel lblDisc, lblIdProd, lblOp, l = new JLabel("");
-    JTextField txtNome;
-    JButton btnAdd, btnSearch, btnVoltar;
+    JLabel lblDisc, l = new JLabel("");
+    JLabel lblDados[] = new JLabel[5];
+    JTextField[] txtDados = new JTextField[4];
+    JButton btnAdd, btnSearch;
+    JComboBox cboAnoAc;
     JTable tab;
     int ilblY = 90;
-    AnoAcController anoAc;
+    AlunoController ctrlAluno = new AlunoController();
+    AnoAcController anoAc = new AnoAcController();
+    Relatorio rel = new Relatorio();
 
     private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 15);
     private Font f2 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
@@ -76,31 +87,75 @@ public class ViewRelatorio extends JComponent implements ActionListener {
         lblDisc.setBounds(450, 20, 300, 30);
         lblDisc.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
 
-        lblIdProd = new JLabel("Número de Estudante");
-        lblIdProd.setBounds(30, ilblY, 200, 20);
-        lblIdProd.setFont(f1);
-        add(lblIdProd);
+        for (int i = 0; i < lblDados.length; i++) {
+            switch (i) {
+                case 0:
+                    lblDados[i] = new JLabel("Número de Estudante");
+                    lblDados[i].setBounds(30, ilblY + 0 * (i + 1), 200, 20);
+                    lblDados[i].setFont(f1);
 
-        lblOp = new JLabel("Operacoes");
-        lblOp.setBounds(30, ilblY + 80, 200, 20);
-        lblOp.setFont(f1);
-        add(lblOp);
+                    txtDados[i] = new JTextField();
+                    txtDados[i].setBounds(30, ilblY + 30 * (i + 1), 180, 30);
+                    txtDados[i].setFont(f2);
+                    txtDados[i].addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyTyped(KeyEvent e) {
+                            char c = e.getKeyChar();
+                            if (((c < '0') || (c > '9'))) {
+                                e.consume();
+                            }
+                        }
+                    });
+                    add(txtDados[i]);
+                    add(lblDados[i]);
+                    break;
+                case 1:
+                    lblDados[i] = new JLabel("Nome de Estudante");
+                    lblDados[i].setBounds(30, ilblY + 88 * i, 200, 20);
+                    lblDados[i].setFont(f1);
 
-        txtNome = new JTextField();
-        txtNome.setBounds(30, ilblY + 30, 180, 30);
-        txtNome.setFont(f2);
-        add(txtNome);
+                    txtDados[i] = new JTextField();
+                    txtDados[i].setBounds(30, ilblY + 60 * (i + 1), 300, 30);
+                    txtDados[i].setFont(f2);
+                    txtDados[i].setEditable(false);
+                    add(txtDados[i]);
+                    add(lblDados[i]);
+                    break;
+                case 2:
+                    lblDados[i] = new JLabel("Data de Nascimento");
+                    lblDados[i].setBounds(30, ilblY + 83 * i, 200, 20);
+                    lblDados[i].setFont(f1);
 
-        btnVoltar = new JButton("");
-        btnVoltar.setBounds(1060, 12, 45, 45);
-        DefinirBackImagem();
-        btnVoltar.setBackground(Color.white);
-        btnVoltar.setBorderPainted(false);
-        btnVoltar.addActionListener(this);
-        add(btnVoltar);
+                    txtDados[i] = new JTextField();
+                    txtDados[i].setBounds(30, ilblY + 65 * (i + 1), 180, 30);
+                    txtDados[i].setFont(f2);
+                    txtDados[i].setEditable(false);
+                    add(txtDados[i]);
+                    add(lblDados[i]);
+                    break;
+                case 3:
+                    lblDados[i] = new JLabel("Sexo");
+                    lblDados[i].setBounds(250, ilblY + 83 * 2, 200, 20);
+                    lblDados[i].setFont(f1);
 
-        btnAdd = new JButton("Adicionar Ano Academico");
-        btnAdd.setBounds(50, ilblY + 114, 260, 40);
+                    txtDados[i] = new JTextField();
+                    txtDados[i].setBounds(250, ilblY + 65 * (2 + 1), 180, 30);
+                    txtDados[i].setFont(f2);
+                    txtDados[i].setEditable(false);
+                    add(txtDados[i]);
+                    add(lblDados[i]);
+                    break;
+                case 4:
+                    lblDados[i] = new JLabel("Ano Academico");
+                    lblDados[i].setBounds(500, 100, 200, 20);
+                    lblDados[i].setFont(f1);
+                    add(lblDados[i]);
+                    break;
+            }
+        }
+
+        btnAdd = new JButton("Gerar Certificado");
+        btnAdd.setBounds(900, 530, 200, 40);
         btnAdd.setFont(f1);
         btnAdd.addActionListener(this);
         setButtonColors(btnAdd);
@@ -113,17 +168,26 @@ public class ViewRelatorio extends JComponent implements ActionListener {
         setButtonColors(btnSearch);
         add(btnSearch);
 
+        cboAnoAc = new JComboBox();
+        cboAnoAc.setBounds(500, 125, 180, 30);
+        cboAnoAc.setFont(f2);
+        cboAnoAc.addActionListener(this);
+        add(cboAnoAc);
+
         //tabela
-        anoAc = new AnoAcController();
-        tab = new JTable(anoAc.listItems());
+        String col[] = {"Disciplina", "Media"};
+        Object[][] data = {
+            {"", ""}
+        };
+
+        tab = new JTable(data, col);
         tab.setFont(f2);
         tab.setRowHeight(22);
         TableColumnModel columnModel = tab.getColumnModel();
-        columnModel.getColumn(0).setMaxWidth(50);
         tab.setColumnModel(columnModel);
 
         JScrollPane sp = new JScrollPane(tab);
-        sp.setBounds(500, 90, 605, 480);
+        sp.setBounds(500, 180, 605, 330);
         add(sp);
 
         add(panList);
@@ -144,43 +208,38 @@ public class ViewRelatorio extends JComponent implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnVoltar) {
-            showForm(new SubMenu());
-        }
         if (e.getSource() == btnSearch) {
             btnSearch_Click();
         }
         if (e.getSource() == btnAdd) {
-            showForm(new AddAnoAcademico());
+            rel.GerarCertificado();
+        }
+        if (e.getSource() == cboAnoAc && canListenCbo) {
+            int ano = Integer.parseInt(cboAnoAc.getSelectedItem().toString());
+            rel.VisualizarMediasNotaGlobal(Integer.parseInt(txtDados[0].getText()),
+                    anoAc.searchItemAnoAcRelatorio(ano));
+            tab.setModel(rel.tableModel);
         }
     }
 
-    private void DefinirBackImagem() {
-        BufferedImage imgb = null;
-        try {
-            imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
-        } catch (IOException e) {
-        }
-        Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-        btnVoltar.setIcon(new ImageIcon(dimg));
-    }
-
-    private void showForm(Component com) {
-        BorderLayout layout = (BorderLayout) MainMenu.main.getLayout();
-        if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
-            MainMenu.main.remove(layout.getLayoutComponent(BorderLayout.CENTER));
-        }
-
-        MainMenu.main.add(com, BorderLayout.CENTER);
-        MainMenu.main.repaint();
-        MainMenu.main.revalidate();
-    }
-
+    boolean canListenCbo = false;
     public void btnSearch_Click() {
-        int aux = anoAc.searchItem(Integer.parseInt(txtNome.getText()));
-        if (aux != -1) {
-            tab.setRowSelectionInterval(aux, aux);
+        String[] dados = ctrlAluno.searchItemCertificado(Integer.parseInt(txtDados[0].getText()));
+        if (dados != null) {
             JOptionPane.showMessageDialog(null, "Registo Encontrado.");
+
+            canListenCbo = false;
+            cboAnoAc.removeAllItems();
+            List<String> lst = ctrlAluno.getAnoAcFrequentado(Integer.parseInt(txtDados[0].getText()));
+            for (int i = 0; i < lst.size(); i++) {
+                cboAnoAc.addItem(lst.get(i));
+            }
+            canListenCbo = true;
+            cboAnoAc.setSelectedIndex(0);
+            
+            txtDados[1].setText(dados[0]);
+            txtDados[2].setText(dados[1]);
+            txtDados[3].setText(dados[2]);
         } else {
             JOptionPane.showMessageDialog(null, "Registo Nao Encontrado.");
         }
