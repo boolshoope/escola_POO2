@@ -820,90 +820,50 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
             if(inputs1[0].getText().equals("ID"))
                 tfChanges(inputs1[0]);
         }
-        
-        if(e.getSource() == inputs1[1]) {
-            if(inputs1[1].getText().equals("Grau de Parentesco"))
-                tfChanges(inputs1[1]);
-        }
-        
-        if(e.getSource() == inputs1[2]) {
-            if(inputs1[2].getText().equals("Nome"))
-                tfChanges(inputs1[2]);
-        }
-        
-        if(e.getSource() == inputs1[3]) {
-            if(inputs1[3].getText().equals("Apelido"))
-                tfChanges(inputs1[3]);
-        }
-        
-        if(e.getSource() == inputs1[4]) {
-            if(inputs1[4].getText().equals("BI"))
-                tfChanges(inputs1[4]);
-        }
-        
-        if(e.getSource() == inputs1[5]) {
-            if(inputs1[5].getText().equals("Telefone 1"))
-                tfChanges(inputs1[5]);
-        }
-        
-        if(e.getSource() == inputs1[6]) {
-            if(inputs1[6].getText().equals("Telefone 2"))
-                tfChanges(inputs1[6]);
-        }
-        
+
         // -----------------------------------------------------------------------
         
         if(e.getSource() == inputs[0]) {
-            if(inputs[0].getText().equals("Numero de Estudante") && st == false)
-                tfChanges(inputs[0]);
+       
             if(inputs[0].getText().equals("Nome") && st == true)
                 tfChanges(inputs[0]);
         }
         
         if(e.getSource() == inputs[1]) {
-            if(inputs[1].getText().equals("Nome") && st == false)
-                tfChanges(inputs[1]);
+           
             if(inputs[1].getText().equals("Apelido") && st == true)
                 tfChanges(inputs[1]);
         }
         
         if(e.getSource() == inputs[2]) {
-            if(inputs[2].getText().equals("Apelido") && st == false)
-                tfChanges(inputs[2]);
+          
             if(inputs[2].getText().equals("BI") && st == true)
                 tfChanges(inputs[2]);
         }
         
         if(e.getSource() == inputs[3]) {
-            if(inputs[3].getText().equals("BI") && st == false)
-                tfChanges(inputs[3]);
+      
             if(inputs[3].getText().equals("Data de Nascimento") && st == true)
                 tfChanges(inputs[3]);
         }
         
         if(e.getSource() == inputs[4]) {
-            if(inputs[4].getText().equals("Data de Nascimento") && st == false)
-                tfChanges(inputs[4]);
+           
             if(inputs[4].getText().equals("Telefone 1") && st == true)
                 tfChanges(inputs[4]);
         }
         
         if(e.getSource() == inputs[5]) {
-            if(inputs[5].getText().equals("Telefone 1") && st == false)
-                tfChanges(inputs[5]);
+       
             if(inputs[5].getText().equals("Telefone 2") && st == true)
                 tfChanges(inputs[5]);
         }
         
         if(e.getSource() == inputs[6]) {
-            if(inputs[6].getText().equals("Telefone 2") && st == false)
+            if(inputs[6].getText().equals("Grau de Parentesco") && st == true)
                 tfChanges(inputs[6]);
         }
-        
-        if(e.getSource() == inputs[7]) {
-            if(inputs[7].getText().equals("Nome do Encarregado") && st == false)
-                tfChanges(inputs[7]);
-        }
+
     }
     
     public void mouseExited(MouseEvent e) {
@@ -913,89 +873,51 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
                 inputs1[0].setText("ID");
         }
         
-        if(e.getSource() == inputs1[1]) {
-            if(inputs1[1].getText().equals("Grau de Parentesco") || inputs1[1].getText().equals(""))
-                inputs1[1].setText("Grau de Parentesco");
-        }
         
-        if(e.getSource() == inputs1[2]) {
-            if(inputs1[2].getText().equals("Nome") || inputs1[2].getText().equals(""))
-                inputs1[2].setText("Nome");
-        }
-        
-        if(e.getSource() == inputs1[3]) {
-            if(inputs1[3].getText().equals("Apelido") || inputs1[3].getText().equals(""))
-                inputs1[3].setText("Apelido");
-        }
-        
-        if(e.getSource() == inputs1[4]) {
-            if(inputs1[4].getText().equals("BI") || inputs1[4].getText().equals(""))
-                inputs1[4].setText("BI");
-        }
-        
-        if(e.getSource() == inputs1[5]) {
-            if(inputs1[5].getText().equals("Telefone 1") || inputs1[5].getText().equals(""))
-                inputs1[5].setText("Telefone 1");
-        }
-        
-        if(e.getSource() == inputs1[6]) {
-            if(inputs1[6].getText().equals("Telefone 2") || inputs1[6].getText().equals(""))
-                inputs1[6].setText("Telefone 2");
-        }
         
         // -----------------------------------------------------------------------
         
         if(e.getSource() == inputs[0]) {
-            if(inputs[0].getText().equals("Numero de Estudante") || inputs[0].getText().equals("") && st == false)
-                inputs[0].setText("Numero de Estudante");
+
             if(inputs[0].getText().equals("Nome") || inputs[0].getText().equals("") && st == true)
                 inputs[0].setText("Nome");
         }
         
         if(e.getSource() == inputs[1]) {
-            if(inputs[1].getText().equals("Nome") || inputs[1].getText().equals("") && st == false)
-                inputs[1].setText("Nome");
+
             if(inputs[1].getText().equals("Apelido") || inputs[1].getText().equals("") && st == true)
                 inputs[1].setText("Apelido");
         }
         
         if(e.getSource() == inputs[2]) {
-            if(inputs[2].getText().equals("Apelido") || inputs[2].getText().equals("") && st == false)
-                inputs[2].setText("Apelido");
+
             if(inputs[2].getText().equals("BI") || inputs[2].getText().equals("") && st == true)
                 inputs[2].setText("BI");
         }
         
         if(e.getSource() == inputs[3]) {
-            if(inputs[3].getText().equals("BI") || inputs[3].getText().equals("") && st == false)
-                inputs[3].setText("BI");
+
             if(inputs[3].getText().equals("Data de Nascimento") || inputs[3].getText().equals("") && st == true)
                 inputs[3].setText("Data de Nascimento");
         }
         
         if(e.getSource() == inputs[4]) {
-            if(inputs[4].getText().equals("Data de Nascimento") || inputs[4].getText().equals("") && st == false)
-                inputs[4].setText("Data de Nascimento");
+
             if(inputs[4].getText().equals("Telefone 1") || inputs[4].getText().equals("") && st == true)
                 inputs[4].setText("Telefone 1");
         }
         
         if(e.getSource() == inputs[5]) {
-            if(inputs[5].getText().equals("Telefone 1") || inputs[5].getText().equals("") && st == false)
-                inputs[5].setText("Telefone 1");
+
             if(inputs[5].getText().equals("Telefone 2") || inputs[5].getText().equals("") && st == true)
                 inputs[5].setText("Telefone 2");
         }
         
         if(e.getSource() == inputs[6]) {
-            if(inputs[6].getText().equals("Telefone 2") || inputs[6].getText().equals("") && st == false)
-                inputs[6].setText("Telefone 2");
+            if(inputs[6].getText().equals("Grau de Parentesco") || inputs[6].getText().equals("") && st == true)
+                inputs[6].setText("Grau de Parentesco");
         }
-        
-        if(e.getSource() == inputs[7]) {
-            if(inputs[7].getText().equals("Nome do Encarregado") || inputs[7].getText().equals("") && st == false)
-                inputs[7].setText("Nome do Encarregado");
-        }
+
     }
     
     private void tfChanges(JTextField tfd) {
