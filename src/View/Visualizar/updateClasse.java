@@ -6,6 +6,8 @@
 package View.Visualizar;
 
 import Controller.ClasseController;
+import Model.DataAccessObject.ClasseDAO;
+import Model.ValueObject.Classe;
 import View.Create.*;
 import View.MainMenu;
 import View.SubMenu;
@@ -18,6 +20,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
 
@@ -216,8 +219,16 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
         }
         
         if(e.getSource() == btnUpdate){
+            ClasseDAO cDAO = new ClasseDAO();
+            Classe classe = new Classe(Integer.parseInt(inputs1[0].getText()), inputs1[1].getText());
+            try {
+                cDAO.atualizarClasse(classe);
+                JOptionPane.showMessageDialog(null, "Classe Atualizada com Sucesso!");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         }
     }
     

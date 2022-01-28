@@ -5,6 +5,8 @@
 */
 package View.Visualizar;
 
+import Model.DataAccessObject.AnoAcademicoDAO;
+import Model.ValueObject.AnoAcademico;
 import View.Create.*;
 import View.MainMenu;
 import View.SubMenu;
@@ -17,6 +19,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
 
@@ -42,7 +45,7 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
     
     private ButtonGroup genderGroup;
     
- 
+    
     private JPanel alDataPanel, inner, inputsPanel[], genderPanel, opPanel;
     
     
@@ -57,7 +60,7 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
     private JButton renovarSearch;
     
     private JButton update;
-        
+    
     private boolean st = false;
     private boolean st2 = false;
     
@@ -67,7 +70,7 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         masterPanel = new JPanel();
         headerPanel = new JPanel();
         leftPanel = new JPanel();
-
+        
         
         // painel principal
         masterPanel.setBackground(Color.white);
@@ -82,7 +85,7 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         btPanel.setBackground(null);
         //btPanel.setBounds(0, 150, 200, 200);
         
-     
+        
         btnVoltar = new JButton("");
         btnVoltar.setBounds(1060, 12, 45, 45);
         DefinirBackImagem();
@@ -90,7 +93,7 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         btnVoltar.setBorderPainted(false);
         btnVoltar.addActionListener(this);
         add(btnVoltar);
-
+        
         // righ panel
         rightPanel = new JPanel();
         rightPanel.setBackground(Color.white);
@@ -116,7 +119,7 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         rightPanel.revalidate();
         rightPanel.repaint();
         
-
+        
         Font br = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
         classDataPanel = new JPanel();
         classDataPanel.setBackground(Color.white);
@@ -162,7 +165,7 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
             inputs1[i].addMouseListener(this);
         
         
-        ViewAnoAc viewclasse = new ViewAnoAc();
+        ViewAnoAc viewAnoAc = new ViewAnoAc();
         
         
         inputs1[0].setText("ID");
@@ -191,14 +194,14 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         classDataPanel.add(inner1);
         classDataPanel.add(btnAnoAcademico);
         
-
+        
         rightPanel.add(classDataPanel);
         
         
     }
     
     
-     private void DefinirBackImagem() {
+    private void DefinirBackImagem() {
         BufferedImage imgb = null;
         try {
             imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
@@ -207,8 +210,8 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
         btnVoltar.setIcon(new ImageIcon(dimg));
     }
-     
-     
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
@@ -216,8 +219,28 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         }
         
         if (e.getSource() == btnAnoAcademico) {
+            AnoAcademicoDAO acDAO = new AnoAcademicoDAO();
+
+            if(inputs1[0].getText().equalsIgnoreCase("ID") || inputs1[0].getText().equalsIgnoreCase("") ||
+                    inputs1[1].getText().equalsIgnoreCase("Ano") || inputs1[1].getText().equalsIgnoreCase("") ||
+                    inputs1[2].getText().equalsIgnoreCase("Trimestre") || inputs1[2].getText().equalsIgnoreCase("") ||
+                    (Integer.parseInt(inputs1[1].getText())<1990 || Integer.parseInt(inputs1[1].getText())>2023) ||
+                    (Integer.parseInt(inputs1[2].getText())<1 || Integer.parseInt(inputs1[2].getText())>3)){
+                
+                JOptionPane.showMessageDialog(null, "Verifique se inseriu os dados corretamente!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                
+            }else{
+                AnoAcademico ac = new AnoAcademico(Integer.parseInt(inputs1[0].getText()), Integer.parseInt(inputs1[1].getText()),
+                        Integer.parseInt(inputs1[2].getText()));
+                try {
+                    acDAO.adicionaAc(ac);
+                    JOptionPane.showMessageDialog(null, "Ano Academico Registrado com Sucesso!");
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             
-            JOptionPane.showMessageDialog(null, "Adiconado com Sucesso!");
         }
     }
     
@@ -238,7 +261,7 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
     
     @Override
     public void mouseEntered(MouseEvent e) {
-         if(e.getSource() == inputs1[0]) {
+        if(e.getSource() == inputs1[0]) {
             if(inputs1[0].getText().equals("ID"))
                 tfChanges(inputs1[0]);
         }
@@ -258,13 +281,13 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         
         
         
-
+        
     }
     
     @Override
     public void mouseExited(MouseEvent e) {
         
-         if(e.getSource() == inputs1[0]) {
+        if(e.getSource() == inputs1[0]) {
             if(inputs1[0].getText().equals("ID") || inputs1[0].getText().equals(""))
                 inputs1[0].setText("ID");
         }
@@ -282,14 +305,14 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         
         // -----------------------------------------------------------------------
         
-       
+        
     }
     
     
-        private void tfChanges(JTextField tfd) {
-           
-                tfd.setText("");
-            
+    private void tfChanges(JTextField tfd) {
+        
+        tfd.setText("");
+        
         
     }
     
@@ -317,13 +340,13 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
         button.setBackground(new Color(62, 62, 62));
         button.setFocusable(false);
     }
-
+    
     private void showForm(Component com) {
         BorderLayout layout = (BorderLayout) MainMenu.main.getLayout();
         if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
             MainMenu.main.remove(layout.getLayoutComponent(BorderLayout.CENTER));
         }
-
+        
         MainMenu.main.add(com, BorderLayout.CENTER);
         MainMenu.main.repaint();
         MainMenu.main.revalidate();
