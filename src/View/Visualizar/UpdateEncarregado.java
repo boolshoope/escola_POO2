@@ -9,7 +9,7 @@ package View.Visualizar;
  *
  * @author Basilio
  */
-
+import Controller.EncarregadoController;
 import View.Visualizar.ViewEncarregado;
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +18,10 @@ import java.awt.event.ActionListener;
 import View.MainMenu;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
 
 
@@ -42,7 +46,7 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
     int i, idEncarregado = 1;
     boolean st = false;
     
-    public UpdateEncarregado(){
+    public UpdateEncarregado(int id,String nome,String apelido,String bi,String grau, String estado,String t1,String t2){
         masterPanel = new JPanel();
         masterPanel.setBackground(Color.white);
         masterPanel.setLayout(null);
@@ -86,14 +90,14 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
             inputs[i].addMouseListener(this);
         }
         
-        inputs[0].setText("Alone");
-        inputs[1].setText("Quintal");
-        inputs[2].setText("1105052643M");
-        inputs[3].setText("16/05/2000");
-        inputs[4].setText("852507986");
-        inputs[5].setText("877085181");
+        inputs[0].setText(nome);
+        inputs[1].setText(apelido);
+        inputs[2].setText(bi);
+        inputs[3].setText(grau);
+        inputs[4].setText(t1);
+        inputs[5].setText(t2);
         
-        txtLab[0] = new JLabel("ID do Encarregado: \t       "+idEncarregado);
+        txtLab[0] = new JLabel("ID do Encarregado: \t       "+Integer.toString(id));
         txtLab[0].setFont(s);
         txtLab[0].setForeground(new Color(62, 62, 62));
         txtLab[0].setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -137,7 +141,12 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
         estCivil1.setFocusable(false);
         inputsPane[7].add(estCivil1);
         
-        Button[0] = new JButton("Voltar");
+        Button[0] = new JButton("");
+        DefinirBackImagem();
+        Button[0].setBackground(Color.white);
+        Button[0].setBorderPainted(false);
+        Button[0].addActionListener(this);
+        
         Button[1] = new JButton("Limpar");
         Button[2] = new JButton("Guardar");
         
@@ -147,18 +156,18 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
             Button[i].addActionListener(this);
         }
         
-        inputsPane[0].setBounds(50, 100, 360, 40);
-        inputsPane[1].setBounds(50, 170, 160, 40);
-        inputsPane[2].setBounds(50, 240, 360, 40);
-        inputsPane[3].setBounds(50, 310, 320, 40);
-        inputsPane[4].setBounds(600, 240, 320, 40);
-        inputsPane[5].setBounds(600, 310,320, 40);
-        inputsPane[6].setBounds(600, 30, 320, 40);
-        inputsPane[7].setBounds(600, 100, 320, 40);
-        inputsPane[8].setBounds(50, 30, 360, 40);
+        inputsPane[0].setBounds(50, 120, 360, 40);
+        inputsPane[1].setBounds(50, 200, 360, 40);
+        inputsPane[2].setBounds(50, 280, 360, 40);
+        //inputsPane[3].setBounds(50, 360, 360, 40);
+        inputsPane[4].setBounds(600, 280,360, 40);
+        inputsPane[5].setBounds(600, 360,360, 40);
+        inputsPane[6].setBounds(600, 40, 360, 40);
+        inputsPane[7].setBounds(600, 120,360, 40);
+        inputsPane[8].setBounds(50, 40, 360, 40);
         
         
-        Button[0].setBounds(70, 500,120, 40);
+        Button[0].setBounds(1060, 12,45, 45);
         Button[1].setBounds(620, 500,120, 40);
         Button[2].setBounds(820, 500,120, 40);
         
@@ -206,7 +215,7 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
             inputs[0].setText("Nome");
             inputs[1].setText("Apelido");
             inputs[2].setText("Numero de BI");
-            inputs[3].setText("Data de Nascimento");
+            inputs[3].setText("Grau Paretesco");
             inputs[4].setText("Telefone 1");
             inputs[5].setText("Telefone 2");
         }
@@ -251,12 +260,12 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
         if(me.getSource() == inputs[2]) {
             if(inputs[2].getText().equals("Numero de BI") && st == false)
                 tfChanges(inputs[2]);
-            if(inputs[2].getText().equals("Data de Nascimento") && st == true)
+            if(inputs[2].getText().equals("Grau parentesco") && st == true)
                 tfChanges(inputs[2]);
         }
         
         if(me.getSource() == inputs[3]) {
-            if(inputs[3].getText().equals("Data de Nascimento") && st == false)
+            if(inputs[3].getText().equals("Grau PArentesco") && st == false)
                 tfChanges(inputs[3]);
             if(inputs[3].getText().equals("Telefone 1") && st == true)
                 tfChanges(inputs[3]);
@@ -294,13 +303,13 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
         if(me.getSource() == inputs[2]) {
             if(inputs[2].getText().equals("BI") || inputs[2].getText().equals("") && st == false)
                 inputs[2].setText("Numero de BI");
-            if(inputs[2].getText().equals("Data de Nascimento") || inputs[2].getText().equals("") && st == true)
-                inputs[2].setText("Data de Nascimento");
+            if(inputs[2].getText().equals("Grau patentesco") || inputs[2].getText().equals("") && st == true)
+                inputs[2].setText("Grau parentesco");
         }
         
         if(me.getSource() == inputs[3]) {
-            if(inputs[3].getText().equals("Data de Nascimento") || inputs[3].getText().equals("") && st == false)
-                inputs[3].setText("Data de Nascimento");
+            if(inputs[3].getText().equals("Grau Parentesco") || inputs[3].getText().equals("") && st == false)
+                inputs[3].setText("Grau parentesco");
             if(inputs[3].getText().equals("Telefone 1") || inputs[3].getText().equals("") && st == true)
                 inputs[3].setText("Telefone 1");
         }
@@ -331,6 +340,16 @@ public class UpdateEncarregado extends JComponent implements ActionListener,Mous
         MainMenu.main.add(com, BorderLayout.CENTER);
         MainMenu.main.repaint();
         MainMenu.main.revalidate();
+    }
+    
+    private void DefinirBackImagem() {
+        BufferedImage imgb = null;
+        try {
+            imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
+        } catch (IOException e) {
+        }
+        Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        Button[0].setIcon(new ImageIcon(dimg));
     }
     
 }

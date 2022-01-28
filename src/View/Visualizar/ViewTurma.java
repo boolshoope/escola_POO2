@@ -5,6 +5,7 @@
  */
 package View.Visualizar;
 import Controller.TurmaController;
+import View.Create.AddTurma;
 import View.MainMenu;
 import View.SubMenu;
 import java.awt.BorderLayout;
@@ -32,7 +33,7 @@ public class ViewTurma extends JComponent implements ActionListener{
     JButton btnAdd, btnUpd, btnDel, btnSearch, btnVoltar;
     JTable tab;
     int ilblY = 90;
-    TurmaController turma;
+    TurmaController turma ;
 
     private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 15);
     private Font f2 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
@@ -153,7 +154,7 @@ public class ViewTurma extends JComponent implements ActionListener{
             btnSearch_Click();
         }
         if (e.getSource() == btnAdd) {
-            //showForm(new AddDisciplina());
+            showForm(new AddTurma());
         }
         if (e.getSource() == btnUpd) {
             btnUpd_Click();
@@ -212,9 +213,14 @@ public class ViewTurma extends JComponent implements ActionListener{
     public void btnUpd_Click() {
         int getSelectedRow = tab.getSelectedRow();
         int id;
+        String nome;
+        int max;
         if (getSelectedRow != -1) {
             id = turma.getIdSelectedItem(getSelectedRow);
+            nome = turma.getNomeSelectedItem(getSelectedRow);
+            max = turma.getMaxSelectedItem(getSelectedRow);
             //Chamar a classe update com o parametro
+            showForm(new UpdateTurma(id,nome,max));
 
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um item na lista.");

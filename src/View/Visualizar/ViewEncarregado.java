@@ -9,7 +9,7 @@ package View.Visualizar;
  *
  * @author Basilio
  */
-import Controller.ClasseController;
+import Controller.EncarregadoController;
 import View.MainMenu;
 import View.SubMenu;
 import View.Create.AddEncarregado;
@@ -31,6 +31,7 @@ public class ViewEncarregado extends JComponent implements ActionListener {
     JTextField txtNome;
     JButton btnAdd, btnUpd, btnDel, btnSearch, btnVoltar;
     JTable tab;
+    EncarregadoController encarregado = new EncarregadoController(); 
     private String texto[] = {"Id","Nome","Apelido","Numero de BI","Sexo","Estado Civil","Telefone 1","Telefone 2"};
     int ilblY = 90,aux;
     //ClasseController classe;,"Telefone 1","Telefone 2","Email"
@@ -75,7 +76,7 @@ public class ViewEncarregado extends JComponent implements ActionListener {
         lblOp.setFont(f1);
         add(lblOp);
 
-        txtNome = new JTextField();
+        txtNome = new JTextField("");
         txtNome.setBounds(30, ilblY + 30, 180, 30);
         txtNome.setFont(f2);
         add(txtNome);
@@ -117,8 +118,8 @@ public class ViewEncarregado extends JComponent implements ActionListener {
         add(btnSearch);
 
         
-        Object obj[][]={{"1","Alone","Quintal","1105052643M","Masculino","Solteiro","852507986","877085181"},};
-        tab = new JTable(obj,texto);
+        tab = new JTable(encarregado.listItems());
+        
         tab.setFont(f2);
         tab.setRowHeight(15);
         TableColumnModel columnModel = tab.getColumnModel();
@@ -193,7 +194,7 @@ public class ViewEncarregado extends JComponent implements ActionListener {
         if (getSelectedRow != -1) {
             int reply = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o registo?", "Confirmacao.", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                //obj.deleteItem(getSelectedRow);
+                encarregado.deleteItem(getSelectedRow);
                 
                 JOptionPane.showMessageDialog(null, "Item removido com sucesso!");
             }
@@ -203,7 +204,8 @@ public class ViewEncarregado extends JComponent implements ActionListener {
     }
 
   public void btnSearch_Click() {
-     // int aux = classe.searchItem(txtNome.getText());
+       int aux;
+        aux = encarregado.searchItem(Integer.parseInt(txtNome.getText()));
        if (aux != -1) {
             tab.setRowSelectionInterval(aux, aux);
             JOptionPane.showMessageDialog(null, "Registo Encontrado.");
@@ -215,9 +217,19 @@ public class ViewEncarregado extends JComponent implements ActionListener {
     public void btnUpd_Click() {
         int getSelectedRow = tab.getSelectedRow();
         int id;
+        String nome,apelido,t1,t2,bi,estad;
+        String grau;
         if (getSelectedRow != -1) {
-            //id = classe.getIdSelectedItem(getSelectedRow);
-            showForm(new  UpdateEncarregado());
+            id = encarregado.getIdSelectedItem(getSelectedRow);
+            nome = encarregado.getNomeSelectedItem(getSelectedRow);
+            apelido = encarregado.getApelidoSelectedItem(getSelectedRow);
+            bi = encarregado.getBiSelectedItem(getSelectedRow);
+            t1 = encarregado.getTel1SelectedItem(getSelectedRow);
+            t2 = encarregado.getTel2SelectedItem(getSelectedRow);
+            grau = encarregado.getGrauSelectedItem(getSelectedRow);
+            estad = encarregado.getEstadoSelectedItem(getSelectedRow);
+            
+            showForm(new UpdateEncarregado(id,nome,apelido,bi,grau,estad,t1,t2));
             //showForm(new updateClasse(id-1));
            
             //Chamar a classe update com o parametro
