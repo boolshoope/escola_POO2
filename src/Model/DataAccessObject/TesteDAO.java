@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class TesteDAO {
+
     private Connection conexao;
 
     public TesteDAO() {
@@ -19,7 +20,7 @@ public class TesteDAO {
             System.out.println("Erro de conexao: " + ex.getMessage());
         }
     }
-    
+
     public List<Teste> getTeste() {
         List<Teste> lstAc = new ArrayList<>();
         Teste ac;
@@ -42,6 +43,26 @@ public class TesteDAO {
             return lstAc;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void saveData(Teste t) {
+        //    public Teste(int idTeste, String tipo, Date dataRealizacao, float peso, int idAnoAcademico, int idDisciplina) {
+
+        String query = "INSERT INTO teste(idTeste,tipo,dataRealizacao,peso,idAnoAcademico,idDisciplina) VALUES(?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(query);
+            stmt.setInt(1, t.getIdTeste());
+            stmt.setString(2, t.getTipo());
+            stmt.setDate(3, t.getDataRealizacao());
+            stmt.setFloat(4, t.getPeso());
+            stmt.setInt(5, t.getIdAnoAcademico());
+            stmt.setInt(6, t.getIdDisciplina());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            System.out.println("Erro de insercao da base de dados:: " + ex.getMessage());
+
         }
     }
 }
