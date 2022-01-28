@@ -95,6 +95,7 @@ public class UpdateTurma extends JComponent implements ActionListener,MouseListe
             pane2.add(inputsPanel1[i]);
         
         inputs[0].setText(Integer.toString(id));
+        inputs[0].setEnabled(false);
         inputs[1].setText(nome);
         inputs[2].setText("Classe");
         inputs[3].setText(Integer.toString(max));
