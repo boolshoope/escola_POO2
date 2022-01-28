@@ -5,6 +5,10 @@
 */
 package View.Visualizar;
 
+import Model.DataAccessObject.ClasseDAO;
+import Model.DataAccessObject.DisciplinaDAO;
+import Model.ValueObject.Classe;
+import Model.ValueObject.Disciplina;
 import View.MainMenu;
 import View.SubMenu;
 import javax.swing.*;
@@ -47,13 +51,13 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
     private JComboBox estCivil;
     private JComboBox classe;
     
-    private JPanel profDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
+    private JPanel profDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1, panelDisciplina, panelClasse;
     private JLabel sexo1;
     private JRadioButton male1, female1;
     private ButtonGroup genderGroup1;
- 
+    
     private JTextField inputs1[];
-    private JComboBox estCivil1;
+    private JComboBox estCivil1, disciplina;
     
     private JButton renovarSearch , btnVoltar;;
     
@@ -63,6 +67,11 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
     
     private boolean st = false;
     private boolean st2 = false;
+    
+    public java.util.List<Classe> lstClasse;
+    public java.util.List<Disciplina> lstDisciplina;
+    private ClasseDAO bdClasse;
+    private DisciplinaDAO bdDisciplina;
     
     public ViewProfessor() {
         //super("Matricula do Aluno");
@@ -382,20 +391,33 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
                 TitledBorder.TOP,
                 br,
                 new Color(62, 62, 62)));
-        profDataPanel.setBounds(570, 10, 420,450);
+        profDataPanel.setBounds(570, 10, 450,450);
         profDataPanel.setLayout(null);
         
         inner1 =  new JPanel();
         inner1.setBackground(Color.white);
         inner1.setOpaque(false);
-        inner1.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
-        inner1.setBounds(0, 0, 420, 140);
+        inner1.setBorder(BorderFactory.createEmptyBorder(13, 10, 10, 10));
+        inner1.setBounds(0, 0, 450, 450);
         BoxLayout encBox = new BoxLayout(inner1,BoxLayout.Y_AXIS);
         inner1.setLayout(encBox);
+        /*
+        alDataPanel.setBounds(110, 10, 450,450);
+        alDataPanel.setLayout(null);
         
         
-        inputs1 =  new JTextField[7];
-        inputsPanel1 = new JPanel[7];
+        
+        inner =  new JPanel();
+        inner.setBackground(Color.white);
+        inner.setOpaque(false);
+        inner.setBorder(BorderFactory.createEmptyBorder(13, 10, 10, 10));
+        inner.setBounds(0, 0, 450, 450);
+        BoxLayout alBox = new BoxLayout(inner,BoxLayout.Y_AXIS);
+        inner.setLayout(alBox);
+        */
+        
+        inputs1 =  new JTextField[1];
+        inputsPanel1 = new JPanel[1];
         st2 = true;
         
         for(int i=0; i<inputsPanel1.length; i++) {
@@ -407,36 +429,81 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
             inputsPanel1[i].setLayout(new GridLayout(1,1));
         }
         
-        for(int i=0; i<inputs1.length; i++)
+        for(int i=0; i<1; i++)
             inputs1[i] = new JTextField();
         
-        for(int i=0; i<inputs1.length; i++)
+        for(int i=0; i<1; i++)
             tfProperties(inputs1[i]);
         
-        for(int i=0; i<inputs1.length; i++)
+        for(int i=0; i<1; i++)
             inputs1[i].addMouseListener(this);
         
         inputs1[0].setText("ID");
-        inputs1[1].setText("Disciplina");
         
-      
+        Font s = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+        
+        
+        bdClasse = new ClasseDAO();
+        lstClasse = bdClasse.getClasse();
+        
+        
+        classe = new JComboBox();
+        
+        
+        for (int i = 0; i < lstClasse.size(); i++) {
+            classe.addItem("  "+lstClasse.get(i).getNome());
+        }
+        classe.setBackground(Color.white);
+        classe.setFont(s);
+        classe.setPreferredSize(new Dimension(430, 43));
+        classe.setMaximumSize(new Dimension(450, 43));
+        classe.setFocusable(false);
+        
+        panelClasse = new JPanel();
+        panelDisciplina = new JPanel();
+        
+        
+        panelClasse.add(classe);
+        
+        
+         //===========================
+              // Controller Discipina
+        //===========================
+        
+        disciplina = new JComboBox();
+        
+        bdDisciplina = new DisciplinaDAO();
+        lstDisciplina = bdDisciplina.getDisciplina();
+        
+        for (int i = 0; i < lstDisciplina.size(); i++) {
+            disciplina.addItem("  "+lstDisciplina.get(i).getNome());
+        }
+        disciplina.setBackground(Color.white);
+        disciplina.setFont(s);
+        disciplina.setPreferredSize(new Dimension(430, 43));
+        disciplina.setMaximumSize(new Dimension(450, 43));
+        disciplina.setFocusable(false);
+        
         //addEncarregado.setPreferredSize(new Dimension(205,43));
         //addEncarregado.setMaximumSize(new Dimension(420,43));
         //addEncarregado.set
-        
+        panelClasse.add(disciplina);
         for(int i=0; i<inputs1.length; i++)
             inputsPanel1[i].add(inputs1[i]);
         
         inner1.add(Box.createRigidArea(new Dimension(0,15)));
         
-        for(int i=0; i<2; i++){
+        for(int i=0; i<1; i++){
             inner1.add(inputsPanel1[i]);
             inner1.add(Box.createRigidArea(new Dimension(0,5)));
         }
-        
+        panelClasse.setBackground(Color.WHITE);
+        panelDisciplina.setBackground(Color.WHITE);
+        inner1.add(panelClasse);
+        inner1.add(panelDisciplina);
         //inner1.add(addEncarregado);
         profDataPanel.add(inner1);
-       
+        
         
         registrar = new JButton("Novo Professor");
         btProperties(registrar);
@@ -461,6 +528,8 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         alDataPanel.setBounds(110, 10, 450,450);
         alDataPanel.setLayout(null);
         
+        
+        
         inner =  new JPanel();
         inner.setBackground(Color.white);
         inner.setOpaque(false);
@@ -468,6 +537,7 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         inner.setBounds(0, 0, 450, 450);
         BoxLayout alBox = new BoxLayout(inner,BoxLayout.Y_AXIS);
         inner.setLayout(alBox);
+        
         
         inputs =  new JTextField[8];
         inputsPanel = new JPanel[8];
@@ -498,6 +568,7 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         inputs[3].setText("Data de Nascimento");
         inputs[4].setText("Telefone 1");
         inputs[5].setText("Telefone 2");
+        inputs[6].setText("Grau de Parentesco");
         
         genderPanel = new JPanel();
         genderPanel.setPreferredSize(new Dimension(205, 43));
@@ -544,22 +615,25 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         genderPanel.add(opPanel);
         
         estCivil = new JComboBox();
-        estCivil.addItem("Estado Civil");
-        estCivil.addItem("Solteiro");
-        estCivil.addItem("Casado");
-        estCivil.addItem("Divorciado");
-        estCivil.addItem("Viuvo");
+        estCivil.addItem("  "+"Estado Civil");
+        estCivil.addItem("  "+"Solteiro");
+        estCivil.addItem("  "+"Casado");
+        estCivil.addItem("  "+"Divorciado");
+        estCivil.addItem("  "+"Viuvo");
         estCivil.setFont(s);
         estCivil.setBackground(Color.white);
         estCivil.setPreferredSize(new Dimension(205, 43));
         estCivil.setMaximumSize(new Dimension(450, 43));
         estCivil.setFocusable(false);
         
-        classe = new JComboBox();
-        classe.setBackground(Color.white);
-        classe.setPreferredSize(new Dimension(205, 43));
-        classe.setMaximumSize(new Dimension(450, 43));
-        classe.setFocusable(false);
+        
+        //===========================
+              // Controller Classe 
+        //===========================
+        
+           
+       
+        
         
         for(int i=0; i<inputs.length; i++)
             inputsPanel[i].add(inputs[i]);
@@ -580,12 +654,11 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         inner.add(estCivil);
         inner.add(Box.createRigidArea(new Dimension(0,5)));
         
-        for(int i=3; i<inputsPanel.length-2; i++){
+        for(int i=3; i<inputsPanel.length-1; i++){
             inner.add(inputsPanel[i]);
             inner.add(Box.createRigidArea(new Dimension(0,5)));
         }
-        
-        inner.add(classe);
+
         
         alDataPanel.add(inner);
     }
@@ -723,9 +796,9 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         if(e.getSource() == btSearch)
             editProfessorPage();
         
-         if(e.getSource() == btnVoltar)
+        if(e.getSource() == btnVoltar)
             showForm(new SubMenu());
-      
+        
         
     }
     
@@ -747,90 +820,50 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
             if(inputs1[0].getText().equals("ID"))
                 tfChanges(inputs1[0]);
         }
-        
-        if(e.getSource() == inputs1[1]) {
-            if(inputs1[1].getText().equals("Grau de Parentesco"))
-                tfChanges(inputs1[1]);
-        }
-        
-        if(e.getSource() == inputs1[2]) {
-            if(inputs1[2].getText().equals("Nome"))
-                tfChanges(inputs1[2]);
-        }
-        
-        if(e.getSource() == inputs1[3]) {
-            if(inputs1[3].getText().equals("Apelido"))
-                tfChanges(inputs1[3]);
-        }
-        
-        if(e.getSource() == inputs1[4]) {
-            if(inputs1[4].getText().equals("BI"))
-                tfChanges(inputs1[4]);
-        }
-        
-        if(e.getSource() == inputs1[5]) {
-            if(inputs1[5].getText().equals("Telefone 1"))
-                tfChanges(inputs1[5]);
-        }
-        
-        if(e.getSource() == inputs1[6]) {
-            if(inputs1[6].getText().equals("Telefone 2"))
-                tfChanges(inputs1[6]);
-        }
-        
+
         // -----------------------------------------------------------------------
         
         if(e.getSource() == inputs[0]) {
-            if(inputs[0].getText().equals("Numero de Estudante") && st == false)
-                tfChanges(inputs[0]);
+       
             if(inputs[0].getText().equals("Nome") && st == true)
                 tfChanges(inputs[0]);
         }
         
         if(e.getSource() == inputs[1]) {
-            if(inputs[1].getText().equals("Nome") && st == false)
-                tfChanges(inputs[1]);
+           
             if(inputs[1].getText().equals("Apelido") && st == true)
                 tfChanges(inputs[1]);
         }
         
         if(e.getSource() == inputs[2]) {
-            if(inputs[2].getText().equals("Apelido") && st == false)
-                tfChanges(inputs[2]);
+          
             if(inputs[2].getText().equals("BI") && st == true)
                 tfChanges(inputs[2]);
         }
         
         if(e.getSource() == inputs[3]) {
-            if(inputs[3].getText().equals("BI") && st == false)
-                tfChanges(inputs[3]);
+      
             if(inputs[3].getText().equals("Data de Nascimento") && st == true)
                 tfChanges(inputs[3]);
         }
         
         if(e.getSource() == inputs[4]) {
-            if(inputs[4].getText().equals("Data de Nascimento") && st == false)
-                tfChanges(inputs[4]);
+           
             if(inputs[4].getText().equals("Telefone 1") && st == true)
                 tfChanges(inputs[4]);
         }
         
         if(e.getSource() == inputs[5]) {
-            if(inputs[5].getText().equals("Telefone 1") && st == false)
-                tfChanges(inputs[5]);
+       
             if(inputs[5].getText().equals("Telefone 2") && st == true)
                 tfChanges(inputs[5]);
         }
         
         if(e.getSource() == inputs[6]) {
-            if(inputs[6].getText().equals("Telefone 2") && st == false)
+            if(inputs[6].getText().equals("Grau de Parentesco") && st == true)
                 tfChanges(inputs[6]);
         }
-        
-        if(e.getSource() == inputs[7]) {
-            if(inputs[7].getText().equals("Nome do Encarregado") && st == false)
-                tfChanges(inputs[7]);
-        }
+
     }
     
     public void mouseExited(MouseEvent e) {
@@ -840,89 +873,51 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
                 inputs1[0].setText("ID");
         }
         
-        if(e.getSource() == inputs1[1]) {
-            if(inputs1[1].getText().equals("Grau de Parentesco") || inputs1[1].getText().equals(""))
-                inputs1[1].setText("Grau de Parentesco");
-        }
         
-        if(e.getSource() == inputs1[2]) {
-            if(inputs1[2].getText().equals("Nome") || inputs1[2].getText().equals(""))
-                inputs1[2].setText("Nome");
-        }
-        
-        if(e.getSource() == inputs1[3]) {
-            if(inputs1[3].getText().equals("Apelido") || inputs1[3].getText().equals(""))
-                inputs1[3].setText("Apelido");
-        }
-        
-        if(e.getSource() == inputs1[4]) {
-            if(inputs1[4].getText().equals("BI") || inputs1[4].getText().equals(""))
-                inputs1[4].setText("BI");
-        }
-        
-        if(e.getSource() == inputs1[5]) {
-            if(inputs1[5].getText().equals("Telefone 1") || inputs1[5].getText().equals(""))
-                inputs1[5].setText("Telefone 1");
-        }
-        
-        if(e.getSource() == inputs1[6]) {
-            if(inputs1[6].getText().equals("Telefone 2") || inputs1[6].getText().equals(""))
-                inputs1[6].setText("Telefone 2");
-        }
         
         // -----------------------------------------------------------------------
         
         if(e.getSource() == inputs[0]) {
-            if(inputs[0].getText().equals("Numero de Estudante") || inputs[0].getText().equals("") && st == false)
-                inputs[0].setText("Numero de Estudante");
+
             if(inputs[0].getText().equals("Nome") || inputs[0].getText().equals("") && st == true)
                 inputs[0].setText("Nome");
         }
         
         if(e.getSource() == inputs[1]) {
-            if(inputs[1].getText().equals("Nome") || inputs[1].getText().equals("") && st == false)
-                inputs[1].setText("Nome");
+
             if(inputs[1].getText().equals("Apelido") || inputs[1].getText().equals("") && st == true)
                 inputs[1].setText("Apelido");
         }
         
         if(e.getSource() == inputs[2]) {
-            if(inputs[2].getText().equals("Apelido") || inputs[2].getText().equals("") && st == false)
-                inputs[2].setText("Apelido");
+
             if(inputs[2].getText().equals("BI") || inputs[2].getText().equals("") && st == true)
                 inputs[2].setText("BI");
         }
         
         if(e.getSource() == inputs[3]) {
-            if(inputs[3].getText().equals("BI") || inputs[3].getText().equals("") && st == false)
-                inputs[3].setText("BI");
+
             if(inputs[3].getText().equals("Data de Nascimento") || inputs[3].getText().equals("") && st == true)
                 inputs[3].setText("Data de Nascimento");
         }
         
         if(e.getSource() == inputs[4]) {
-            if(inputs[4].getText().equals("Data de Nascimento") || inputs[4].getText().equals("") && st == false)
-                inputs[4].setText("Data de Nascimento");
+
             if(inputs[4].getText().equals("Telefone 1") || inputs[4].getText().equals("") && st == true)
                 inputs[4].setText("Telefone 1");
         }
         
         if(e.getSource() == inputs[5]) {
-            if(inputs[5].getText().equals("Telefone 1") || inputs[5].getText().equals("") && st == false)
-                inputs[5].setText("Telefone 1");
+
             if(inputs[5].getText().equals("Telefone 2") || inputs[5].getText().equals("") && st == true)
                 inputs[5].setText("Telefone 2");
         }
         
         if(e.getSource() == inputs[6]) {
-            if(inputs[6].getText().equals("Telefone 2") || inputs[6].getText().equals("") && st == false)
-                inputs[6].setText("Telefone 2");
+            if(inputs[6].getText().equals("Grau de Parentesco") || inputs[6].getText().equals("") && st == true)
+                inputs[6].setText("Grau de Parentesco");
         }
-        
-        if(e.getSource() == inputs[7]) {
-            if(inputs[7].getText().equals("Nome do Encarregado") || inputs[7].getText().equals("") && st == false)
-                inputs[7].setText("Nome do Encarregado");
-        }
+
     }
     
     private void tfChanges(JTextField tfd) {
@@ -954,12 +949,12 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         button.setFocusable(false);
     }
     
-        private void showForm(Component com) {
+    private void showForm(Component com) {
         BorderLayout layout = (BorderLayout) MainMenu.main.getLayout();
         if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
             MainMenu.main.remove(layout.getLayoutComponent(BorderLayout.CENTER));
         }
-
+        
         MainMenu.main.add(com, BorderLayout.CENTER);
         MainMenu.main.repaint();
         MainMenu.main.revalidate();

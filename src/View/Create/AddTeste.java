@@ -11,18 +11,22 @@ import Controller.ClasseController;
 import Controller.ClasseDiscProfController;
 import Controller.DisciplinaController;
 import Controller.MatriculaController;
+import Controller.TesteController;
 import Controller.TurmaController;
 import Model.ValueObject.Aluno;
 import Model.ValueObject.AnoAcademico;
 import Model.ValueObject.Classe;
 import Model.ValueObject.ClasseDiscProf;
 import Model.ValueObject.Disciplina;
+import Model.ValueObject.TesteAux;
 import Model.ValueObject.Turma;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -36,7 +40,7 @@ public class AddTeste extends JComponent implements ActionListener {
     JTextField txtTipo, txtPeso, txtNota, txtNomeAluno, txtData;
     JTextField txtComentario;
     JTable tabAluno;
-    JButton btnAdd = new JButton("Adicionar");
+    JButton btnAdd = new JButton("Adicionar"), btnSearch, btnSave;
 
     private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 15);
     private Font f2 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
@@ -48,6 +52,7 @@ public class AddTeste extends JComponent implements ActionListener {
     private ClasseDiscProfController ctrlCDP = new ClasseDiscProfController();
     private MatriculaController ctrlMat = new MatriculaController();
     private AlunoController ctrlAluno = new AlunoController();
+    private TesteController ctrlTeste = new TesteController();
 
     public AddTeste() {
         panTeste = new JPanel();
@@ -109,7 +114,12 @@ public class AddTeste extends JComponent implements ActionListener {
                 case 0:
                     lblDadosNotas[i] = new JLabel("Número de Estudante");
                     txtNomeAluno = new JTextField();
-                    AddPanDadosNotas(lblDadosNotas[i], txtNomeAluno, i, 200);
+                    AddPanDadosNotas(lblDadosNotas[i], txtNomeAluno, i, 150);
+                    btnSearch = new JButton("Pesquisar");
+                    btnSearch.setBounds(650, 72 + i * 65, 120, 30);
+                    btnSearch.setFont(f1);
+                    btnSearch.addActionListener(this);
+                    add(btnSearch);
                     break;
                 case 1:
                     lblDadosNotas[i] = new JLabel("Nota");
@@ -120,7 +130,9 @@ public class AddTeste extends JComponent implements ActionListener {
                     lblDadosNotas[i] = new JLabel("Comentario");
                     txtComentario = new JTextField();
                     AddPanDadosNotas(lblDadosNotas[i], txtComentario, i, 350);
-                    btnAdd.setBounds(950, 53 + i * 54, 100, 30);
+                    btnAdd.setBounds(950, 70 + i * 65, 100, 30);
+                    btnAdd.setFont(f1);
+                    btnAdd.addActionListener(this);
                     add(btnAdd);
                     break;
                 case 3:
@@ -133,12 +145,27 @@ public class AddTeste extends JComponent implements ActionListener {
                     tabAluno = new JTable(data, columnNames);
                     tabAluno.setFont(f2);
 
+                    tabAluno.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                        @Override
+                        public void valueChanged(ListSelectionEvent event) {
+                            if (tabAluno.getSelectedRow() > -1) {
+                                tabDataToTxt();
+                            }
+                        }
+                    });
+
                     JScrollPane sp = new JScrollPane(tabAluno);
-                    sp.setBounds(465, 96 + i * 54, 602, 310);
+                    sp.setBounds(465, 96 + i * 54, 602, 270);
                     add(sp);
                     break;
             }
         }
+
+        btnSave = new JButton("Gravar");
+        btnSave.setBounds(950, 535, 120, 35);
+        btnSave.setFont(f1);
+        btnSave.addActionListener(this);
+        add(btnSave);
 
         for (int i = 0; i < ctrlClasse.lstClasse.size(); i++) {
             cboClasse.addItem(ctrlClasse.lstClasse.get(i).getNome());
@@ -198,12 +225,26 @@ public class AddTeste extends JComponent implements ActionListener {
     private Disciplina disc;
     private ClasseDiscProf cdp;
     private Classe classe;
-    private Aluno al;
-    private Turma turm;
-    private int cboAnoVal;
+
+    String nomeEst;
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnSave) {
+            
+        }
+        
+        if (e.getSource() == btnSearch) {
+            btnSearch_Click();
+            tabDataToTxt();
+        }
+
+        if (e.getSource() == btnAdd) {
+            ctrlTeste.setElement(tabAluno.getSelectedRow(), Integer.parseInt(txtNomeAluno.getText()),
+                    nomeEst, Float.parseFloat(txtNota.getText()), txtComentario.getText());
+            tabAluno.setModel(ctrlTeste.listItems());
+        }
+
         if (e.getSource() == cboClasse) {
             cboDisc.setEnabled(false);
             cboTurma.removeAllItems();
@@ -217,9 +258,10 @@ public class AddTeste extends JComponent implements ActionListener {
             }
         }
 
-        //String[] data = cboAno.getSelectedItem().toString().split("-");
-        //cboAnoVal = Integer.parseInt(data[0]);
+        String[] data;
         if (e.getSource() == cboTurma) {
+            data = cboAno.getSelectedItem().toString().split("-");
+
             cboDisc.removeAllItems();
             cboDisc.setEnabled(true);
             for (int i = 0; i < ctrlDisciplina.lstDisciplina.size(); i++) {
@@ -236,21 +278,45 @@ public class AddTeste extends JComponent implements ActionListener {
                 }
             }
 
+            ctrlTeste.lstTesteTab.clear();
             for (AnoAcademico anoAc : ctrlAnoAc.lstAnoAc) {
                 for (Model.ValueObject.Matricula mat : ctrlMat.lstMatricula) {
-                    if (mat.getIdAnoAcademico() == anoAc.getIdAnoAcademico()) {
+                    if (mat.getIdAnoAcademico() == anoAc.getIdAnoAcademico() && anoAc.getAno() == Integer.parseInt(data[0])
+                            && anoAc.getTrimestre() == Integer.parseInt(data[1])) {
                         for (Turma tur : ctrlTurma.lstTurma) {
                             for (Aluno al : ctrlAluno.lstAluno) {
                                 if (tur.getIdTurma() == mat.getIdTurma() && tur.getNome().equals(cboTurma.getSelectedItem())
                                         && mat.getNrEstudante() == al.getNrEstudante()) {
-                                    System.out.println(al.getpNome());
+                                    ctrlTeste.lstTesteTab.add(new TesteAux(al.getNrEstudante(), al.getpNome() + " " + al.getApelido(), 0, ""));
                                 }
                             }
                         }
                     }
                 }
             }
+
+            tabAluno.setModel(ctrlTeste.listItems());
         }
 
+    }
+
+    public void btnSearch_Click() {
+        int aux = ctrlTeste.searchItem(Integer.parseInt(txtNomeAluno.getText()));
+        if (aux != -1) {
+            tabAluno.setRowSelectionInterval(aux, aux);
+            JOptionPane.showMessageDialog(null, "Registo Encontrado.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Registo Nao Encontrado.");
+        }
+    }
+
+    public void tabDataToTxt() {
+        int selected = tabAluno.getSelectedRow();
+        TesteAux t = ctrlTeste.lstTesteTab.get(selected);
+
+        txtNomeAluno.setText(t.getNrEstudante() + "");
+        nomeEst = t.getNome();
+        txtNota.setText(t.getNota() + "");
+        txtComentario.setText(t.getComentario());
     }
 }
