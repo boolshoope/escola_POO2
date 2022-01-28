@@ -1,4 +1,4 @@
-package View.Visualizar;
+package View.Update;
 
 import Controller.TurmaController;
 import java.awt.*;
@@ -8,6 +8,7 @@ import javax.swing.*;
 import View.Create.*;
 import View.MainMenu;
 import View.SubMenu;
+import View.Visualizar.ViewTurma;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;

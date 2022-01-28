@@ -4,6 +4,7 @@
 * and open the template in the editor.
 */
 package View.Visualizar;
+import View.Update.updateAnoAc;
 import Controller.AnoAcController;
 import Model.DataAccessObject.AnoAcademicoDAO;
 import Model.ValueObject.AnoAcademico;

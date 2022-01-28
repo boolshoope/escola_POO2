@@ -3,14 +3,15 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package View.Visualizar;
+package View.Update;
 
-import Controller.ClasseController;
-import Model.DataAccessObject.ClasseDAO;
-import Model.ValueObject.Classe;
+import Controller.AnoAcController;
+import Model.DataAccessObject.AnoAcademicoDAO;
+import Model.ValueObject.AnoAcademico;
 import View.Create.*;
 import View.MainMenu;
 import View.SubMenu;
+import View.Visualizar.ViewAnoAc;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,14 +31,14 @@ import javax.swing.border.TitledBorder;
  *
  * @author Gabriel
  */
-public class updateClasse extends JComponent implements ActionListener, MouseListener {
+public class updateAnoAc extends JComponent implements ActionListener, MouseListener {
     
     private JPanel masterPanel;
     private JPanel headerPanel;
     private JPanel leftPanel;
     private JLabel headerLabel, usr, img;
     private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-    
+    private int id;
     private JButton[] northButton, btSearch;
     private JPanel btPanel, searchPanel;
     private JTextField search;
@@ -52,28 +53,28 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
     
     
     
-    private JPanel classDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
-    private JLabel sexo1;
-    private JRadioButton male1, female1;
-    private ButtonGroup genderGroup1;
+    private JPanel anoDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
     private JButton btnUpdate, btnVoltar;
     private JTextField inputs1[];
     
     private JButton renovarSearch;
     
     private JButton update;
-        
+    
     private boolean st = false;
     private boolean st2 = false;
     
-    public updateClasse(int idClasse) {
+    AnoAcController anoAc = new AnoAcController();
+    
+    
+    public updateAnoAc(int idAnoAc) {
         
         
         masterPanel = new JPanel();
         headerPanel = new JPanel();
         leftPanel = new JPanel();
-
         
+        id = idAnoAc;
         // painel principal
         masterPanel.setBackground(Color.white);
         masterPanel.setBounds(0, 0, getWidth(), getHeight());
@@ -87,7 +88,7 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
         btPanel.setBackground(null);
         //btPanel.setBounds(0, 150, 200, 200);
         
-     
+        
         btnVoltar = new JButton("");
         btnVoltar.setBounds(1060, 12, 45, 45);
         DefinirBackImagem();
@@ -95,14 +96,14 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
         btnVoltar.setBorderPainted(false);
         btnVoltar.addActionListener(this);
         add(btnVoltar);
-
+        
         // righ panel
         rightPanel = new JPanel();
         rightPanel.setBackground(Color.white);
         rightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         rightPanel.setLayout(null);
         
-        matricularPage(idClasse);
+        matricularPage(idAnoAc);
         
         masterPanel.add(BorderLayout.CENTER, rightPanel);
         
@@ -121,31 +122,31 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
         rightPanel.revalidate();
         rightPanel.repaint();
         
-
+        
         Font br = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
-        classDataPanel = new JPanel();
-        classDataPanel.setBackground(Color.white);
-        classDataPanel.setBorder(BorderFactory.createTitledBorder(
+        anoDataPanel = new JPanel();
+        anoDataPanel.setBackground(Color.white);
+        anoDataPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
-                "Dados da Classe",
+                "Dados acerca do Ano Academico",
                 TitledBorder.LEFT,
                 TitledBorder.TOP,
                 br,
                 new Color(62, 62, 62)));
-        classDataPanel.setBounds(370, 90, 420,450);
-        classDataPanel.setLayout(null);
+        anoDataPanel.setBounds(370, 90, 420,450);
+        anoDataPanel.setLayout(null);
         
         inner1 =  new JPanel();
         inner1.setBackground(Color.white);
         inner1.setOpaque(false);
         inner1.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
-        inner1.setBounds(0, 0, 420, 140);
+        inner1.setBounds(0, 0, 420, 240);
         BoxLayout encBox = new BoxLayout(inner1,BoxLayout.Y_AXIS);
         inner1.setLayout(encBox);
         
         
-        inputs1 =  new JTextField[2];
-        inputsPanel1 = new JPanel[2];
+        inputs1 =  new JTextField[3];
+        inputsPanel1 = new JPanel[3];
         st2 = true;
         
         for(int i=0; i<inputsPanel1.length; i++) {
@@ -168,16 +169,17 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
         
         //Inserir dados na View Update
         
-        ClasseController classe = new ClasseController();
         
-        inputs1[0].setText(String.valueOf(classe.lstClasse.get(id).getIdClasse()));
+        
+        inputs1[0].setText(String.valueOf(anoAc.lstAnoAc.get(id).getIdAnoAcademico()));
         inputs1[0].setEnabled(false);
-        inputs1[1].setText(classe.lstClasse.get(id).getNome());
+        inputs1[1].setText(String.valueOf(anoAc.lstAnoAc.get(id).getAno()));
+        inputs1[2].setText(String.valueOf(anoAc.lstAnoAc.get(id).getTrimestre()));
         
-        btnUpdate = new JButton("Atualizar Classe");
+        btnUpdate = new JButton("Atualizar Ano Académico");
         btnUpdate.addActionListener(this);
         btProperties(btnUpdate);
-        btnUpdate.setBounds(10, 140, 400, 43);
+        btnUpdate.setBounds(10, 200, 400, 43);
         //addEncarregado.setPreferredSize(new Dimension(205,43));
         //addEncarregado.setMaximumSize(new Dimension(420,43));
         //addEncarregado.set
@@ -187,21 +189,21 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
         
         inner1.add(Box.createRigidArea(new Dimension(0,15)));
         
-        for(int i=0; i<2; i++){
+        for(int i=0; i<3; i++){
             inner1.add(inputsPanel1[i]);
             inner1.add(Box.createRigidArea(new Dimension(0,5)));
         }
         
         //inner1.add(addEncarregado);
-        classDataPanel.add(inner1);
-        classDataPanel.add(btnUpdate);
+        anoDataPanel.add(inner1);
+        anoDataPanel.add(btnUpdate);
         
-
-        rightPanel.add(classDataPanel);
+        
+        rightPanel.add(anoDataPanel);
     }
     
     
-     private void DefinirBackImagem() {
+    private void DefinirBackImagem() {
         BufferedImage imgb = null;
         try {
             imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
@@ -210,23 +212,36 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
         Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
         btnVoltar.setIcon(new ImageIcon(dimg));
     }
-     
-     
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
-            showForm(new ViewClasse());
+            showForm(new ViewAnoAc());
         }
         
         if(e.getSource() == btnUpdate){
-            ClasseDAO cDAO = new ClasseDAO();
-            Classe classe = new Classe(Integer.parseInt(inputs1[0].getText()), inputs1[1].getText());
-            try {
-                cDAO.atualizarClasse(classe);
+            
+            int ano = Integer.parseInt(inputs1[1].getText());
+            int trimestre = Integer.parseInt(inputs1[2].getText());
+            
+            if(inputs1[1].getText().equalsIgnoreCase("Ano") || inputs1[1].getText().equalsIgnoreCase("") ||
+                    inputs1[2].getText().equalsIgnoreCase("Trimestre") || inputs1[2].getText().equalsIgnoreCase("") ||
+                    (Integer.parseInt(inputs1[1].getText())<1990 || Integer.parseInt(inputs1[1].getText())>2023) ||
+                    (Integer.parseInt(inputs1[2].getText())<1 || Integer.parseInt(inputs1[2].getText())>3)){
+                JOptionPane.showMessageDialog(null, "Verifique se inseriu os dados corretamente!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }else{
                 
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
+                AnoAcademicoDAO acDAO = new AnoAcademicoDAO();
+                AnoAcademico ac = new AnoAcademico(Integer.parseInt(inputs1[0].getText()), Integer.parseInt(inputs1[1].getText()),
+                        Integer.parseInt(inputs1[2].getText()));
+                try {
+                    acDAO.atualizarAc(ac);
+                    
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
         }
@@ -249,52 +264,50 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
     
     @Override
     public void mouseEntered(MouseEvent e) {
-         if(e.getSource() == inputs1[0]) {
-            if(inputs1[0].getText().equals("ID") || inputs1[0].getText().equals(""))
-                inputs1[0].setText("ID");
+        
+        /*
+        if(e.getSource() == inputs1[0]) {
+        if(inputs1[0].getText().equals(anoAc.lstAnoAc.get(id).getIdAnoAcademico()))
+        inputs1[0].setText("");
+        }
+        */
+        
+        if(e.getSource() == inputs1[1]) {
+            if(inputs1[1].getText().equals(anoAc.lstAnoAc.get(id).getAno()))
+                inputs1[1].setText("");
         }
         
         if(e.getSource() == inputs1[1]) {
-            if(inputs1[1].getText().equals("Nome") || inputs1[1].getText().equals(""))
-                inputs1[1].setText("Nome");
+            if(inputs1[2].getText().equals(anoAc.lstAnoAc.get(id).getTrimestre()))
+                inputs1[2].setText("");
         }
     }
     
     @Override
     public void mouseExited(MouseEvent e) {
         if(e.getSource() == inputs1[0]) {
-            if(inputs1[0].getText().equals("ID"))
-                tfChanges(inputs1[0]);
+            if(inputs1[0].getText().equals(anoAc.lstAnoAc.get(id).getIdAnoAcademico()) || inputs1[0].getText().equals(""))
+                inputs1[0].setText(String.valueOf(anoAc.lstAnoAc.get(id).getAno()));
         }
         
         if(e.getSource() == inputs1[1]) {
-            if(inputs1[1].getText().equals("Nome"))
-                tfChanges(inputs1[1]);
+            if(inputs1[1].getText().equals(anoAc.lstAnoAc.get(id).getAno()) || inputs1[1].getText().equals(""))
+                inputs1[1].setText("Ano");
+        }
+        
+        if(e.getSource() == inputs1[2]) {
+            if(inputs1[2].getText().equals(anoAc.lstAnoAc.get(id).getTrimestre()) || inputs1[2].getText().equals(""))
+                inputs1[2].setText("Trimestre");
         }
         
         
-        // -----------------------------------------------------------------------
-        
-        if(e.getSource() == inputs1[0]) {
-            if(inputs1[0].getText().equals("ID") && st == false)
-                tfChanges(inputs1[0]);
-            if(inputs1[0].getText().equals("ID") && st == true)
-                tfChanges(inputs1[0]);
-        }
-        
-        if(e.getSource() == inputs1[1]) {
-            if(inputs1[1].getText().equals("Nome") && st == false)
-                tfChanges(inputs1[1]);
-            if(inputs1[1].getText().equals("Nome") && st == true)
-                tfChanges(inputs1[1]);
-        }
     }
     
     
-        private void tfChanges(JTextField tfd) {
-           
-                tfd.setText("");
-            
+    private void tfChanges(JTextField tfd) {
+        
+        tfd.setText("");
+        
         
     }
     
@@ -322,13 +335,13 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
         button.setBackground(new Color(62, 62, 62));
         button.setFocusable(false);
     }
-
+    
     private void showForm(Component com) {
         BorderLayout layout = (BorderLayout) MainMenu.main.getLayout();
         if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
             MainMenu.main.remove(layout.getLayoutComponent(BorderLayout.CENTER));
         }
-
+        
         MainMenu.main.add(com, BorderLayout.CENTER);
         MainMenu.main.repaint();
         MainMenu.main.revalidate();

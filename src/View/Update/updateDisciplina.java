@@ -3,7 +3,7 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package View.Visualizar;
+package View.Update;
 
 import Controller.DisciplinaController;
 import Model.DataAccessObject.DisciplinaDAO;
@@ -11,6 +11,7 @@ import Model.ValueObject.Disciplina;
 import View.Create.*;
 import View.MainMenu;
 import View.SubMenu;
+import View.Visualizar.ViewDisciplina;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
