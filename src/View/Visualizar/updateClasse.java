@@ -223,7 +223,7 @@ public class updateClasse extends JComponent implements ActionListener, MouseLis
             Classe classe = new Classe(Integer.parseInt(inputs1[0].getText()), inputs1[1].getText());
             try {
                 cDAO.atualizarClasse(classe);
-                JOptionPane.showMessageDialog(null, "Classe Atualizada com Sucesso!");
+                
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);

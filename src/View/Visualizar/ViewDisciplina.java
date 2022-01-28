@@ -211,7 +211,7 @@ public class ViewDisciplina extends JComponent implements ActionListener {
                 Disciplina disciplina = new Disciplina(idClasse, nome);
                 try {
                     dDAO.deleteDisciplina(disciplina);
-                    JOptionPane.showMessageDialog(null, "Disciplina Removida com Sucesso!");
+                    
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);

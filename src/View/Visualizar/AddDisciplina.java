@@ -225,7 +225,7 @@ public class AddDisciplina extends JComponent implements ActionListener, MouseLi
                 Disciplina disciplina = new Disciplina(Integer.parseInt(inputs1[0].getText()), inputs1[1].getText());
                 try {
                     dDAO.adicionaDisciplina(disciplina);
-                    JOptionPane.showMessageDialog(null, "Disciplina Registrada com Sucesso!");
+          
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);

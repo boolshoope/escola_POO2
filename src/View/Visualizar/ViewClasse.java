@@ -213,7 +213,7 @@ public class ViewClasse extends JComponent implements ActionListener {
                 Classe classe = new Classe(idClasse, nome);
                 try {
                     cDAO.deleteClasse(classe);
-                    JOptionPane.showMessageDialog(null, "Classe Removida com Sucesso!");
+                    
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
