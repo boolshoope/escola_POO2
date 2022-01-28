@@ -59,12 +59,23 @@ public class AnoAcController {
                 break;
             }
         }
-
         return index;
     }
 
     public int getIdSelectedItem(int index) {
         int id = lstAnoAc.get(index).getIdAnoAcademico();
         return id;
+    }
+    
+    public AnoAcademico searchItemAnoAcRelatorio(int nome) {
+        AnoAcademico ac = null;
+
+        for (int i = 0; i < lstAnoAc.size(); i++) {
+            if (lstAnoAc.get(i).getAno() == nome) {
+                ac = lstAnoAc.get(i);
+                break;
+            }
+        }
+        return ac;
     }
 }

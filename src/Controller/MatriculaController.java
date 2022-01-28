@@ -15,9 +15,12 @@ import javax.swing.JOptionPane;
 
 public class MatriculaController implements ActionListener {
     private static Date dataFormatada;
-    
+    public List<Matricula> lstMatricula;
+    private MatriculaDAO bd;
+            
     public MatriculaController() {
-        
+        bd = new MatriculaDAO();
+        lstMatricula = bd.getMatricula();
     }
     
     public static void matricular() throws ParseException {
