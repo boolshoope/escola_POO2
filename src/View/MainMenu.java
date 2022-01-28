@@ -12,6 +12,7 @@ import View.Create.AddMatricula;
 import View.Create.Matricula;
 import View.Create.*;
 import View.Visualizar.ViewDisciplina;
+import View.Visualizar.ViewRelatorio;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -128,6 +129,8 @@ public class MainMenu extends JFrame implements ActionListener {
         show();
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        showForm(new AddTeste());
     }
 
     private void SetWButtons(JButton btn, String file) {
@@ -174,11 +177,12 @@ public class MainMenu extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == lstButtons[2]) {
+            //showForm(new AddEncarregado());
             showForm(new AddMatricula());
         }
 
         if (e.getSource() == lstButtons[3]) {
-            //new Professor();
+            showForm(new ViewRelatorio());
         }
 
         if (e.getSource() == lstButtons[4]) {

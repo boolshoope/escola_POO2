@@ -85,7 +85,7 @@ public class MatriculaController implements ActionListener {
         EncarregadoEducacao ee = new EncarregadoEducacao(p,prt);
         
         EncarregadoEducacaoDAO edDAO = new EncarregadoEducacaoDAO();
-        edDAO.inserir(ee);
+        edDAO.inserir1(ee);
         
         inputs1[0].setText(""+idPessoa);
     }

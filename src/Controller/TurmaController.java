@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class TurmaController {
 
     public List<Turma> lstTurma;
-    public List<Classe> lstClasse;
+    private List<Classe> lstClasse;
     public DefaultTableModel tableModel;
     private TurmaDAO bd;
     private ClasseDAO bd1;
@@ -76,5 +76,15 @@ public class TurmaController {
     public int getIdSelectedItem(int index) {
         int id = lstTurma.get(index).getIdClasse();
         return id;
+    }
+    
+    public int getMaxSelectedItem(int index) {
+        int max = lstTurma.get(index).getMaxAlunos();
+        return max;
+    }
+    
+    public String getNomeSelectedItem(int index) {
+        String nome = lstTurma.get(index).getNome();
+        return nome;
     }
 }

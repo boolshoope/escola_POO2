@@ -10,121 +10,258 @@ import javax.swing.*;
  * @author Basilio
  */
 
-public class AddTurma extends JComponent implements ActionListener {
-    private String texto[] = {"Ano","Turma","Classe","Turno","Total alunos"};
-    private JButton btlClick[] = new JButton[3];
-    private JTextField txtInPut[] =new JTextField[4];
-    private JLabel txtLab[]= new JLabel[5];
-    private JPanel panePrincipal, pane1,pane2,paneButton;
-    private JPanel pane[] = new JPanel[5];
-    private JComboBox combo[] = new JComboBox[2];
-    private String msg1[] = {"Manha","Tarde","Noite"},msg3[] = {"Voltar","Limpar","Adicionar"};
-    private String msg2[] = {"8 Classe","9 Classe","10 Classe","11 Classe","8 Classe"};
-    private JTable tabela;
-    private Container cont;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import View.Create.*;
+import View.Visualizar.ViewTurma;
+import View.MainMenu;
+import View.SubMenu;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.border.TitledBorder;
+
+
+public class AddTurma extends JComponent implements ActionListener,MouseListener {
+    private JButton btnVoltar,btnSalve;
+    private JPanel inputsPanel1[] = new JPanel[5];
+    private JTextField inputs[] =new JTextField[4];
+    private JLabel txtLab;
+    private JPanel panePrincipal, pane1,pane2,inner1;
+    private JComboBox combo;
+    Font s = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
     int i,confirm;
+    boolean st = false;
     
     public AddTurma(){
         panePrincipal = new JPanel();
-        pane1 = new JPanel();
-        pane2 = new JPanel();
-        paneButton = new JPanel();
-        
-        for(i=0;i<pane.length;i++){
-            pane[i] = new JPanel();
-            pane[i].setLayout(new GridLayout(2,1,0,0));
-        }
-        
-        cont = new Container();
-        
+        panePrincipal.setBackground(Color.white);
         panePrincipal.setLayout(null);
-        paneButton.setLayout(null);
+        panePrincipal.setBounds(0, 0, 1800, 1000);
+        
+        pane2 = new JPanel();
+        pane2.setLayout(new BorderLayout());
+        pane2.setBackground(Color.white);
+        TitledBorder tb = BorderFactory.createTitledBorder("Adicionar Turma");
+        tb.setTitleFont(s);
+        pane2.setBorder(tb);
+        //pane2.setBounds(200, 50, 300,550);
+        
+        Font br = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
+        pane1 = new JPanel();
+        pane1.setBackground(Color.white);
+        pane1.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(62, 62, 62), 1, true),
+                "Adicionar Turma",
+                TitledBorder.LEFT,
+                TitledBorder.TOP,
+                br,
+                new Color(62, 62, 62)));
+        pane1.setBounds(370, 90, 420,450);
         pane1.setLayout(null);
-        pane2.setLayout(null);
-                
-        panePrincipal.setBorder(BorderFactory.createTitledBorder("Adicionar Turma"));
-        paneButton.setBorder(BorderFactory.createTitledBorder("Operacoes"));
-        pane1.setBorder(BorderFactory.createTitledBorder("Dados"));
-        pane2.setBorder(BorderFactory.createTitledBorder("Visualzar"));
         
-        for(i=0;i<txtLab.length;i++){
-            txtLab[i] = new JLabel(texto[i]);
-            txtLab[i].setFont(new Font("Tahoma", Font.BOLD,15));
+        inner1 =  new JPanel();
+        inner1.setBackground(Color.white);
+        inner1.setOpaque(false);
+        inner1.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
+        inner1.setBounds(0, 0, 420, 240);
+        BoxLayout encBox = new BoxLayout(inner1,BoxLayout.Y_AXIS);
+        inner1.setLayout(encBox);
+        
+        btnVoltar = new JButton("");
+        btnVoltar.setBounds(1060, 12, 45, 45);
+        DefinirBackImagem();
+        btnVoltar.setBackground(Color.white);
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.addActionListener(this);
+        add(btnVoltar);
+        
+        for(int i=0; i<inputsPanel1.length; i++) {
+            inputsPanel1[i] = new JPanel();
+            inputsPanel1[i].setBackground(Color.white);
+            inputsPanel1[i].setPreferredSize(new Dimension(205, 43));
+            inputsPanel1[i].setMaximumSize(new Dimension(450, 43));
+            inputsPanel1[i].setBorder(BorderFactory.createLineBorder(new Color(148, 148, 148), 1, true));
+            inputsPanel1[i].setLayout(new GridLayout(1,1));
         }
         
-        for(i=0;i<txtInPut.length;i++)
-            txtInPut[i] = new JTextField(15);
+        for(int i=0; i<inputs.length; i++)
+            inputs[i] = new JTextField();
         
-        for(i = 0;i<btlClick.length;i++)
-            btlClick[i] = new JButton(msg3[i]);
+        for(int i=0; i<inputs.length; i++)
+            tfProperties(inputs[i]);
         
-        combo[0] = new JComboBox(msg2);
-        combo[1] = new JComboBox(msg1);
+        for(int i=0; i<inputs.length; i++)
+            inputs[i].addMouseListener(this);
         
-        for(i=0;i<2;i++){
-            pane[i].add(txtLab[i]);
-            pane[i].add(txtInPut[i]);
+        for(int i=0; i<inputs.length; i++)
+            inputsPanel1[i].add(inputs[i]);
+        
+        for(i=0;i<4;i++)
+            pane2.add(inputsPanel1[i]);
+        
+        inputs[0].setText("ID");
+        inputs[1].setText("Nome");
+        inputs[2].setText("Classe");
+        inputs[3].setText("Maximo de Alunos");
+        
+        btnSalve = new JButton("Nova Turma");
+        btProperties(btnSalve);
+        inputsPanel1[4].add(btnSalve);
+        inputsPanel1[4].setBounds(10,400,430,45);
+        pane1.add(inputsPanel1[3]);
+        
+        pane2.add(Box.createRigidArea(new Dimension(0,15)));
+        
+        for(int i=0; i<inputsPanel1.length; i++){
+            inner1.add(inputsPanel1[i]);
+            inner1.add(Box.createRigidArea(new Dimension(0,5)));
         }
-        
-        for(i=0; i< combo.length ;i++){
-            pane[(i+2)].add(txtLab[(i+2)]);
-            pane[(i+2)].add(combo[i]);
-        }
-        
-        pane[4].add(txtLab[4]);
-        pane[4].add(txtInPut[2]);
-        
-        Object dado[][] = {{"2010","1b1","12 Classe","Diurno "," 40 "},};
-        
-        tabela = new JTable(dado,texto);
-        tabela.setPreferredScrollableViewportSize(new Dimension (410,250));
-        tabela.setFillsViewportHeight(true);
-        JScrollPane sp = new JScrollPane(tabela);
-        
-        sp.setBounds(10,30,410,250);
-        
-        pane1.setBounds(20, 30, 410, 400);
-        pane2.setBounds(440, 30, 440, 400);
-        paneButton.setBounds(20, 440, 860, 90);
-        
-        pane[0].setBounds(30,30,100,60);
-        pane[1].setBounds(220,30,100,60);
-        pane[2].setBounds(30,130,120,60);
-        pane[3].setBounds(220,130,120,60);
-        pane[4].setBounds(30,230,100,60);
-        btlClick[0].setBounds(10, 30, 100, 40);
-        btlClick[1].setBounds(300, 30, 100, 40);
-        btlClick[2].setBounds(715, 30, 100, 40);
-        
-        for(i=0;i<pane.length;i++)
-            pane1.add(pane[i]);
-        
-        for(i=0;i<btlClick.length;i++)
-            paneButton.add(btlClick[i]);
-        
-        pane2.add(sp);
         
         panePrincipal.add(pane1);
+        pane1.add(inner1);
         panePrincipal.add(pane2);
-        panePrincipal.add(paneButton);
         
-        cont = panePrincipal;
-        add(cont);
-        
+        add(panePrincipal);
         show();
     }
     
-    public static void main(String[] args) {
-        AddTurma t = new AddTurma();
+    private void DefinirBackImagem() {
+        BufferedImage imgb = null;
+        try {
+            imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
+        } catch (IOException e) {
+        }
+        Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        btnVoltar.setIcon(new ImageIcon(dimg));
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()== btlClick[1]){
-            for(i=0;i<txtInPut.length;i++)
-                txtInPut[i].setText(" ");
+        
+        if(e.getSource() == btnSalve){
+            JOptionPane.showMessageDialog(null, "Salvou com Sucesso!");
+            showForm(new ViewTurma());
         }
-        //if(e.getSource() == btlClick[2])
-            //confirm = JOptionPane.showMessageDialog(null,"Deseja salvar os dados","Confirmacao",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+    }
+    
+    private void tfProperties(JTextField tf) {
+        Font text = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+        tf.setFont(text);
+        tf.setPreferredSize(new Dimension(200, 30));
+        tf.setMaximumSize(new Dimension(200, 30));
+        tf.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+        tf.setBackground(Color.white);
+        tf.setForeground(new Color(62, 62, 62));
+        tf.setLocation(0, 0);
+        tf.setOpaque(true);
+    }
+    
+    private void btProperties(JButton button) {
+        Font f2 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+        
+        //button.setSize(200, 50);
+        button.setPreferredSize(new Dimension(200,50));
+        button.setMaximumSize(new Dimension(200,50));
+        //button.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        button.setFont(f2);
+        button.setForeground(Color.white);
+        button.setBackground(new Color(62, 62, 62));
+        button.setFocusable(false);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        if(me.getSource() == inputs[0]) {
+            if(inputs[0].getText().equals("ID") && st == false)
+                tfChanges(inputs[0]);
+            if(inputs[0].getText().equals("Nome") && st == true)
+                tfChanges(inputs[0]);
+        }
+        
+        if(me.getSource() == inputs[1]) {
+            if(inputs[1].getText().equals("Nome") && st == false)
+                tfChanges(inputs[1]);
+            if(inputs[1].getText().equals("classe") && st == true)
+                tfChanges(inputs[1]);
+        }
+        
+        if(me.getSource() == inputs[2]) {
+            if(inputs[2].getText().equals("Classe") && st == false)
+                tfChanges(inputs[2]);
+            if(inputs[2].getText().equals("Maximo de Alunos") && st == true)
+                tfChanges(inputs[2]);
+        }
+        
+        if(me.getSource() == inputs[3]) {
+            if(inputs[3].getText().equals("Maximo de Alunos") && st == false)
+                tfChanges(inputs[3]);
+            
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+        if(me.getSource() == inputs[0]) {
+            if(inputs[0].getText().equals("ID") || inputs[0].getText().equals("") && st == false)
+                inputs[0].setText("ID");
+            if(inputs[0].getText().equals("Nome") || inputs[0].getText().equals("") && st == true)
+                inputs[0].setText("Nome");
+        }
+        
+        if(me.getSource() == inputs[1]) {
+            if(inputs[1].getText().equals("Nome") || inputs[1].getText().equals("") && st == false)
+                inputs[1].setText("Nome");
+            if(inputs[1].getText().equals("Classe") || inputs[1].getText().equals("") && st == true)
+                inputs[1].setText("Classe");
+        }
+        
+        if(me.getSource() == inputs[2]) {
+            if(inputs[2].getText().equals("Classe") || inputs[2].getText().equals("") && st == false)
+                inputs[2].setText("Classe");
+            if(inputs[2].getText().equals("Maximo de Alunos") || inputs[2].getText().equals("") && st == true)
+                inputs[2].setText("Maximo de Alunos");
+        }
+        
+        if(me.getSource() == inputs[3]) {
+            if(inputs[3].getText().equals("Maximo de Alunos") || inputs[3].getText().equals("") && st == false)
+                inputs[3].setText("Maximo de Alunos");
+        }
+    }
+    
+    private void tfChanges(JTextField tfd) {
+        tfd.setText("");
+    }
+    
+    private void showForm(Component com) {
+        BorderLayout layout = (BorderLayout) MainMenu.main.getLayout();
+        if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+            MainMenu.main.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+        }
+
+        MainMenu.main.add(com, BorderLayout.CENTER);
+        MainMenu.main.repaint();
+        MainMenu.main.revalidate();
     }
 }

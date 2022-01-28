@@ -35,7 +35,6 @@ public class ClasseController {
             Object[] data = {id, nome};
             tableModel.addRow(data);
         }
-
         return tableModel;
     }
 
@@ -44,7 +43,6 @@ public class ClasseController {
         //bd.
         tableModel.removeRow(index);
         lstClasse.remove(index);
-
     }
     
     public int searchItem(String nome){
@@ -64,4 +62,5 @@ public class ClasseController {
         int id = lstClasse.get(index).getIdClasse();
         return id;
     }
+    
 }
