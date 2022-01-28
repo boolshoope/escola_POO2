@@ -6,6 +6,8 @@
 package View.Visualizar;
 
 import Controller.DisciplinaController;
+import Model.DataAccessObject.DisciplinaDAO;
+import Model.ValueObject.Disciplina;
 import View.Create.*;
 import View.MainMenu;
 import View.SubMenu;
@@ -18,6 +20,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
 
@@ -216,8 +219,16 @@ public class updateDisciplina extends JComponent implements ActionListener, Mous
         }
         
         if(e.getSource() == btnUpdate){
+            DisciplinaDAO dDAO = new DisciplinaDAO();
+            Disciplina disciplina = new Disciplina(Integer.parseInt(inputs1[0].getText()), inputs1[1].getText());
+            try {
+                dDAO.atualizarDisciplina(disciplina);
+                JOptionPane.showMessageDialog(null, "Disciplina Atualizada com Sucesso!");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-            JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
         }
     }
     

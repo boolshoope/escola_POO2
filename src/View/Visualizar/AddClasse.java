@@ -5,6 +5,8 @@
 */
 package View.Visualizar;
 
+import Model.DataAccessObject.ClasseDAO;
+import Model.ValueObject.Classe;
 import View.Create.*;
 import View.MainMenu;
 import View.SubMenu;
@@ -17,6 +19,9 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.border.TitledBorder;
 
@@ -49,18 +54,13 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
     
     
     private JPanel classDataPanel, inner1, inputsPanel1[], genderPanel1, opPanel1;
-    private JLabel sexo1;
-    private JRadioButton male1, female1;
-    private ButtonGroup genderGroup1;
     private JButton addClasse, btnVoltar;
     private JTextField inputs1[];
     
     private JButton renovarSearch;
     
     private JButton update;
-        
-    private boolean st = false;
-    private boolean st2 = false;
+    
     
     public AddClasse() {
         
@@ -68,7 +68,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         masterPanel = new JPanel();
         headerPanel = new JPanel();
         leftPanel = new JPanel();
-
+        
         
         // painel principal
         masterPanel.setBackground(Color.white);
@@ -83,7 +83,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         btPanel.setBackground(null);
         //btPanel.setBounds(0, 150, 200, 200);
         
-     
+        
         btnVoltar = new JButton("");
         btnVoltar.setBounds(1060, 12, 45, 45);
         DefinirBackImagem();
@@ -91,7 +91,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         btnVoltar.setBorderPainted(false);
         btnVoltar.addActionListener(this);
         add(btnVoltar);
-
+        
         // righ panel
         rightPanel = new JPanel();
         rightPanel.setBackground(Color.white);
@@ -117,7 +117,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         rightPanel.revalidate();
         rightPanel.repaint();
         
-
+        
         Font br = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
         classDataPanel = new JPanel();
         classDataPanel.setBackground(Color.white);
@@ -142,7 +142,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         
         inputs1 =  new JTextField[2];
         inputsPanel1 = new JPanel[2];
-        st2 = true;
+        
         
         for(int i=0; i<inputsPanel1.length; i++) {
             inputsPanel1[i] = new JPanel();
@@ -191,12 +191,12 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         classDataPanel.add(inner1);
         classDataPanel.add(addClasse);
         
-
+        
         rightPanel.add(classDataPanel);
     }
     
     
-     private void DefinirBackImagem() {
+    private void DefinirBackImagem() {
         BufferedImage imgb = null;
         try {
             imgb = ImageIO.read(new File(System.getProperty("user.dir") + "/src/View/img/back_to_24px.png"));
@@ -205,12 +205,31 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         Image dimg = imgb.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
         btnVoltar.setIcon(new ImageIcon(dimg));
     }
-     
-     
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnVoltar) {
             showForm(new ViewClasse());
+        }
+        if(e.getSource()== addClasse){
+            ClasseDAO cDAO = new ClasseDAO();
+            int nrClasse = Integer.parseInt(inputs1[0].getText());
+            if(inputs1[1].getText().equalsIgnoreCase("Nome") || inputs1[1].getText().equalsIgnoreCase("") ||
+                    inputs1[0].getText().equalsIgnoreCase("ID") || inputs1[0].getText().equalsIgnoreCase("") ||
+                    (nrClasse<1 || nrClasse>12)){
+                JOptionPane.showMessageDialog(null, "Verifique se inseriu os dados corretamente!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }else{
+                Classe classe = new Classe(Integer.parseInt(inputs1[0].getText()), inputs1[1].getText());
+                try {
+                    cDAO.adicionaClasse(classe);
+                    JOptionPane.showMessageDialog(null, "Classe Registrada com Sucesso!");
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
         }
     }
     
@@ -231,7 +250,7 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
     
     @Override
     public void mouseEntered(MouseEvent e) {
-         if(e.getSource() == inputs1[0]) {
+        if(e.getSource() == inputs1[0]) {
             if(inputs1[0].getText().equals("ID"))
                 inputs1[0].setText("");
         }
@@ -256,14 +275,14 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         
         
         // -----------------------------------------------------------------------
-
+        
     }
     
     
-        private void tfChanges(JTextField tfd) {
-           
-                tfd.setText("");
-            
+    private void tfChanges(JTextField tfd) {
+        
+        tfd.setText("");
+        
         
     }
     
@@ -291,13 +310,13 @@ public class AddClasse extends JComponent implements ActionListener, MouseListen
         button.setBackground(new Color(62, 62, 62));
         button.setFocusable(false);
     }
-
+    
     private void showForm(Component com) {
         BorderLayout layout = (BorderLayout) MainMenu.main.getLayout();
         if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
             MainMenu.main.remove(layout.getLayoutComponent(BorderLayout.CENTER));
         }
-
+        
         MainMenu.main.add(com, BorderLayout.CENTER);
         MainMenu.main.repaint();
         MainMenu.main.revalidate();
