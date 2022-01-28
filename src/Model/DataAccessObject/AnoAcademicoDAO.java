@@ -7,10 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class AnoAcademicoDAO {
     private Connection conexao;
-
+    
     public AnoAcademicoDAO() {
         try {
             conexao = DriverManager.getConnection(
@@ -24,17 +25,17 @@ public class AnoAcademicoDAO {
         List<AnoAcademico> lstAc = new ArrayList<>();
         AnoAcademico ac;
         ResultSet rs;
-
+        
         try {
             String query = "select * from anoacademico";
             PreparedStatement stmt = conexao.prepareStatement(query);
             rs = stmt.executeQuery();
-
+            
             while (rs.next()) {
                 ac = new AnoAcademico(rs.getInt("idAnoAcademico"), rs.getInt("ano"), rs.getInt("trimestre"));
                 lstAc.add(ac);
             }
-
+            
             rs.close();
             stmt.close();
             return lstAc;
@@ -56,10 +57,11 @@ public class AnoAcademicoDAO {
             ps.setInt(2, ac.getAno());
             ps.setInt(3, ac.getTrimestre());
             ps.execute();
+            JOptionPane.showMessageDialog(null, "Ano Academico adicionado com Sucesso!");
             
         }catch(Exception e){
             
-            e.printStackTrace();
+           JOptionPane.showMessageDialog(null, "O ID nao pode ser duplicado!", "ERRO", JOptionPane.ERROR_MESSAGE);
             
         }finally{
             try{
@@ -84,11 +86,13 @@ public class AnoAcademicoDAO {
         
         try{
             conn = new ConnectionFactory().getConnection();
-            ps = conn.prepareStatement("update anoacademico set ano = ?, trimestre = ?" + "WHERE idAnoAcademico = ?");
+            ps = conn.prepareStatement("update anoacademico set ano = ?, trimestre = ?" + " WHERE idAnoAcademico = ?");
             ps.setInt(1, ac.getAno());
             ps.setInt(2, ac.getTrimestre());
             ps.setInt(3, ac.getIdAnoAcademico());
             ps.execute();
+            JOptionPane.showMessageDialog(null, "Ano Academico Atualizado com Sucesso!");
+            
             
         }catch(Exception e){
             
@@ -111,7 +115,7 @@ public class AnoAcademicoDAO {
     
     
     public void deleteAc(AnoAcademico ac)throws SQLException{
-                Connection conn = null;
+        Connection conn = null;
         PreparedStatement ps = null;
         
         try{
@@ -119,6 +123,7 @@ public class AnoAcademicoDAO {
             ps = conn.prepareStatement("delete from anoacademico WHERE IdAnoAcademico = ?");
             ps.setInt(1, ac.getIdAnoAcademico());
             ps.execute();
+            JOptionPane.showMessageDialog(null, "Ano Academico removido com Sucesso!");
             
         }catch(Exception e){
             

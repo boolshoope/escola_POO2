@@ -234,7 +234,6 @@ public class AddAnoAcademico extends JComponent implements ActionListener, Mouse
                         Integer.parseInt(inputs1[2].getText()));
                 try {
                     acDAO.adicionaAc(ac);
-                    JOptionPane.showMessageDialog(null, "Ano Academico Registrado com Sucesso!");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     //Logger.getLogger(AddClasse.class.getName()).log(Level.SEVERE, null, ex);

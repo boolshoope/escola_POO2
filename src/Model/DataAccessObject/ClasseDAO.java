@@ -56,7 +56,7 @@ public class ClasseDAO {
             ps.setInt(1, classe.getIdClasse());
             ps.setString(2, classe.getNome());
             ps.execute();
-            JOptionPane.showMessageDialog(null, "Ano Academico Atualizado com Sucesso!");
+            JOptionPane.showMessageDialog(null, "Classe Atualizada com Sucesso!");
             
         }catch(Exception e){
             
