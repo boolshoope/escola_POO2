@@ -85,7 +85,7 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         masterPanel = new JPanel();
         headerPanel = new JPanel();
         leftPanel = new JPanel();
-        leftButton = new JButton[3];
+        leftButton = new JButton[2];
         
         // painel principal
         masterPanel.setBackground(Color.white);
@@ -110,8 +110,8 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         
         
         leftButton[0] = new JButton("REGISTRAR");
-        leftButton[1] = new JButton("RENOVAR");
-        leftButton[2] = new JButton("EDITAR PROFESSOR");
+        leftButton[1] = new JButton("VISUALIZAR");
+       
         
         for(int i=0; i<leftButton.length; i++)
             leftButton[i].addActionListener(this);
@@ -790,9 +790,6 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
         if(e.getSource() == leftButton[1])
             renovarPageHome();
         
-        if(e.getSource() == leftButton[2])
-            editProfessorPageHome();
-        
         if(e.getSource() == btSearch)
             editProfessorPage();
         
@@ -872,9 +869,6 @@ public class ViewProfessor extends JComponent implements ActionListener, MouseLi
             if(inputs1[0].getText().equals("ID") || inputs1[0].getText().equals(""))
                 inputs1[0].setText("ID");
         }
-        
-        
-        
         // -----------------------------------------------------------------------
         
         if(e.getSource() == inputs[0]) {
