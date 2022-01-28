@@ -144,6 +144,12 @@ public class AddTurma extends JComponent implements ActionListener,MouseListener
     @Override
     public void actionPerformed(ActionEvent e) {
         
+         if(e.getSource() == btnVoltar){
+           
+            showForm(new ViewTurma());
+        }
+         
+         
         if(e.getSource() == btnSalve){
             JOptionPane.showMessageDialog(null, "Salvou com Sucesso!");
             showForm(new ViewTurma());
