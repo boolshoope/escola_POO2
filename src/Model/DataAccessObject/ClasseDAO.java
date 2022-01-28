@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class ClasseDAO {
     private Connection conexao;
@@ -55,10 +56,11 @@ public class ClasseDAO {
             ps.setInt(1, classe.getIdClasse());
             ps.setString(2, classe.getNome());
             ps.execute();
+            JOptionPane.showMessageDialog(null, "Ano Academico Atualizado com Sucesso!");
             
         }catch(Exception e){
             
-            
+            JOptionPane.showMessageDialog(null, "O ID nao pode ser duplicado!", "ERRO", JOptionPane.ERROR_MESSAGE);
             
         }finally{
             try{
@@ -109,7 +111,7 @@ public class ClasseDAO {
     
     
     public void deleteClasse(Classe classe)throws SQLException{
-                Connection conn = null;
+        Connection conn = null;
         PreparedStatement ps = null;
         
         try{
