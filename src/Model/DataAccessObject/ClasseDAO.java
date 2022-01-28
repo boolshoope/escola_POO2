@@ -12,11 +12,10 @@ public class ClasseDAO {
     private Connection conexao;
 
     public ClasseDAO() {
-        try {
-            conexao = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/escola", "root", "");
-        } catch (SQLException ex) {
-            System.out.println("Erro de conexao: " + ex.getMessage());
+        try{
+            conexao = BD.getConexao();
+        }catch(SQLException|ClassNotFoundException ex){
+            System.out.println("Erro de conexao: "+ex.getMessage());           
         }
     }
     
@@ -24,7 +23,7 @@ public class ClasseDAO {
         List<Classe> lstAc = new ArrayList<>();
         Classe ac;
         ResultSet rs;
-
+        
         try {
             String query = "select * from classe";
             PreparedStatement stmt = conexao.prepareStatement(query);
@@ -40,6 +39,19 @@ public class ClasseDAO {
             return lstAc;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    
+    public void inserir(Classe c){
+        //Implementar a query
+        String query="INSERT INTO classe(nome) VALUES(?)";                
+        try {
+            PreparedStatement stmt=conexao.prepareStatement(query);
+            stmt.setString(1, c.getNome());               
+            stmt.executeUpdate();
+            stmt.close();                             
+        } catch (SQLException ex) {
+            System.out.println("Erro de insercao da base de dados:: "+ex.getMessage());
         }
     }
 }

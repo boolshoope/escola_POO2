@@ -12,11 +12,10 @@ public class AlunoDAO {
     private Connection conexao;
 
     public  AlunoDAO() {
-        try {
-            conexao = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/escola", "root", "");
-        } catch (SQLException ex) {
-            System.out.println("Erro de conexao: " + ex.getMessage());
+        try{
+            conexao = BD.getConexao();
+        }catch(SQLException|ClassNotFoundException ex){
+            System.out.println("Erro de conexao: "+ex.getMessage());           
         }
     }
     
@@ -32,8 +31,9 @@ public class AlunoDAO {
             rs = stmt.executeQuery();
             
             while (rs.next()) {
-                al = new Aluno(getPessoa(rs.getInt("idPessoa")), rs.getInt("nrEstudante"),
-                        rs.getDate("dataNascimento"), rs.getInt("idEncarregadoEducacao"));
+                al = new Aluno(getPessoa(rs.getInt("idPessoa")),
+                                rs.getInt("nrEstudante"),
+                                rs.getDate("dataNascimento"), rs.getInt("idEncarregadoEducacao"));
                 lstAl.add(al);
             }
 
@@ -45,7 +45,25 @@ public class AlunoDAO {
         }
     }
     
-    private Pessoa getPessoa(int id) {
+    public void inserir(Aluno a){
+        //Implementar a query
+        
+        String query="INSERT INTO aluno(idPessoa,nrEstudante,dataNascimento,idEncarregadoEducacao)"+
+                      "VALUES(?,?,?,?)";                
+        try {
+            PreparedStatement stmt=conexao.prepareStatement(query);
+            stmt.setInt(1, a.getIdPessoa());
+            stmt.setInt(2, a.getNrEstudante());
+            stmt.setDate(3, a.getDataNascimento());
+            stmt.setInt(4, a.getIdEncarregadoEducacao());
+            stmt.executeUpdate();
+            stmt.close();                             
+        } catch (SQLException ex) {
+            System.out.println("Erro de insercao da base de dados:: "+ex.getMessage());
+        }
+    }
+    
+    public Pessoa getPessoa(int id) {
         Pessoa p = null;
         ResultSet rs;
 

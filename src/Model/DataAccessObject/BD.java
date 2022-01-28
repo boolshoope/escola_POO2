@@ -18,71 +18,40 @@ import java.util.*;
  * @author isacl
  */
 public class BD {
-
-    private Connection conexao;
+    
+    private String host,bd,user,password,porta;
 
     public BD() {
-        try {
-            conexao = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/escola", "root", "");
-        } catch (SQLException ex) {
-            System.out.println("Erro de conexao: " + ex.getMessage());
-        }
+        this.host="localhost";//ou 127.0.0.1 
+        this.bd="escola";
+        this.password="projecto";
+        this.user="POO2";
+        this.porta="3306";
+    }
+    
+    public static Connection getConexao() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        BD con = new BD();
+        return DriverManager.getConnection("jdbc:mysql://"+con.host+"/"+con.bd,con.user,con.password);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Selects">
-    
-
-    
-
-    
-
-    
-
-    private Pessoa getPessoa(int id) {
-        Pessoa p = null;
-        ResultSet rs;
-
-        try {
-            String query = "select * from pessoa where idPessoa =" + id;
-            PreparedStatement stmt = conexao.prepareStatement(query);
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                p = new Pessoa(rs.getInt("idPessoa"), rs.getString("pNome"), rs.getString("apelido"),
-                        rs.getString("sexo").charAt(0), rs.getString("nrBI"), rs.getString("estadoCivil"),
-                        rs.getString("tel1"), rs.getString("tel2"));
-            }
-
-            rs.close();
-            stmt.close();
-            return p;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public String getHost() {
+        return host;
     }
 
-    
+    public String getBd() {
+        return bd;
+    }
 
-    
+    public String getUser() {
+        return user;
+    }
 
-    
+    public String getPassword() {
+        return password;
+    }
 
-    
-
-    
-
-    
-
-    
-
-    // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="Inserts">
-    
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Updates">
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="Delete">
-    // </editor-fold>
+    public String getPorta() {
+        return porta;
+    }
 }
