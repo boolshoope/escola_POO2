@@ -5,6 +5,7 @@
  */
 package View.Visualizar;
 
+import View.Update.updateDisciplina;
 import Controller.DisciplinaController;
 import Model.DataAccessObject.DisciplinaDAO;
 import Model.ValueObject.Disciplina;

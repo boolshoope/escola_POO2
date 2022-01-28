@@ -1,5 +1,6 @@
 package View.Create;
 
+import View.Update.editAluno;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

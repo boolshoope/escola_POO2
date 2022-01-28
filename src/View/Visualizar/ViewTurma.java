@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package View.Visualizar;
+import View.Update.UpdateTurma;
 import Controller.TurmaController;
 import View.Create.AddTurma;
 import View.MainMenu;

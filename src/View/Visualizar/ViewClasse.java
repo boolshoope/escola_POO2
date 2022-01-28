@@ -5,6 +5,7 @@
 */
 package View.Visualizar;
 
+import View.Update.updateClasse;
 import Controller.ClasseController;
 import Model.DataAccessObject.ClasseDAO;
 import Model.ValueObject.Classe;

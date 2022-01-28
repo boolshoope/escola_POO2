@@ -8,7 +8,7 @@ import Model.DataAccessObject.*;
 import View.Create.AddAluno;
 import static View.Create.AddAluno.*;
 import View.Create.Encarregado;
-import View.Create.editAluno;
+import View.Update.editAluno;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;

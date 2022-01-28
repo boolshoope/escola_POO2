@@ -3,14 +3,13 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package View.Create;
+package View.Visualizar;
 
 import Model.DataAccessObject.AnoAcademicoDAO;
 import Model.ValueObject.AnoAcademico;
 import View.Create.*;
 import View.MainMenu;
 import View.SubMenu;
-import View.Visualizar.ViewAnoAc;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

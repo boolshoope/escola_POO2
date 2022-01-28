@@ -13,7 +13,7 @@ import Controller.EncarregadoController;
 import View.MainMenu;
 import View.SubMenu;
 import View.Create.AddEncarregado;
-import View.Visualizar.UpdateEncarregado;
+import View.Update.UpdateEncarregado;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
