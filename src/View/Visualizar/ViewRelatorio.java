@@ -212,7 +212,11 @@ public class ViewRelatorio extends JComponent implements ActionListener {
             btnSearch_Click();
         }
         if (e.getSource() == btnAdd) {
-            rel.GerarCertificado();
+            if (cboAnoAc.getSelectedItem() != null) {
+                rel.GerarCertificado();
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione um Ano Academico.");
+            }
         }
         if (e.getSource() == cboAnoAc && canListenCbo) {
             int ano = Integer.parseInt(cboAnoAc.getSelectedItem().toString());
@@ -223,6 +227,7 @@ public class ViewRelatorio extends JComponent implements ActionListener {
     }
 
     boolean canListenCbo = false;
+
     public void btnSearch_Click() {
         String[] dados = ctrlAluno.searchItemCertificado(Integer.parseInt(txtDados[0].getText()));
         if (dados != null) {
@@ -236,7 +241,7 @@ public class ViewRelatorio extends JComponent implements ActionListener {
             }
             canListenCbo = true;
             cboAnoAc.setSelectedIndex(0);
-            
+
             txtDados[1].setText(dados[0]);
             txtDados[2].setText(dados[1]);
             txtDados[3].setText(dados[2]);

@@ -126,7 +126,7 @@ public class MainMenu extends JFrame implements ActionListener {
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        showForm(new ViewRelatorio());
+        showForm(new AddTeste());
     }
 
     private void SetWButtons(JButton btn, String file) {
@@ -178,7 +178,7 @@ public class MainMenu extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == lstButtons[3]) {
-            //new Professor();
+            showForm(new ViewRelatorio());
         }
 
         if (e.getSource() == lstButtons[4]) {

@@ -22,7 +22,9 @@ public class AddTeste extends JComponent {
     JTextField txtComentario;
     JTable tabAluno;
     JButton btnAdd = new JButton("Adicionar");
-    private Font f1 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
+    
+    private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+    private Font f2 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
 
     public AddTeste() {
         panTeste = new JPanel();
@@ -96,17 +98,12 @@ public class AddTeste extends JComponent {
                     tabAluno.setFont(f1);
 
                     JScrollPane sp = new JScrollPane(tabAluno);
-                    sp.setBounds(465, 56 + i * 54, 602, 350);
+                    sp.setBounds(465, 96 + i * 54, 602, 310);
                     add(sp);
                     break;
             }
         }
 
-        /*
-        tabAluno = new JTable(data, columnNames);
-        JScrollPane sp = new JScrollPane(tabAluno);
-         */
-        //panTeste.add(btn);
         setSize(1100, 600);
         add(panTeste);
         add(panNotas);
@@ -115,32 +112,32 @@ public class AddTeste extends JComponent {
     }
 
     private void AddPanDadosTeste(JLabel lbl, JTextField txt, int i, int column) {
-        lbl.setBounds(30, 40 + i * 56, 150, 17);
-        txt.setBounds(30, 56 + i * 57, column, 27);
+        lbl.setBounds(30, 50 + i * 65, 150, 17);
+        txt.setBounds(30, 76 + i * 65, column, 27);
 
         add(lbl);
         add(txt);
         lbl.setFont(f1);
-        txt.setFont(f1);
+        txt.setFont(f2);
     }
 
     private void AddPanDadosTeste(JLabel lbl, JComboBox txt, int i, int column) {
-        lbl.setBounds(30, 40 + i * 56, 150, 17);
-        txt.setBounds(30, 56 + i * 57, column, 27);
+        lbl.setBounds(30, 50 + i * 65, 150, 17);
+        txt.setBounds(30, 76 + i * 65, column, 27);
 
         add(lbl);
         add(txt);
         lbl.setFont(f1);
-        txt.setFont(f1);
+        txt.setFont(f2);
     }
 
     private void AddPanDadosNotas(JLabel lbl, JTextField txt, int i, int column) {
-        lbl.setBounds(465, 40 + i * 56, 150, 17);
-        txt.setBounds(465, 56 + i * 57, column, 27);
+        lbl.setBounds(465, 50 + i * 65, 150, 17);
+        txt.setBounds(465, 76 + i * 65, column, 27);
 
         add(lbl);
         add(txt);
         lbl.setFont(f1);
-        txt.setFont(f1);
+        txt.setFont(f2);
     }
 }
