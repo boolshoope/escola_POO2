@@ -5,11 +5,15 @@
  */
 package View.Create;
 
+import Controller.AlunoController;
 import Controller.AnoAcController;
 import Controller.ClasseController;
 import Controller.ClasseDiscProfController;
 import Controller.DisciplinaController;
+import Controller.MatriculaController;
 import Controller.TurmaController;
+import Model.ValueObject.Aluno;
+import Model.ValueObject.AnoAcademico;
 import Model.ValueObject.Classe;
 import Model.ValueObject.ClasseDiscProf;
 import Model.ValueObject.Disciplina;
@@ -25,7 +29,7 @@ import javax.swing.*;
  * @author isacl
  */
 public class AddTeste extends JComponent implements ActionListener {
-    
+
     JPanel panTeste, panNotas;
     JLabel[] lblDadosTeste = new JLabel[7], lblDadosNotas = new JLabel[4];
     JComboBox cboDisc, cboAno, cboClasse, cboTurma;
@@ -33,27 +37,29 @@ public class AddTeste extends JComponent implements ActionListener {
     JTextField txtComentario;
     JTable tabAluno;
     JButton btnAdd = new JButton("Adicionar");
-    
+
     private Font f1 = new Font(Font.SANS_SERIF, Font.BOLD, 15);
     private Font f2 = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
-    
+
     private ClasseController ctrlClasse = new ClasseController();
     private TurmaController ctrlTurma = new TurmaController();
     private DisciplinaController ctrlDisciplina = new DisciplinaController();
     private AnoAcController ctrlAnoAc = new AnoAcController();
     private ClasseDiscProfController ctrlCDP = new ClasseDiscProfController();
-    
+    private MatriculaController ctrlMat = new MatriculaController();
+    private AlunoController ctrlAluno = new AlunoController();
+
     public AddTeste() {
         panTeste = new JPanel();
         panTeste.setLayout(new BoxLayout(panTeste, BoxLayout.Y_AXIS));
         panTeste.setBorder(BorderFactory.createTitledBorder("Dados do Teste"));
         panTeste.setBounds(14, 15, 421, 569);
-        
+
         panNotas = new JPanel();
         panNotas.setLayout(new BoxLayout(panNotas, BoxLayout.Y_AXIS));
         panNotas.setBorder(BorderFactory.createTitledBorder("Notas"));
         panNotas.setBounds(448, 15, 638, 569);
-        
+
         for (int i = 0; i < lblDadosTeste.length; i++) {
             switch (i) {
                 case 0:
@@ -97,7 +103,7 @@ public class AddTeste extends JComponent implements ActionListener {
                     break;
             }
         }
-        
+
         for (int i = 0; i < lblDadosNotas.length; i++) {
             switch (i) {
                 case 0:
@@ -123,75 +129,79 @@ public class AddTeste extends JComponent implements ActionListener {
                         {"", "", "", ""}
                     };
                     String[] columnNames = {"Nr. Est", "Name", "Nota", "Comentario"};
-                    
+
                     tabAluno = new JTable(data, columnNames);
                     tabAluno.setFont(f2);
-                    
+
                     JScrollPane sp = new JScrollPane(tabAluno);
                     sp.setBounds(465, 96 + i * 54, 602, 310);
                     add(sp);
                     break;
             }
         }
-        
+
         for (int i = 0; i < ctrlClasse.lstClasse.size(); i++) {
             cboClasse.addItem(ctrlClasse.lstClasse.get(i).getNome());
         }
-        
+
         for (int i = 0; i < ctrlAnoAc.lstAnoAc.size(); i++) {
             cboAno.addItem(ctrlAnoAc.lstAnoAc.get(i).getAno() + "-" + ctrlAnoAc.lstAnoAc.get(i).getTrimestre());
         }
-        
+
         setSize(1100, 600);
         add(panTeste);
         add(panNotas);
-        
+
         show();
     }
-    
+
     private void AddPanDadosTeste(JLabel lbl, JTextField txt, int i, int column) {
         lbl.setBounds(30, 50 + i * 65, 150, 17);
         txt.setBounds(30, 76 + i * 65, column, 27);
-        
+
         add(lbl);
         add(txt);
         lbl.setFont(f1);
         txt.setFont(f2);
     }
-    
+
     private void AddPanDadosTeste(JLabel lbl, JComboBox txt, int i, int column) {
         lbl.setBounds(30, 50 + i * 65, 150, 17);
         txt.setBounds(30, 76 + i * 65, column, 27);
-        
+
         add(lbl);
         add(txt);
         lbl.setFont(f1);
         txt.setFont(f2);
     }
-    
+
     private void AddPanDadosTeste(JLabel lbl, JComboBox txt, int i, int column, int posX) {
         lbl.setBounds(30 + posX, 50 + i * 65, 150, 17);
         txt.setBounds(30 + posX, 76 + i * 65, column, 27);
-        
+
         add(lbl);
         add(txt);
         lbl.setFont(f1);
         txt.setFont(f2);
     }
-    
+
     private void AddPanDadosNotas(JLabel lbl, JTextField txt, int i, int column) {
         lbl.setBounds(465, 50 + i * 65, 180, 17);
         txt.setBounds(465, 76 + i * 65, column, 27);
-        
+
         add(lbl);
         add(txt);
         lbl.setFont(f1);
         txt.setFont(f2);
     }
-    
+
     private Disciplina disc;
     private ClasseDiscProf cdp;
     private Classe classe;
+    private Aluno al;
+    private Turma turm;
+    private int cboAnoVal;
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == cboClasse) {
@@ -206,7 +216,9 @@ public class AddTeste extends JComponent implements ActionListener {
                 }
             }
         }
-        
+
+        //String[] data = cboAno.getSelectedItem().toString().split("-");
+        //cboAnoVal = Integer.parseInt(data[0]);
         if (e.getSource() == cboTurma) {
             cboDisc.removeAllItems();
             cboDisc.setEnabled(true);
@@ -223,7 +235,22 @@ public class AddTeste extends JComponent implements ActionListener {
                     }
                 }
             }
+
+            for (AnoAcademico anoAc : ctrlAnoAc.lstAnoAc) {
+                for (Model.ValueObject.Matricula mat : ctrlMat.lstMatricula) {
+                    if (mat.getIdAnoAcademico() == anoAc.getIdAnoAcademico()) {
+                        for (Turma tur : ctrlTurma.lstTurma) {
+                            for (Aluno al : ctrlAluno.lstAluno) {
+                                if (tur.getIdTurma() == mat.getIdTurma() && tur.getNome().equals(cboTurma.getSelectedItem())
+                                        && mat.getNrEstudante() == al.getNrEstudante()) {
+                                    System.out.println(al.getpNome());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        
+
     }
 }
