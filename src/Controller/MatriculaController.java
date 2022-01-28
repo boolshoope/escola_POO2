@@ -8,13 +8,14 @@ import Model.DataAccessObject.*;
 import View.Create.AddAluno;
 import static View.Create.AddAluno.*;
 import View.Create.Encarregado;
+import View.Update.editAluno;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 import javax.swing.JOptionPane;
 
 public class MatriculaController implements ActionListener {
-    private static Date dataFormatada;
+    private static  SimpleDateFormat dataFormatada = new SimpleDateFormat("yyyy-mm-dd");
     public List<Matricula> lstMatricula;
     private MatriculaDAO bd;
             
@@ -116,6 +117,92 @@ public class MatriculaController implements ActionListener {
         Matricula mat = new Matricula(nrEstudante, idTurma, idAnoAcademico);
         MatriculaDAO mtDAO = new MatriculaDAO();
         mtDAO.inserir(mat);
+        return 1;
+    }
+    
+    public static int editAluno() {
+        AlunoDAO tmp = new AlunoDAO();
+        PessoaDAO pdao = new PessoaDAO();
+        EncarregadoEducacaoDAO edao = new EncarregadoEducacaoDAO();
+        
+        
+        List<Aluno> lstA = new ArrayList<>();
+        List<Pessoa> lstP = new ArrayList<>();
+        List<EncarregadoEducacao> lstE = new ArrayList<>();
+        
+        Aluno al;
+        Pessoa p;
+        EncarregadoEducacao e;
+        
+        int index = -1;
+        
+        int nrEstudante = Integer.parseInt(editAluno.search.getText());
+        
+        lstA = tmp.getAluno();
+        
+        for(int i=0;i<lstA.size();i++) {
+            al = lstA.get(i);
+            if(nrEstudante == al.getNrEstudante()) {
+                index = i;
+                break;
+            }
+        }
+        
+        if(index == -1) {
+            JOptionPane.showMessageDialog(null, "Aluno nao encontrado!\nPor favor! Insira um numero de estudante valido...","Aluno nao encontrado", JOptionPane.WARNING_MESSAGE);
+            return index;
+        }
+        
+        al = lstA.get(index);
+        lstP = pdao.getPessoa();
+        
+        index = -1;
+        for(int i=0;i<lstP.size();i++) {
+            p = lstP.get(i);
+            if(al.getIdPessoa() == p.getIdPessoa()) {
+                index = i;
+                break;
+            }
+        }
+        
+        p = lstP.get(index);
+        
+        lstE = edao.getEncarregadoEducacao();
+        
+        index = -1;
+        for(int i=0; i<lstE.size(); i++) {
+            e = lstE.get(i);
+            if(al.getIdEncarregadoEducacao() == e.getIdPessoa()) {
+                index = i;
+                break;
+            }
+        }
+        
+        e = lstE.get(index);
+        
+        editAluno.inputs[0].setText(""+al.getNrEstudante());
+        editAluno.inputs[1].setText(p.getpNome());
+        editAluno.inputs[2].setText(p.getApelido());
+        editAluno.inputs[3].setText(p.getNrBI());
+        editAluno.inputs[4].setText(dataFormatada.format(al.getDataNascimento()));
+        editAluno.inputs[5].setText(p.getTel1());
+        editAluno.inputs[6].setText(p.getTel2());
+        editAluno.inputs[7].setText(e.getpNome());
+        if(p.getSexo() == 'M') {
+            editAluno.male.setSelected(true);
+        }else {
+            editAluno.female.setSelected(true);
+        }
+        
+        if(p.getEstadoCivil().equals("Solteiro"))
+            editAluno.estCivil.setSelectedIndex(1);
+        else if(p.getEstadoCivil().equals("Casado"))
+            editAluno.estCivil.setSelectedIndex(2);
+        else if(p.getEstadoCivil().equals("Divorciado"))
+            editAluno.estCivil.setSelectedIndex(3);
+        else if(p.getEstadoCivil().equals("Viuvo"))
+            editAluno.estCivil.setSelectedIndex(4);
+        
         return 1;
     }
     

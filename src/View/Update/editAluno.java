@@ -1,5 +1,6 @@
 package View.Update;
 
+import Controller.MatriculaController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -11,20 +12,20 @@ public class editAluno extends JComponent implements ActionListener, MouseListen
     
     private JPanel rightPanel;
     
-    private JButton btSearch;
-    private JPanel searchPanel;
-    private JTextField search;
+    public static JButton btSearch;
+    public static JPanel searchPanel;
+    public static JTextField search;
     
-    private ButtonGroup genderGroup;
-    private JLabel sexo;
-    private JRadioButton male, female;
-    private JButton matricular;
-    private JTextField inputs[];
-    private JPanel alDataPanel, inner, inputsPanel[], genderPanel, opPanel;
-    private JComboBox estCivil;
-    private JComboBox classe;
+    public static ButtonGroup genderGroup;
+    public static JLabel sexo;
+    public static JRadioButton male, female;
+    public static JButton matricular;
+    public static JTextField inputs[];
+    public static JPanel alDataPanel, inner, inputsPanel[], genderPanel, opPanel;
+    public static JComboBox estCivil;
+    public static JComboBox classe;
     
-    private JButton update;
+    public static JButton update;
     
     public editAluno() {
         rightPanel = new JPanel();
@@ -71,7 +72,7 @@ public class editAluno extends JComponent implements ActionListener, MouseListen
         show();
     }
     
-    private void editAlunoPage() {
+    public void editAlunoPage() {
         rightPanel.removeAll();
         rightPanel.revalidate();
         rightPanel.repaint();
@@ -250,22 +251,11 @@ public class editAluno extends JComponent implements ActionListener, MouseListen
     }
     
     public void actionPerformed(ActionEvent e) {
-        /*if(e.getSource() == leftButton[0])
-            matricularPage();
         
-        if(e.getSource() == leftButton[1])
-            renovarPageHome();
-        
-        if(e.getSource() == leftButton[2])
-            editAlunoPageHome();
-        
-        if(e.getSource() == btSearch)
+        if(e.getSource() == btSearch) {
             editAlunoPage();
-
-        */
-        
-        if(e.getSource() == btSearch)
-            editAlunoPage();
+            MatriculaController.editAluno();
+        }
     }
     
     public void mouseClicked(MouseEvent e) {
