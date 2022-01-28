@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class TurmaController {
 
     public List<Turma> lstTurma;
-    public List<Classe> lstClasse;
+    private List<Classe> lstClasse;
     public DefaultTableModel tableModel;
     private TurmaDAO bd;
     private ClasseDAO bd1;

@@ -16,17 +16,18 @@ import javax.swing.table.DefaultTableModel;
  * @author isacl
  */
 public class EncarregadoController {
-    public  List<EncarregadoEducacao> lstEnc;
+
+    public List<EncarregadoEducacao> lstEnc;
     private EncarregadoEducacaoDAO bd;
     public DefaultTableModel tableModel;
-    
+
     public EncarregadoController() {
         bd = new EncarregadoEducacaoDAO();
         lstEnc = bd.getEncarregadoEducacao();
     }
-    
+
     public DefaultTableModel listItems() {
-        String col[] = {"Id", "Nome","Apelido","Grau parentesco","Sexo","Estado Civil","tell2","tell2"};
+        String col[] = {"Id", "Nome", "Apelido", "Grau parentesco", "Sexo", "Estado Civil", "tell2", "tell2"};
         tableModel = new DefaultTableModel(col, 0);
 
         for (int i = 0; i < lstEnc.size(); i++) {
@@ -39,7 +40,7 @@ public class EncarregadoController {
             String tel2 = lstEnc.get(i).getTel2();
             String grau = lstEnc.get(i).getGrauParentesco();
 
-            Object[] data = {id, nome, apelido,grau,sexo,estado,tel1,tel2};
+            Object[] data = {id, nome, apelido, grau, sexo, estado, tel1, tel2};
             tableModel.addRow(data);
         }
 
@@ -53,55 +54,56 @@ public class EncarregadoController {
         lstEnc.remove(index);
 
     }
-    
-    public int searchItem(int id){
+
+    public int searchItem(int id) {
         int index = -1;
-        
+
         for (int i = 0; i < lstEnc.size(); i++) {
             if (lstEnc.get(i).getIdPessoa() == id) {
                 index = i;
                 break;
             }
         }
-        
+
         return index;
     }
-    
-    public int getIdSelectedItem(int index){
+
+    public int getIdSelectedItem(int index) {
         int id = lstEnc.get(index).getIdPessoa();
         return id;
     }
-    
-    public String getNomeSelectedItem(int index){
+
+    public String getNomeSelectedItem(int index) {
         String n = lstEnc.get(index).getpNome();
         return n;
     }
-    
-    public String getApelidoSelectedItem(int index){
+
+    public String getApelidoSelectedItem(int index) {
         String n = lstEnc.get(index).getApelido();
         return n;
     }
-    public String getTel1SelectedItem(int index){
+
+    public String getTel1SelectedItem(int index) {
         String n = lstEnc.get(index).getTel1();
         return n;
     }
-    
-    public String getTel2SelectedItem(int index){
+
+    public String getTel2SelectedItem(int index) {
         String n = lstEnc.get(index).getTel2();
         return n;
     }
-    
-    public String getBiSelectedItem(int index){
+
+    public String getBiSelectedItem(int index) {
         String n = lstEnc.get(index).getNrBI();
         return n;
     }
-    
-    public String getEstadoSelectedItem(int index){
+
+    public String getEstadoSelectedItem(int index) {
         String n = lstEnc.get(index).getEstadoCivil();
         return n;
     }
-    
-    public String getGrauSelectedItem(int index){
+
+    public String getGrauSelectedItem(int index) {
         String n = lstEnc.get(index).getpNome();
         return n;
     }

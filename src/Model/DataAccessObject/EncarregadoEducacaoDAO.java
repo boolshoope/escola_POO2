@@ -50,7 +50,7 @@ public class EncarregadoEducacaoDAO {
         ResultSet rs;
 
         try {
-            String query = "select * from pessoa p,encarregadoeducacao e where p.idPessoa =e." + id;
+            String query = "select * from pessoa p,encarregadoeducacao e where p.idPessoa =" + id;
             PreparedStatement stmt = conexao.prepareStatement(query);
             rs = stmt.executeQuery();
 
